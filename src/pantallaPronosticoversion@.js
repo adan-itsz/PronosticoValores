@@ -17,25 +17,19 @@ class Pronostico extends Component {
       var R5=[];
       var matriz=[];
       var count = 0
-      var coutn = 0
       d3.csv('http://www.pronosticos.gob.mx/Documentos/Historicos/Tris.csv',(data)=> {
       for(var d of data) {
-        if(coutn == 0){
         R1.push(d.R1);
         R2.push(d.R2);
         R3.push(d.R3);
         R4.push(d.R4);
         R5.push(d.R5);
-        if(count == 90){
+        if(count == 10000){
           break;
         }
         else{
           count ++
         }
-      }
-      else{
-        coutn++
-      }
       }
       matriz.push(R1);
       matriz.push(R2);
