@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import fetch from 'node-fetch';
 import * as d3 from 'd3-request';
+import SidebarIzquierda from './sideBar.js';
+import './index.css';
+import { Header, Icon } from 'semantic-ui-react';
+import MenorFrecuenciaTabla from './tablas/tablaMenorFrecuencia.js';
+import TablaRepeticion from './tablas/tablaRepeticion.js';
 class Pronostico extends Component {
 
   constructor(props) {
@@ -11,63 +16,57 @@ class Pronostico extends Component {
 
 
     }
-      componentWillMount() {
-    var universo = 500;                     ///universo
+componentWillMount() {
+      var universo = 500;                     ///universo
 
-      var R1=[];
-      var R2=[];
-      var R3=[];
-      var R4=[];
-      var R5=[];
-      var matriz=[];
-      var count = 0
-      var coutn = 0
-      d3.csv('http://www.pronosticos.gob.mx/Documentos/Historicos/Tris.csv',(data)=> {
-      for(var d of data) {
-        if(coutn == 0){
-        R1.push(d.R1);
-        R2.push(d.R2);
-        R3.push(d.R3);
-        R4.push(d.R4);
-        R5.push(d.R5);
-        if(count == universo){          //rompe cuando llega al total del universo
-          break;
-        }
-        else{
-          count ++
-        }
-      }
-      else{
-        coutn++
-      }
-      }
-      matriz.push(R1);
-      matriz.push(R2);
-      matriz.push(R3);
-      matriz.push(R4);
-      matriz.push(R5);
-      for (var i = 0; i < matriz.length; i++) {         //repetimos los algoritos por cada columna
-        console.log("Columa "+(i+1))
+        var R1=[];
+        var R2=[];
+        var R3=[];
+        var R4=[];
+        var R5=[];
+        var matriz=[];
+        var count = 0
+        var coutn = 0
+        var self=this;
+        var promise =new Promise(
+          function(resolve,reject){
+            d3.csv('http://www.pronosticos.gob.mx/Documentos/Historicos/Tris.csv',(data)=> {
+            for(var d of data) {
+                R1.push(d.R1);
+                R2.push(d.R2);
+                R3.push(d.R3);
+                R4.push(d.R4);
+                R5.push(d.R5);
+            }
+            resolve(matriz.push(R1),
+            matriz.push(R2),
+            matriz.push(R3),
+            matriz.push(R4),
+            matriz.push(R5));
 
-          this.NoAparece(matriz[i])
-          this.MenosAparece(matriz[i])
-          this.DobleRepeticion(matriz[i])
+          //  for (var i = 0; i < matriz.length; i++) {         //repetimos los algoritos por cada columna
+            //  console.log("Columa "+(i+1))
 
-      }
-      this.Pares(matriz);
+              //  this.NoAparece(matriz[i])
+              //  this.MenosAparece(matriz[i])
+              //  this.DobleRepeticion(matriz[i])
 
-    });
+          //  }
+          //  this.Pares(matriz);
 
+          });
+          }
+        )
+        promise.then(function(){
 
+          self.setState({
+            datos:matriz
+          });
 
-    this.setState({
-      datos:matriz
-    });
+          console.log(matriz)
+        })
 
-    console.log(matriz)
     }
-
-
 
 Pares(matriz){        //algoritmo para juntar la columa 1 y 2 y columna 4 y 5
   var Array1 = matriz[0];
@@ -114,8 +113,6 @@ Pares(matriz){        //algoritmo para juntar la columa 1 y 2 y columna 4 y 5
 
 }
 
-
-
 DobleRepeticion(Array){       //algoritmo para saber cuando hubo una doble repeticion
 
     var Aux = 0;
@@ -138,10 +135,6 @@ DobleRepeticion(Array){       //algoritmo para saber cuando hubo una doble repet
 
 }
 
-
-
-
-
 NoAparece(Array){     //algoritmo sencillo de no aparece
 
   for (var i = 0; i <= 9; i++) {
@@ -156,7 +149,6 @@ NoAparece(Array){     //algoritmo sencillo de no aparece
   }
 
 }
-
 
 NoAparecePares(Array){      //algoritmo par de no aparece
                           //primero declaramos todos los pares posibles para poder saber cual no esta
@@ -174,8 +166,6 @@ NoAparecePares(Array){      //algoritmo par de no aparece
   }
 
 }
-
-
 
  MenosAparece(array){       //algoritmo que cuenta cada aparicion de un digito
     if (array.length == 0)
@@ -208,7 +198,7 @@ NoAparecePares(Array){      //algoritmo par de no aparece
 
     console.log(modeMap);       //concentrado de las veces que se repite un numero
     console.log("Menos ocurrencia "+ this.arrayMinIndex(modeMap));
-}
+ }
 
  getAllIndexes(arr, val) {
     var indexes = [], i = -1;   //pasa el valor menor y saca los indices de todos los que tienen el valor minimo
@@ -225,9 +215,28 @@ arrayMinIndex(array) {
 
 
   render() {
+    let terminado=this.state.datos.length>0;
     return (
-      <div className="principal">       //puto el que lo lea
-
+      <div className="principal">
+        <div className="header">
+        <Header as='h2'>
+          <Icon name='quote right' />
+          <Header.Content>Menor o nula frecuencia en dígitos</Header.Content>
+        </Header>
+        </div>
+        <div className="contenidoTablas">
+        { terminado==true
+          ?<MenorFrecuenciaTabla datos={this.state.datos}/>
+          : <div></div>
+        }
+        </div>
+        <div className="header">
+        <Header as='h2'>
+             <Icon name='reply all' />
+          <Header.Content>  Repetición de dígitos</Header.Content>
+        </Header>
+        </div>
+        <TablaRepeticion/>
       </div>
     );
   }
