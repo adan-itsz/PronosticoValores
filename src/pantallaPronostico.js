@@ -6,6 +6,7 @@ import './index.css';
 import { Header, Icon } from 'semantic-ui-react';
 import MenorFrecuenciaTabla from './tablas/tablaMenorFrecuencia.js';
 import TablaRepeticion from './tablas/tablaRepeticion.js';
+import MenorFrecuenciaParesTabla from './tablas/tablaParesMenorFrecuencia.js'
 class Pronostico extends Component {
 
   constructor(props) {
@@ -218,25 +219,47 @@ arrayMinIndex(array) {
     let terminado=this.state.datos.length>0;
     return (
       <div className="principal">
-        <div className="header">
-        <Header as='h2'>
-          <Icon name='quote right' />
-          <Header.Content>Menor o nula frecuencia en dígitos</Header.Content>
-        </Header>
-        </div>
-        <div className="contenidoTablas">
-        { terminado==true
-          ?<MenorFrecuenciaTabla datos={this.state.datos}/>
-          : <div></div>
-        }
-        </div>
-        <div className="header">
-        <Header as='h2'>
-             <Icon name='reply all' />
-          <Header.Content>  Repetición de dígitos</Header.Content>
-        </Header>
-        </div>
-        <TablaRepeticion/>
+          <div className="header">
+            <Header as='h2'>
+              <Icon name='quote right' />
+              <Header.Content>Menor o nula frecuencia en dígitos</Header.Content>
+            </Header>
+          </div>
+
+          <div className="contenidoTablas">
+            { terminado==true
+              ?<MenorFrecuenciaTabla datos={this.state.datos}/>
+              : <div></div>
+            }
+          </div>
+
+          <div className="header">
+            <Header as='h2'>
+              <Icon name='reply all' />
+              <Header.Content>  Repetición de dígitos</Header.Content>
+            </Header>
+          </div>
+
+          <div className="contenidoTablas">
+            { terminado==true
+              ?<TablaRepeticion datos={this.state.datos}/>
+              : <div></div>
+            }
+          </div>
+
+          <div className="header">
+            <Header as='h2'>
+              <Icon name='hand peace' />
+              <Header.Content>Menor frecuencia pares</Header.Content>
+            </Header>
+          </div>
+
+          <div className="contenidoTablas">
+            { terminado==true
+              ?<MenorFrecuenciaParesTabla datos={this.state.datos}/>
+              : <div></div>
+            }
+          </div>
       </div>
     );
   }

@@ -2,13 +2,11 @@ import React, { Component } from 'react';
 import { Table, Input, Button } from 'semantic-ui-react'
 import '../index.css';
 
-class MenorFrecuenciaTabla extends Component{
+class MenorFrecuenciaParesTabla extends Component{
   constructor(props){
     super(props)
     this.state={
       datos:this.props.datos,
-      item:'',
-      datosUniverso:[],
       itemsTabla:[]
     };
   }
@@ -18,60 +16,104 @@ class MenorFrecuenciaTabla extends Component{
     var universo70=[];
     var universo50=[];
     var universo30=[];
-    universo30=this.reducirUniverso(30);
-    var resultado30=this.menosAparece(universo30);
+    universo30=this.reducirUniverso(100);
+    var resultado30=this.Pares(universo30);
     datosTotales=datosTotales.concat(resultado30);
-    universo50=this.reducirUniverso(50);
-    var resultado50=this.menosAparece(universo50);
+    universo50=this.reducirUniverso(200);
+    var resultado50=this.Pares(universo50);
     datosTotales=datosTotales.concat(resultado50);
-    universo70=this.reducirUniverso(70);
-    var resultado70=this.menosAparece(universo70);
+    universo70=this.reducirUniverso(400);
+    var resultado70=this.Pares(universo70);
     datosTotales=datosTotales.concat(resultado70);
-    universo100=this.reducirUniverso(100);
-    var result=this.menosAparece(universo100);
+    universo100=this.reducirUniverso(500);
+    var result=this.Pares(universo100);
     datosTotales=datosTotales.concat(result);
     this.setState({
       itemsTabla:datosTotales
     })
   }
 
-  menosAparece(data){   //algoritmo que cuenta cada aparicion de un digito
-    var digitos=[];
-    var itemTabla=[];
-    for(var it=0;it<5;it++){
-      var dataItem=data[it];
-         if (dataItem.length == 0)
-             return null;
+  MenosAparece(array){       //algoritmo que cuenta cada aparicion de un digito
+     if (array.length == 0)
+         return null;
 
-         var modeMap = [],
-             maxEl = dataItem[0],
-             maxCount = 1;
+     var modeMap = [],
+         maxEl = array[0],
+         maxCount = 1;
 
-         for(var i = 0; i < dataItem.length; i++){
-             var el = dataItem[i];
+     for(var i = 0; i < array.length; i++)
+     {
+         var el = array[i];
 
-             if (modeMap[el] == null)
-                 modeMap[el] = 1;
-             else
-                 modeMap[el]++;
+         if (modeMap[el] == null)
+             modeMap[el] = 1;
+         else
+             modeMap[el]++;
 
-             if (modeMap[el] > maxCount)
-             {
-                 maxEl = el;
-                 maxCount = modeMap[el];
-             }
-             else if (modeMap[el] == maxCount)
-             {
-                 maxEl += '&' + el;
-                 maxCount = modeMap[el];
-             }
+         if (modeMap[el] > maxCount)
+         {
+             maxEl = el;
+             maxCount = modeMap[el];
          }
-      //   console.log(modeMap);       //concentrado de las veces que se repite un numero
-         digitos.push(this.arrayMinIndex(modeMap));
-       }
-       itemTabla=itemTabla.concat([{universo:data[0].length,d1:digitos[0].toString(),d2:digitos[1].toString(),d3:digitos[2].toString(),d4:digitos[3].toString(),d5:digitos[4].toString()}]);
-      return itemTabla;
+         else if (modeMap[el] == maxCount)
+         {
+             maxEl += '&' + el;
+             maxCount = modeMap[el];
+         }
+     }
+
+     var res=[];
+     res= this.arrayMinIndex(modeMap);
+     return res;
+  }
+  arrayMinIndex(array) {
+    console.log(array);
+    return this.getAllIndexes(array, Math.min.apply(Math,array.filter(n => !isNaN(n))));  //saca el valor minimo del arreglo y lo pasa a otro metodo para guardar el index
+  }
+  getAllIndexes(arr, val) {
+     var indexes = [], i = -1;   //pasa el valor menor y saca los indices de todos los que tienen el valor minimo
+     while ((i = arr.indexOf(val, i+1)) != -1){
+         indexes.push(i);
+     }
+     return indexes;
  }
+
+  Pares(matriz){        //algoritmo para juntar la columa 1 y 2 y columna 4 y 5
+    var Array1 = matriz[0];
+    var Array2 = matriz[1];
+    var Array4 = matriz[3];
+    var Array5 = matriz[4];
+
+    var ArrayNuevo1 = [];
+    var ArrayNuevo2 = [];
+    var par1=[];
+    var par2=[];
+    var parResultado=[];
+    for (var i = 0; i < Array1.length; i++) {
+
+      if(Array1[i]=="0"){                             //si en la primer columna se encuentra el cero solo agrear el valor de la segunda coumna
+          ArrayNuevo1[i] =  Array2[i].toString();     //esto para agregar 0,1,2,3,4 ..  en vez de 00,01,02,03,04
+      }
+      else {
+        ArrayNuevo1[i] = Array1[i].toString()+ Array2[i].toString();      //se crea un nuevo arreglo de pares
+
+      }
+      if(Array4[i] == "0"){                           //mismo procedimiento que el de arriba pero en columna 4 y 5
+        ArrayNuevo2[i] = Array5[i].toString();
+      }
+      else {
+        ArrayNuevo2[i] = Array4[i].toString() + Array5[i].toString();       // se crea un nuevo arreglo de pares
+      }
+
+    }
+    console.log("Pares que Menos aparece en la columa 1 y 2");
+    par1=this.MenosAparece(ArrayNuevo1);
+    console.log("Pares que Menos aparece en la columa 4 y 5");
+    par2=this.MenosAparece(ArrayNuevo2);
+    parResultado=parResultado.concat([{universo:matriz[0].length,par1:par1.toString(),par2:par2.toString()}]);
+    return parResultado;
+
+  }
 
   getAllIndexes(arr, val) {
     var indexes = [], i = -1;   //pasa el valor menor y saca los indices de todos los que tienen el valor minimo
@@ -151,7 +193,7 @@ focus = () => {
     var resultadoN=[];
     var datosTotales=[];
     universoN=this.reducirUniverso(this.state.universo);
-    resultadoN=this.menosAparece(universoN);
+    resultadoN=this.Pares(universoN);
     datosTotales=datosTotales.concat(resultadoN);
     this.setState({
       itemsTabla:this.state.itemsTabla.concat(datosTotales)
@@ -168,17 +210,14 @@ focus = () => {
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell>Universo</Table.HeaderCell>
-              <Table.HeaderCell>D1 - (F)</Table.HeaderCell>
-              <Table.HeaderCell>D2 - (F)</Table.HeaderCell>
-              <Table.HeaderCell>D3 -(F) </Table.HeaderCell>
-              <Table.HeaderCell>D4 - (F)</Table.HeaderCell>
-              <Table.HeaderCell>D5 - (F)</Table.HeaderCell>
+              <Table.HeaderCell>Par Inicial</Table.HeaderCell>
+              <Table.HeaderCell>Par final</Table.HeaderCell>
 
             </Table.Row>
           </Table.Header>
 
           <Table.Body>
-            {this.state.itemsTabla.map((it,key)=>{
+            {this.state.itemsTabla.map((it)=>{
               return(<Item fila={it}/>)
             })}
 
@@ -200,15 +239,12 @@ class Item extends Component{
 
         <Table.Row>
           <Table.Cell>{this.props.fila.universo} </Table.Cell>
-          <Table.Cell>{this.props.fila.d1} </Table.Cell>
-          <Table.Cell>{this.props.fila.d2} </Table.Cell>
-          <Table.Cell>{this.props.fila.d3} </Table.Cell>
-          <Table.Cell>{this.props.fila.d4} </Table.Cell>
-          <Table.Cell>{this.props.fila.d5}</Table.Cell>
+          <Table.Cell>{this.props.fila.par1} </Table.Cell>
+          <Table.Cell>{this.props.fila.par2} </Table.Cell>
         </Table.Row>
     )
   }
 
 }
 
-export default MenorFrecuenciaTabla;
+export default MenorFrecuenciaParesTabla;
