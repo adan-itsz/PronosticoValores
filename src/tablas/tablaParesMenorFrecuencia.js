@@ -120,7 +120,7 @@ class MenorFrecuenciaParesTabla extends Component{
     while ((i = arr.indexOf(val, i+1)) != -1){
         indexes.push(i);
     }
-    return indexes;
+    return indexes+" |  "+val;
   }
 
   arrayMinIndex(array) {
@@ -210,8 +210,8 @@ focus = () => {
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell>Universo</Table.HeaderCell>
-              <Table.HeaderCell>Par Inicial</Table.HeaderCell>
-              <Table.HeaderCell>Par final</Table.HeaderCell>
+              <Table.HeaderCell>Par Inicial - (Frecuencia)</Table.HeaderCell>
+              <Table.HeaderCell>Par final - (Frecuencia)</Table.HeaderCell>
 
             </Table.Row>
           </Table.Header>

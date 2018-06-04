@@ -18,6 +18,9 @@ class MenorFrecuenciaTabla extends Component{
     var universo70=[];
     var universo50=[];
     var universo30=[];
+
+
+
     universo30=this.reducirUniverso(30);
     var resultado30=this.menosAparece(universo30);
     datosTotales=datosTotales.concat(resultado30);
@@ -78,11 +81,11 @@ class MenorFrecuenciaTabla extends Component{
     while ((i = arr.indexOf(val, i+1)) != -1){
         indexes.push(i);
     }
-    return indexes;
+    return indexes+" | "+val;
   }
 
   arrayMinIndex(array) {
-    return this.getAllIndexes(array, Math.min.apply(Math,array.filter(n => !isNaN(n))));  //saca el valor minimo del arreglo y lo pasa a otro metodo para guardar el index
+    return this.getAllIndexes(array, Math.min.apply(Math,array.filter(n => !isNaN(n)))) ;  //saca el valor minimo del arreglo y lo pasa a otro metodo para guardar el index
   }
 
 
@@ -168,11 +171,11 @@ focus = () => {
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell>Universo</Table.HeaderCell>
-              <Table.HeaderCell>D1 - (F)</Table.HeaderCell>
-              <Table.HeaderCell>D2 - (F)</Table.HeaderCell>
-              <Table.HeaderCell>D3 -(F) </Table.HeaderCell>
-              <Table.HeaderCell>D4 - (F)</Table.HeaderCell>
-              <Table.HeaderCell>D5 - (F)</Table.HeaderCell>
+              <Table.HeaderCell>D1 - (Frecuencia)</Table.HeaderCell>
+              <Table.HeaderCell>D2 - (Frecuencia)</Table.HeaderCell>
+              <Table.HeaderCell>D3 -(Frecuencia) </Table.HeaderCell>
+              <Table.HeaderCell>D4 - (Frecuencia)</Table.HeaderCell>
+              <Table.HeaderCell>D5 - (Frecuencia)</Table.HeaderCell>
 
             </Table.Row>
           </Table.Header>

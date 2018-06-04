@@ -141,11 +141,11 @@ focus = () => {
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell>Universo</Table.HeaderCell>
-              <Table.HeaderCell>D1 | N° sin repetir</Table.HeaderCell>
-              <Table.HeaderCell>D2 | N° sin repetir</Table.HeaderCell>
-              <Table.HeaderCell>D3 | N° sin repetir</Table.HeaderCell>
-              <Table.HeaderCell>D4 | N° sin repetir</Table.HeaderCell>
-              <Table.HeaderCell>D5 | N° sin repetir</Table.HeaderCell>
+              <Table.HeaderCell>D1 | Sorteo sin repetir</Table.HeaderCell>
+              <Table.HeaderCell>D2 | Sorteo sin repetir</Table.HeaderCell>
+              <Table.HeaderCell>D3 | Sorteo sin repetir</Table.HeaderCell>
+              <Table.HeaderCell>D4 | Sorteo sin repetir</Table.HeaderCell>
+              <Table.HeaderCell>D5 | Sorteo sin repetir</Table.HeaderCell>
 
             </Table.Row>
           </Table.Header>
