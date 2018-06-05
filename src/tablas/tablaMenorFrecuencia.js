@@ -4,6 +4,9 @@ import '../index.css';
 
 class MenorFrecuenciaTabla extends Component{
   constructor(props){
+
+
+
     super(props)
     this.state={
       datos:this.props.datos,
@@ -21,37 +24,49 @@ class MenorFrecuenciaTabla extends Component{
 
 
 
+
     universo30=this.reducirUniverso(30);
-    var resultado30=this.menosAparece(universo30);
-    datosTotales=datosTotales.concat(resultado30);
+    console.log(this.NoAparece(universo30));
+      var resultado30=this.NoAparece(universo30);
+      datosTotales=datosTotales.concat(resultado30);
+
+
     universo50=this.reducirUniverso(50);
-    var resultado50=this.menosAparece(universo50);
-    datosTotales=datosTotales.concat(resultado50);
+
+      var resultado50=this.NoAparece(universo50);
+      datosTotales=datosTotales.concat(resultado50);
+
+
+
+
     universo70=this.reducirUniverso(70);
-    var resultado70=this.menosAparece(universo70);
-    datosTotales=datosTotales.concat(resultado70);
+
+      var resultado70=this.NoAparece(universo70);
+      datosTotales=datosTotales.concat(resultado70);
+
+
     universo100=this.reducirUniverso(100);
-    var result=this.menosAparece(universo100);
-    datosTotales=datosTotales.concat(result);
+
+      var result=this.NoAparece(universo100);
+      datosTotales=datosTotales.concat(result);
+
+
     this.setState({
       itemsTabla:datosTotales
     })
   }
 
   menosAparece(data){   //algoritmo que cuenta cada aparicion de un digito
-    var digitos=[];
-    var itemTabla=[];
-    for(var it=0;it<5;it++){
-      var dataItem=data[it];
-         if (dataItem.length == 0)
+
+         if (data.length == 0)
              return null;
 
          var modeMap = [],
-             maxEl = dataItem[0],
+             maxEl = data[0],
              maxCount = 1;
 
-         for(var i = 0; i < dataItem.length; i++){
-             var el = dataItem[i];
+         for(var i = 0; i < data.length; i++){
+             var el = data[i];
 
              if (modeMap[el] == null)
                  modeMap[el] = 1;
@@ -70,10 +85,9 @@ class MenorFrecuenciaTabla extends Component{
              }
          }
       //   console.log(modeMap);       //concentrado de las veces que se repite un numero
-         digitos.push(this.arrayMinIndex(modeMap));
-       }
-       itemTabla=itemTabla.concat([{universo:data[0].length,d1:digitos[0].toString(),d2:digitos[1].toString(),d3:digitos[2].toString(),d4:digitos[3].toString(),d5:digitos[4].toString()}]);
-      return itemTabla;
+
+       return this.arrayMinIndex(modeMap);
+
  }
 
   getAllIndexes(arr, val) {
@@ -88,6 +102,29 @@ class MenorFrecuenciaTabla extends Component{
     return this.getAllIndexes(array, Math.min.apply(Math,array.filter(n => !isNaN(n)))) ;  //saca el valor minimo del arreglo y lo pasa a otro metodo para guardar el index
   }
 
+  NoAparece(Array){
+    var digitos=[];
+    var itemTabla=[];
+
+    for (var j = 0; j < Array.length; j++) {
+      var ban= true;   //algoritmo sencillo de no aparece
+
+    for (var i = 0; i <= 9; i++) {
+
+      if(!Array[j].includes(i.toString())){
+        ban = false;
+        digitos.push(i + " |  0");    //imprime del 0 al 9 el que no esta
+
+      }
+
+    }
+    if(ban){
+      digitos.push(this.menosAparece(Array[j])) ;    //busca que numero del 0 al 9 no esta en el array
+    }
+  }
+  itemTabla=itemTabla.concat([{universo:Array[0].length,d1:digitos[0].toString(),d2:digitos[1].toString(),d3:digitos[2].toString(),d4:digitos[3].toString(),d5:digitos[4].toString()}]);
+ return itemTabla;
+  }
 
   reducirUniverso=(nUniverso)=>{
 
