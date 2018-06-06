@@ -6,6 +6,7 @@ import './index.css';
 import { Header, Icon } from 'semantic-ui-react';
 import MenorFrecuenciaTabla from './tablas/tablaMenorFrecuencia.js';
 import TablaRepeticion from './tablas/tablaRepeticion.js';
+import TablaRepeticionCruzada from './tablas/tablaRepeticioncruzada.js'
 import MenorFrecuenciaParesTabla from './tablas/tablaParesMenorFrecuencia.js'
 class Pronostico extends Component {
 
@@ -242,10 +243,53 @@ arrayMinIndex(array) {
 
           <div className="contenidoTablas">
             { terminado==true
-              ?<TablaRepeticion datos={this.state.datos}/>
+              ?<TablaRepeticion datos={this.state.datos} salto = {1}/>
               : <div></div>
             }
           </div>
+
+          <div className="header">
+            <Header as='h2'>
+              <Icon name='reply all' />
+              <Header.Content>  Repetición de dígitos 1 casilla en medio</Header.Content>
+            </Header>
+          </div>
+
+          <div className="contenidoTablas">
+            { terminado==true
+              ?<TablaRepeticion datos={this.state.datos} salto = {2}/>
+              : <div></div>
+            }
+          </div>
+
+          <div className="header">
+            <Header as='h2'>
+              <Icon name='reply all' />
+              <Header.Content>  Repetición de dígitos 2 casilla en medio</Header.Content>
+            </Header>
+          </div>
+
+          <div className="contenidoTablas">
+            { terminado==true
+              ?<TablaRepeticion datos={this.state.datos} salto = {3}/>
+              : <div></div>
+            }
+          </div>
+
+          <div className="header">
+            <Header as='h2'>
+              <Icon name='reply all' />
+              <Header.Content>  Repetición de dígitos cruzado izquierda</Header.Content>
+            </Header>
+          </div>
+
+          <div className="contenidoTablas">
+            { terminado==true
+              ?<TablaRepeticionCruzada datos={this.state.datos} salto = {1}/>
+              : <div></div>
+            }
+          </div>
+
 
           <div className="header">
             <Header as='h2'>

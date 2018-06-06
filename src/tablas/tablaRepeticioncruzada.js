@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Table, Input, Button } from 'semantic-ui-react'
 import '../index.css';
 
-class TablaRepeticion extends Component{
+class TablaRepeticionCruzada extends Component{
   constructor(props){
     super(props)
     this.state={
@@ -47,12 +47,23 @@ class TablaRepeticion extends Component{
       var Aux = 0;
       var num;
       for (var i = 0; i < Array.length; i++) {
-        if (Array[i] == Array[i+this.state.salto]) {   //encuentra una repeticion
-          if(Aux==0){
-            num = i;          // Guarda la primer vez que se encuentra una repeticion
+        if(it == 4){
+          if (Array[i] == datos[0][i+this.state.salto]) {   //encuentra una repeticion
+            if(Aux==0){
+              num = i;          // Guarda la primer vez que se encuentra una repeticion
+            }
+            Aux ++;     //todas las repeticiones
           }
-          Aux ++;     //todas las repeticiones
         }
+        else{
+          if (Array[i] == datos[it+1][i+this.state.salto]) {   //encuentra una repeticion
+            if(Aux==0){
+              num = i;          // Guarda la primer vez que se encuentra una repeticion
+            }
+            Aux ++;     //todas las repeticiones
+          }
+        }
+
       }
     digitos=digitos.concat([{tRepeticiones:Aux,sinRepetir:num}]);
     }
@@ -185,4 +196,4 @@ class Item extends Component{
   }
 
 }
-export default TablaRepeticion;
+export default TablaRepeticionCruzada;
