@@ -11,7 +11,7 @@ import MenorFrecuenciaParesTabla from './tablas/tablaParesMenorFrecuencia.js'
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import PhoneIcon from '@material-ui/icons/Phone';
+
 import ScrollableTabsButtonPrevent from './tab-1.js'
 class Pronostico extends Component {
 
@@ -288,7 +288,7 @@ arrayMinIndex(array) {
           {value===3&&
             <div className="contenidoTablas">
               { terminado==true
-                ?<TablaRepeticionCruzada datos={this.state.datos} salto = {1}/>
+                ?<TablaRepeticionCruzada datos={this.state.datos} salto = {1} dir = {"i"}/>
                 : <div></div>
               }
             </div>
