@@ -8,12 +8,18 @@ import MenorFrecuenciaTabla from './tablas/tablaMenorFrecuencia.js';
 import TablaRepeticion from './tablas/tablaRepeticion.js';
 import TablaRepeticionCruzada from './tablas/tablaRepeticioncruzada.js'
 import MenorFrecuenciaParesTabla from './tablas/tablaParesMenorFrecuencia.js'
+import Paper from '@material-ui/core/Paper';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import PhoneIcon from '@material-ui/icons/Phone';
+import ScrollableTabsButtonPrevent from './tab-1.js'
 class Pronostico extends Component {
 
   constructor(props) {
       super(props);
       this.state = {
-        datos: []
+        datos: [],
+        value: 0,
       }
 
 
@@ -216,17 +222,23 @@ arrayMinIndex(array) {
 }
 
 
+  handleChange = (event, value) => {
+    this.setState({ value });
+  };
+
   render() {
     let terminado=this.state.datos.length>0;
+    const { value } = this.state;
+
     return (
       <div className="principal">
+
           <div className="header">
             <Header as='h2'>
               <Icon name='quote right' />
               <Header.Content>Menor o nula frecuencia en dígitos</Header.Content>
             </Header>
           </div>
-
           <div className="contenidoTablas">
             { terminado==true
               ?<MenorFrecuenciaTabla datos={this.state.datos}/>
@@ -234,79 +246,74 @@ arrayMinIndex(array) {
             }
           </div>
 
-          <div className="header">
-            <Header as='h2'>
-              <Icon name='reply all' />
-              <Header.Content>  Repetición de dígitos</Header.Content>
-            </Header>
-          </div>
-
-          <div className="contenidoTablas">
-            { terminado==true
-              ?<TablaRepeticion datos={this.state.datos} salto = {1}/>
-              : <div></div>
-            }
-          </div>
 
           <div className="header">
             <Header as='h2'>
               <Icon name='reply all' />
-              <Header.Content>  Repetición de dígitos 1 casilla en medio</Header.Content>
+              <Header.Content>  Repeticion</Header.Content>
             </Header>
           </div>
+        <Tabs value={this.state.value} onChange={this.handleChange}
+              fullWidth  indicatorColor="secondary" textColor="secondary">
+
+              <Tab icon={<Icon name='hand peace' size="large"/>} label="Repeticion consecutiva" ></Tab>
+              <Tab icon ={<Icon name='random'size="large"/>} label="Repeticion salto "></Tab>
+              <Tab icon={<Icon name='sort amount down'size="large"/>} label="Repeticion doble salto"></Tab>
+              <Tab icon={<Icon name='step backward'size="large"/>} label="Repeticion digito cruzado izquierda"></Tab>
+        </Tabs>
+
+          {value === 0 &&
+            <div className="contenidoTablas">
+              { terminado==true
+                ?<TablaRepeticion datos={this.state.datos} salto = {1}/>
+                : <div></div>
+              }
+          </div>}
+
+          {value === 1 &&
 
           <div className="contenidoTablas">
             { terminado==true
               ?<TablaRepeticion datos={this.state.datos} salto = {2}/>
               : <div></div>
             }
-          </div>
-
-          <div className="header">
-            <Header as='h2'>
-              <Icon name='reply all' />
-              <Header.Content>  Repetición de dígitos 2 casilla en medio</Header.Content>
-            </Header>
-          </div>
-
-          <div className="contenidoTablas">
-            { terminado==true
-              ?<TablaRepeticion datos={this.state.datos} salto = {3}/>
-              : <div></div>
-            }
-          </div>
-
-          <div className="header">
-            <Header as='h2'>
-              <Icon name='reply all' />
-              <Header.Content>  Repetición de dígitos cruzado izquierda</Header.Content>
-            </Header>
-          </div>
-
-          <div className="contenidoTablas">
-            { terminado==true
-              ?<TablaRepeticionCruzada datos={this.state.datos} salto = {1}/>
-              : <div></div>
-            }
-          </div>
+          </div>}
+          {value ===2 &&
+            <div className="contenidoTablas">
+              { terminado==true
+                ?<TablaRepeticion datos={this.state.datos} salto = {3}/>
+                : <div></div>
+              }
+            </div>}
+          {value===3&&
+            <div className="contenidoTablas">
+              { terminado==true
+                ?<TablaRepeticionCruzada datos={this.state.datos} salto = {1}/>
+                : <div></div>
+              }
+            </div>
+          }
 
 
-          <div className="header">
-            <Header as='h2'>
-              <Icon name='hand peace' />
-              <Header.Content>Menor frecuencia pares</Header.Content>
-            </Header>
-          </div>
+            <div className="header">
+              <Header as='h2'>
+                <Icon name='hand peace' />
+                <Header.Content>Menor frecuencia pares</Header.Content>
+              </Header>
+            </div>
 
-          <div className="contenidoTablas">
-            { terminado==true
-              ?<MenorFrecuenciaParesTabla datos={this.state.datos}/>
-              : <div></div>
-            }
-          </div>
+            <div className="contenidoTablas">
+              { terminado==true
+                ?<MenorFrecuenciaParesTabla datos={this.state.datos}/>
+                : <div></div>
+              }
+            </div>
+
       </div>
     );
   }
 }
+
+
 
 export default Pronostico;
