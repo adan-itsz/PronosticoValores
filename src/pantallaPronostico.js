@@ -140,7 +140,7 @@ componentWillMount() {
           {value ===4&&
             <div className="contenidoTablas">
               { terminado==true
-                ?<TablaRepeticionCruzada datos={this.state.datos} salto = {1} dir = {"i"}/>
+                ?<TablaRepeticionCruzada datos={this.state.datos} salto = {1} dir = {"d"}/>
                 : <div></div>
               }
             </div>

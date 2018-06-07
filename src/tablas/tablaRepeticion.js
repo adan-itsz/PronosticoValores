@@ -45,7 +45,7 @@ class TablaRepeticion extends Component{
     for(var it=0;it<5;it++){
       var Array=datos[it];
       var Aux = 0;
-      var num;
+      var num = 0;
       for (var i = 0; i < Array.length; i++) {
         if (Array[i] == Array[i+this.state.salto]) {   //encuentra una repeticion
           if(Aux==0){

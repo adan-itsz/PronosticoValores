@@ -103,23 +103,33 @@ class MenorFrecuenciaTabla extends Component{
   }
 
   NoAparece(Array){
-    var digitos=[];
+    var digitos =[];
     var itemTabla=[];
 
     for (var j = 0; j < Array.length; j++) {
+      var digito;
       var ban= true;   //algoritmo sencillo de no aparece
 
     for (var i = 0; i <= 9; i++) {
 
       if(!Array[j].includes(i.toString())){
         ban = false;
-        digitos.push(i + " |  0");    //imprime del 0 al 9 el que no esta
+        if(digito != null){
+          digito = digito +i+","
+
+        }
+        else{
+          digito = i+","
+        }   //imprime del 0 al 9 el que no esta
 
       }
 
     }
     if(ban){
       digitos.push(this.menosAparece(Array[j])) ;    //busca que numero del 0 al 9 no esta en el array
+    }
+    else{
+      digitos.push(digito+"| 0 ");
     }
   }
   itemTabla=itemTabla.concat([{universo:Array[0].length,d1:digitos[0].toString(),d2:digitos[1].toString(),d3:digitos[2].toString(),d4:digitos[3].toString(),d5:digitos[4].toString()}]);
@@ -191,7 +201,7 @@ focus = () => {
     var resultadoN=[];
     var datosTotales=[];
     universoN=this.reducirUniverso(this.state.universo);
-    resultadoN=this.menosAparece(universoN);
+    resultadoN=this.NoAparece(universoN);
     datosTotales=datosTotales.concat(resultadoN);
     this.setState({
       itemsTabla:this.state.itemsTabla.concat(datosTotales)
