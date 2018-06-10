@@ -53,7 +53,7 @@ componentWillMount() {
           }
         )
         promise.then(function(){
-
+          self.props.RetornoLista(matriz);
           self.setState({
             datos:matriz
           });
@@ -64,6 +64,9 @@ componentWillMount() {
     }
 
 
+  RetornoLista=()=>{
+
+  }
   handleChange = (event, value) => {
     this.setState({ value });
   };

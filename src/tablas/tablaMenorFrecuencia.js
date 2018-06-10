@@ -229,7 +229,7 @@ focus = () => {
 
           <Table.Body>
             {this.state.itemsTabla.map((it,key)=>{
-              return(<Item fila={it}/>)
+              return(<Item fila={it} i={key}/>)
             })}
 
           </Table.Body>
@@ -245,16 +245,31 @@ class Item extends Component{
     super(props)
 
   }
+  handleClick1=()=>{
+  alert("universo "+this.props.fila.universo+" digito "+1);
+  }
+  handleClick2=()=>{
+  alert("universo "+this.props.fila.universo+" digito "+2);
+  }
+  handleClick3=()=>{
+  alert("universo "+this.props.fila.universo+" digito "+3);
+  }
+  handleClick4=()=>{
+  alert("universo "+this.props.fila.universo+" digito "+4);
+  }
+  handleClick5=()=>{
+  alert("universo "+this.props.fila.universo+" digito "+5);
+  }
   render(){
     return(
 
         <Table.Row>
           <Table.Cell>{this.props.fila.universo} </Table.Cell>
-          <Table.Cell>{this.props.fila.d1} </Table.Cell>
-          <Table.Cell>{this.props.fila.d2} </Table.Cell>
-          <Table.Cell>{this.props.fila.d3} </Table.Cell>
-          <Table.Cell>{this.props.fila.d4} </Table.Cell>
-          <Table.Cell>{this.props.fila.d5}</Table.Cell>
+          <Table.Cell onClick={this.handleClick1}>{this.props.fila.d1} </Table.Cell>
+          <Table.Cell onClick={this.handleClick2}>{this.props.fila.d2} </Table.Cell>
+          <Table.Cell onClick={this.handleClick3}>{this.props.fila.d3} </Table.Cell>
+          <Table.Cell onClick={this.handleClick4}>{this.props.fila.d4} </Table.Cell>
+          <Table.Cell onClick={this.handleClick5}>{this.props.fila.d5}</Table.Cell>
         </Table.Row>
     )
   }
