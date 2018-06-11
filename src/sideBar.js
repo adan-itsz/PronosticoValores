@@ -9,7 +9,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 import { Table} from 'semantic-ui-react';
 import Button from '@material-ui/core/Button';
-import AddIcon from '@material-ui/icons/Add';
+
 
 class SidebarIzquierda extends Component {
   constructor(props){
@@ -129,7 +129,6 @@ this.getLista = this.getLista.bind(this);
                             </Table.Body>
                           </Table>
                           <Button variant="fab" mini color="secondary" aria-label="add" >
-                            <AddIcon />
                           </Button>
                       </DialogContent>
                   </Dialog>

@@ -42,18 +42,24 @@ class TablaRepeticion extends Component{
   DobleRepeticion(datos){       //algoritmo para saber cuando hubo una doble repeticion
     var digitos=[];
     var itemTabla=[];
+    var d=[];
     for(var it=0;it<5;it++){
       var Array=datos[it];
       var Aux = 0;
       var num = 0;
       for (var i = 0; i < Array.length; i++) {
+
         if (Array[i] == Array[i+this.state.salto]) {   //encuentra una repeticion
           if(Aux==0){
-            num = i;          // Guarda la primer vez que se encuentra una repeticion
+            num = i+1;          // Guarda la primer vez que se encuentra una repeticion
           }
           Aux ++;     //todas las repeticiones
         }
       }
+      if(num == 0 ){
+        num = Array.length;
+      }
+      console.log(d);
     digitos=digitos.concat([{tRepeticiones:Aux,sinRepetir:num}]);
     }
     itemTabla=itemTabla.concat([{universo:datos[0].length,d1:digitos[0],d2:digitos[1],d3:digitos[2],d4:digitos[3],d5:digitos[4]}]);

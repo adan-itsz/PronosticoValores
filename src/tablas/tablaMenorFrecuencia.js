@@ -12,7 +12,8 @@ class MenorFrecuenciaTabla extends Component{
       datos:this.props.datos,
       item:'',
       datosUniverso:[],
-      itemsTabla:[]
+      itemsTabla:[],
+
     };
   }
   componentWillMount() {
@@ -56,7 +57,8 @@ class MenorFrecuenciaTabla extends Component{
     })
   }
 
-  menosAparece(data){   //algoritmo que cuenta cada aparicion de un digito
+  menosAparece(data,ban){   //algoritmo que cuenta cada aparicion de un digito
+      var concentrado = [];
 
          if (data.length == 0)
              return null;
@@ -84,9 +86,13 @@ class MenorFrecuenciaTabla extends Component{
                  maxCount = modeMap[el];
              }
          }
-      //   console.log(modeMap);       //concentrado de las veces que se repite un numero
 
-       return this.arrayMinIndex(modeMap);
+         if(ban == 1){
+
+         }
+         concentrado["resultado"] = this.arrayMinIndex(modeMap);
+         concentrado.push(modeMap);
+       return concentrado;
 
  }
 
@@ -105,9 +111,10 @@ class MenorFrecuenciaTabla extends Component{
   NoAparece(Array){
     var digitos =[];
     var itemTabla=[];
+    var aux = [];
 
     for (var j = 0; j < Array.length; j++) {
-      var digito;
+      var digito = [];
       var ban= true;   //algoritmo sencillo de no aparece
 
     for (var i = 0; i <= 9; i++) {
@@ -120,19 +127,24 @@ class MenorFrecuenciaTabla extends Component{
         }
         else{
           digito = i+","
-        }   //imprime del 0 al 9 el que no esta
+        }
+
+      aux.push(this.menosAparece(Array[j],1));   //imprime del 0 al 9 el que no esta
 
       }
 
     }
     if(ban){
-      digitos.push(this.menosAparece(Array[j])) ;    //busca que numero del 0 al 9 no esta en el array
+    aux.push (this.menosAparece(Array[j],0));
+    var a = this.menosAparece(Array[j],0);
+      digitos.push(a.resultado) ;    //busca que numero del 0 al 9 no esta en el array
     }
     else{
+
       digitos.push(digito+"| 0 ");
     }
   }
-  itemTabla=itemTabla.concat([{universo:Array[0].length,d1:digitos[0].toString(),d2:digitos[1].toString(),d3:digitos[2].toString(),d4:digitos[3].toString(),d5:digitos[4].toString()}]);
+  itemTabla=itemTabla.concat([{concentrado:aux,universo:Array[0].length,d1:digitos[0].toString(),d2:digitos[1].toString(),d3:digitos[2].toString(),d4:digitos[3].toString(),d5:digitos[4].toString()}]);
  return itemTabla;
   }
 
