@@ -7,6 +7,7 @@ import { Header, Icon } from 'semantic-ui-react';
 import MenorFrecuenciaTabla from './tablas/tablaMenorFrecuencia.js';
 import TablaRepeticion from './tablas/tablaRepeticion.js';
 import TablaRepeticionCruzada from './tablas/tablaRepeticioncruzada.js'
+import TablaMuelas from './tablas/tablaMuelas.js'
 import MenorFrecuenciaParesTabla from './tablas/tablaParesMenorFrecuencia.js'
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
@@ -148,7 +149,9 @@ componentWillMount() {
               }
             </div>
 
+
           }
+
 
 
             <div className="header">
@@ -163,7 +166,22 @@ componentWillMount() {
                 ?<MenorFrecuenciaParesTabla datos={this.state.datos}/>
                 : <div></div>
               }
+
             </div>
+
+            <div className="header">
+              <Header as='h2'>
+                <Icon name='hand peace' />
+                <Header.Content>Repeticion de Muelas</Header.Content>
+              </Header>
+            </div>
+              <div className="contenidoTablas">
+                { terminado==true
+                  ?<TablaMuelas datos={this.state.datos}/>
+                  : <div></div>
+                }
+              </div>
+
 
       </div>
     );
