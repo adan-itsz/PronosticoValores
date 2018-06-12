@@ -1,19 +1,21 @@
 import React, { Component } from 'react';
 import { Table, Input, Button } from 'semantic-ui-react'
 import '../index.css';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Dialog from '@material-ui/core/Dialog';
+import { Header, Icon } from 'semantic-ui-react';
+
 
 class MenorFrecuenciaTabla extends Component{
   constructor(props){
-
-
-
     super(props)
     this.state={
       datos:this.props.datos,
       item:'',
       datosUniverso:[],
       itemsTabla:[],
-
     };
   }
   componentWillMount() {
@@ -23,34 +25,19 @@ class MenorFrecuenciaTabla extends Component{
     var universo50=[];
     var universo30=[];
 
-
-
-
     universo30=this.reducirUniverso(30);
     console.log(this.NoAparece(universo30));
-      var resultado30=this.NoAparece(universo30);
-      datosTotales=datosTotales.concat(resultado30);
-
-
+    var resultado30=this.NoAparece(universo30);
+    datosTotales=datosTotales.concat(resultado30);
     universo50=this.reducirUniverso(50);
-
-      var resultado50=this.NoAparece(universo50);
-      datosTotales=datosTotales.concat(resultado50);
-
-
-
-
+    var resultado50=this.NoAparece(universo50);
+    datosTotales=datosTotales.concat(resultado50);
     universo70=this.reducirUniverso(70);
-
-      var resultado70=this.NoAparece(universo70);
-      datosTotales=datosTotales.concat(resultado70);
-
-
+    var resultado70=this.NoAparece(universo70);
+    datosTotales=datosTotales.concat(resultado70);
     universo100=this.reducirUniverso(100);
-
-      var result=this.NoAparece(universo100);
-      datosTotales=datosTotales.concat(result);
-
+    var result=this.NoAparece(universo100);
+    datosTotales=datosTotales.concat(result);
 
     this.setState({
       itemsTabla:datosTotales
@@ -144,9 +131,9 @@ class MenorFrecuenciaTabla extends Component{
       digitos.push(digito+"| 0 ");
     }
   }
-  itemTabla=itemTabla.concat([{concentrado:aux,universo:Array[0].length,d1:digitos[0].toString(),d2:digitos[1].toString(),d3:digitos[2].toString(),d4:digitos[3].toString(),d5:digitos[4].toString()}]);
- return itemTabla;
-  }
+    itemTabla=itemTabla.concat([{concentrado:aux,universo:Array[0].length,d1:digitos[0].toString(),d2:digitos[1].toString(),d3:digitos[2].toString(),d4:digitos[3].toString(),d5:digitos[4].toString()}]);
+    return itemTabla;
+}
 
   reducirUniverso=(nUniverso)=>{
 
@@ -255,23 +242,58 @@ focus = () => {
 class Item extends Component{
   constructor(props){
     super(props)
-
+    this.state={
+      concentrado:[],
+      open: false,
+    }
   }
   handleClick1=()=>{
-  alert("universo "+this.props.fila.universo+" digito "+1);
+    var individual=this.props.fila.concentrado[0].toString();
+    var parts= individual.split(",");
+  this.setState({
+    concentrado:parts,
+     open: true
+  });
   }
   handleClick2=()=>{
-  alert("universo "+this.props.fila.universo+" digito "+2);
+  //alert("universo "+this.props.fila.universo+" digito "+2);
+  var individual=this.props.fila.concentrado[1].toString();
+  var parts= individual.split(",");
+  this.setState({
+    concentrado:parts,
+     open: true
+  });
+
   }
   handleClick3=()=>{
-  alert("universo "+this.props.fila.universo+" digito "+3);
+    var individual=this.props.fila.concentrado[2].toString();
+    var parts= individual.split(",");
+    this.setState({
+       open: true,
+      concentrado:parts
+    });
   }
   handleClick4=()=>{
-  alert("universo "+this.props.fila.universo+" digito "+4);
+    var individual=this.props.fila.concentrado[3].toString();
+    var parts= individual.split(",");
+    this.setState({
+      concentrado:parts,
+       open: true
+    });
   }
   handleClick5=()=>{
-  alert("universo "+this.props.fila.universo+" digito "+5);
+    var individual=this.props.fila.concentrado[4].toString();
+    var parts= individual.split(",");
+    this.setState({
+      concentrado:parts,
+       open: true
+    });
   }
+
+ handleClose = () => {
+   this.setState({ open: false });
+ };
+
   render(){
     return(
 
@@ -282,10 +304,50 @@ class Item extends Component{
           <Table.Cell onClick={this.handleClick3}>{this.props.fila.d3} </Table.Cell>
           <Table.Cell onClick={this.handleClick4}>{this.props.fila.d4} </Table.Cell>
           <Table.Cell onClick={this.handleClick5}>{this.props.fila.d5}</Table.Cell>
-        </Table.Row>
+
+
+        <Dialog
+            open={this.state.open}
+            onClose={this.handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description">
+              <DialogTitle id="alert-dialog-title">{"Frecuencias individuales"}</DialogTitle>
+              <DialogContent>
+                  <Table compact>
+                    <Table.Header>
+                      <Table.Row>
+                        <Table.HeaderCell>Número </Table.HeaderCell>
+                        <Table.HeaderCell>Frecuencia</Table.HeaderCell>
+                      </Table.Row>
+                    </Table.Header>
+
+                    <Table.Body>
+                      {this.state.concentrado.map((it,key)=>{
+                        return(<ItemConcentrado frecuencia={it} i={key}/>)
+                      })}
+                    </Table.Body>
+                  </Table>
+              </DialogContent>
+          </Dialog>
+          </Table.Row>
     )
   }
 
 }
+
+class ItemConcentrado extends Component{
+  constructor(props){
+    super(props)
+  }
+    render(){
+      return(
+        <Table.Row>
+          <Table.Cell>{this.props.i} </Table.Cell>
+          <Table.Cell>{this.props.frecuencia} </Table.Cell>
+        </Table.Row>
+      )
+    }
+  }
+
 
 export default MenorFrecuenciaTabla;
