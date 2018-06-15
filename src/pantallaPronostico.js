@@ -16,7 +16,6 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
-import AddIcon from '@material-ui/icons/Add';
 import Button from '@material-ui/core/Button';
 import {  Input } from 'semantic-ui-react'
 
@@ -141,6 +140,8 @@ class Pronostico extends Component {
               <Tab icon={<Icon name='hand peace' size="large"/>} label="Repeticion consecutiva" ></Tab>
               <Tab icon ={<Icon name='random'size="large"/>} label="Repeticion salto "></Tab>
               <Tab icon={<Icon name='sort amount down'size="large"/>} label="Repeticion doble salto"></Tab>
+              <Tab icon={<Icon name='sort amount down'size="large"/>} label="Repeticion triple salto"></Tab>
+              <Tab icon={<Icon name='sort amount down'size="large"/>} label="Repeticion cutriple salto"></Tab>
               <Tab icon={<Icon name='step backward'size="large"/>} label="Repeticion digito cruzado izquierda"></Tab>
               <Tab icon={<Icon name='fast forward'size="large"/>} label="Repeticion digito cruzado Derecha"></Tab>
 
@@ -169,7 +170,21 @@ class Pronostico extends Component {
                 : <div></div>
               }
             </div>}
-          {value===3&&
+            {value ===3 &&
+              <div className="contenidoTablas">
+                { terminado==true
+                  ?<TablaRepeticion datos={this.state.datos} salto = {4}/>
+                  : <div></div>
+                }
+              </div>}
+              {value ===4 &&
+                <div className="contenidoTablas">
+                  { terminado==true
+                    ?<TablaRepeticion datos={this.state.datos} salto = {5}/>
+                    : <div></div>
+                  }
+                </div>}
+          {value===5&&
             <div className="contenidoTablas">
               { terminado==true
                 ?<TablaRepeticionCruzada datos={this.state.datos} salto = {1} dir = {"i"}/>
@@ -177,7 +192,7 @@ class Pronostico extends Component {
               }
             </div>
           }
-          {value ===4&&
+          {value ===6&&
             <div className="contenidoTablas">
               { terminado==true
                 ?<TablaRepeticionCruzada datos={this.state.datos} salto = {1} dir = {"d"}/>
