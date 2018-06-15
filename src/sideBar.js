@@ -8,8 +8,9 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 import { Table} from 'semantic-ui-react';
+import AddIcon from '@material-ui/icons/Add';
 import Button from '@material-ui/core/Button';
-
+import {  Input } from 'semantic-ui-react'
 
 class SidebarIzquierda extends Component {
   constructor(props){
@@ -17,7 +18,11 @@ class SidebarIzquierda extends Component {
   this.state = {
     open: false,
     visible: false ,
-    itemsTabla:[]
+    itemsTabla:[],
+    inputs:0,
+    combinacion:'',
+    arrayCombinaciones:[],
+    openAddCom:true
 }
 this.getLista = this.getLista.bind(this);
 
@@ -30,6 +35,9 @@ this.getLista = this.getLista.bind(this);
 
  handleClose = () => {
    this.setState({ open: false });
+ };
+ handleClose2 = () => {
+   this.setState({ openAddCom: false });
  };
  getLista=(e)=>{
 
@@ -75,10 +83,53 @@ this.getLista = this.getLista.bind(this);
         itemsTabla:datosItem
       })
  }
+ cantidadInputs=()=>{
+   if(this.state.inputs<5){
+   this.setState({
+     inputs: this.state.inputs+1
+   })
+  }
+   else{
+     alert("No puedes agregar mas de 5 combinaciones");
+   }
+ }
+ addCombinacion=()=>{
+
+   if(this.state.combinacion.length==5){
+   this.setState({
+     arrayCombinaciones:this.state.arrayCombinaciones.concat(this.state.combinacion),
+     combinacion:''
+   })
+   }
+   console.log(this.state.arrayCombinaciones);
+ }
+ handleRef = (c) => {
+   var valor=c.target.value;
+   if(!isNaN(valor)){
+   this.setState({
+     combinacion:valor
+   })
+
+   }
+   else{
+     alert("introduce valor valido");
+     this.setState({
+     combinacion:''
+     })
+   }
+}
 
   render() {
     let terminado=this.state.itemsTabla.length>0;
-    const { visible } = this.state
+    let nuevosDatos=this.state.openAddCom==false;
+    const { visible } = this.state;
+    const children=[];
+      for(var i=0;i<this.state.inputs;i++){
+
+        children.push(<div className="inputDialog"><Input onChange={this.handleRef} value={this.state.combinacion}/> <Button variant="outlined" size="medium" color="primary" onClick={this.addCombinacion}>
+        Aceptar
+        </Button></div>)
+      }
     return (
       <div>
         <div className="topBar">
@@ -139,7 +190,26 @@ this.getLista = this.getLista.bind(this);
           <Sidebar.Pusher>
             <Segment basic>
               <div className="contenidoBarra">
-                  <Pronostico RetornoLista={this.getLista} />
+              {
+                nuevosDatos?
+                  <Pronostico RetornoLista={this.getLista} recienIngresados={this.state.arrayCombinaciones} />
+                  :<div></div>
+              }
+                  <Dialog
+                      open={this.state.openAddCom}
+                      onClose={this.handleClose2}
+                      aria-labelledby="alert-dialog-title"
+                      aria-describedby="alert-dialog-description">
+                        <DialogTitle id="alert-dialog-title">{"Agregar combinaciones"}</DialogTitle>
+                        <DialogContent>
+
+                          {children}
+                            <Button variant="fab" mini color="secondary" aria-label="add" onClick={this.cantidadInputs}>
+                              <AddIcon />
+                            </Button>
+
+                        </DialogContent>
+                    </Dialog>
               </div>
             </Segment>
           </Sidebar.Pusher>

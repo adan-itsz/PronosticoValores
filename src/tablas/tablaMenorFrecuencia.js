@@ -257,12 +257,12 @@ class Item extends Component{
   }
   handleClick2=()=>{
   //alert("universo "+this.props.fila.universo+" digito "+2);
-  var individual=this.props.fila.concentrado[1].toString();
-  var parts= individual.split(",");
-  this.setState({
-    concentrado:parts,
-     open: true
-  });
+    var individual=this.props.fila.concentrado[1].toString();
+    var parts= individual.split(",");
+    this.setState({
+      concentrado:parts,
+       open: true
+    });
 
   }
   handleClick3=()=>{

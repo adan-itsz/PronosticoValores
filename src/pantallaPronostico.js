@@ -12,6 +12,15 @@ import MenorFrecuenciaParesTabla from './tablas/tablaParesMenorFrecuencia.js'
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Dialog from '@material-ui/core/Dialog';
+import AddIcon from '@material-ui/icons/Add';
+import Button from '@material-ui/core/Button';
+import {  Input } from 'semantic-ui-react'
+
+
 class Pronostico extends Component {
 
   constructor(props) {
@@ -19,13 +28,12 @@ class Pronostico extends Component {
       this.state = {
         datos: [],
         value: 0,
+        open: true
       }
 
 
     }
-componentWillMount() {
-      var universo = 500;                     ///universo
-
+    componentWillMount() {
         var R1=[];
         var R2=[];
         var R3=[];
@@ -45,6 +53,16 @@ componentWillMount() {
                   R4.push(d.R4);
                   R5.push(d.R5);
               }
+              if(self.props.recienIngresados!==undefined){
+              for(var i=0;i<self.props.recienIngresados.length;i++){
+                var elemento=self.props.recienIngresados[i];
+                R1.unshift(elemento.substring(0,1));
+                R2.unshift(elemento.substring(1,2));
+                R3.unshift(elemento.substring(2,3));
+                R4.unshift(elemento.substring(3,4));
+                R5.unshift(elemento.substring(4,5));
+              }
+            }
               resolve(matriz.push(R1),
               matriz.push(R2),
               matriz.push(R3),
@@ -54,7 +72,9 @@ componentWillMount() {
           }
         )
         promise.then(function(){
-          self.props.RetornoLista(matriz);
+        //  console.log(this.state.arrayCombinaciones);
+        self.props.RetornoLista(matriz);
+
           self.setState({
             datos:matriz
           });
@@ -65,12 +85,28 @@ componentWillMount() {
     }
 
 
-  RetornoLista=()=>{
-
-  }
   handleChange = (event, value) => {
     this.setState({ value });
   };
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+
+  handleRef = (c) => {
+    var valor=c.target.value;
+    if(!isNaN(valor)){
+    this.setState({
+      combinacion:valor
+    })
+
+    }
+    else{
+      alert("introduce valor valido");
+      this.setState({
+      combinacion:''
+      })
+    }
+}
 
   render() {
     let terminado=this.state.datos.length>0;
@@ -171,7 +207,7 @@ componentWillMount() {
 
             <div className="header">
               <Header as='h2'>
-                <Icon name='hand peace' />
+                <Icon name='cube' />  <Icon name='cube' />
                 <Header.Content>Repeticion de Muelas</Header.Content>
               </Header>
             </div>
@@ -181,6 +217,7 @@ componentWillMount() {
                   : <div></div>
                 }
               </div>
+
 
 
       </div>

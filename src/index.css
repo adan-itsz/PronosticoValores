@@ -41,6 +41,9 @@ body {
   color: white;
   padding-top: 8px;
 }
+.inputDialog{
+  padding-top: 15px;
+}
 .contenidoTablas{
   padding-top: 10px;
 }
