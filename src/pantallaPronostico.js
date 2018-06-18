@@ -7,7 +7,9 @@ import { Header, Icon } from 'semantic-ui-react';
 import MenorFrecuenciaTabla from './tablas/tablaMenorFrecuencia.js';
 import TablaRepeticion from './tablas/tablaRepeticion.js';
 import TablaRepeticionCruzada from './tablas/tablaRepeticioncruzada.js'
+import DesEmpate from './tablas/DesEmpate.js'
 import TablaMuelas from './tablas/tablaMuelas.js'
+
 import MenorFrecuenciaParesTabla from './tablas/tablaParesMenorFrecuencia.js'
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
@@ -232,6 +234,19 @@ class Pronostico extends Component {
                   : <div></div>
                 }
               </div>
+
+              <div className="header">
+                <Header as='h2'>
+                  <Icon name='cube' />  <Icon name='cube' />
+                  <Header.Content>DesEmpate Frecuencia</Header.Content>
+                </Header>
+              </div>
+                <div className="contenidoTablas">
+                  { terminado==true
+                    ?<DesEmpate datos={this.state.datos}/>
+                    : <div></div>
+                  }
+                </div>
 
 
 
