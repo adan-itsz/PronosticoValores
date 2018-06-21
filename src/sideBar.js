@@ -10,7 +10,7 @@ import Dialog from '@material-ui/core/Dialog';
 import { Table} from 'semantic-ui-react';
 import Button from '@material-ui/core/Button';
 import {  Input } from 'semantic-ui-react'
-
+import Eventos from './eventos.js';
 class SidebarIzquierda extends Component {
   constructor(props){
     super()
@@ -21,7 +21,8 @@ class SidebarIzquierda extends Component {
     inputs:0,
     combinacion:'',
     arrayCombinaciones:[],
-    openAddCom:true
+    openAddCom:true,
+    seccion:2,
 }
 this.getLista = this.getLista.bind(this);
 
@@ -117,11 +118,22 @@ this.getLista = this.getLista.bind(this);
      })
    }
 }
+cambio=()=>{
+  this.setState({
+    seccion:1
+  })
+}
+cambio2=()=>{
+  this.setState({
+    seccion:2
+  })
+}
 
   render() {
     let terminado=this.state.itemsTabla.length>0;
     let nuevosDatos=this.state.openAddCom==false;
     const { visible } = this.state;
+    let seccion=this.state.seccion;
     const children=[];
       for(var i=0;i<this.state.inputs;i++){
 
@@ -137,13 +149,13 @@ this.getLista = this.getLista.bind(this);
         <div className='sideBar-contenedor'>
         <Sidebar.Pushable as={Segment}>
           <Sidebar as={Menu} animation='slide out' width='thin' visible={visible} icon='labeled' vertical inverted>
-            <Menu.Item name='home'>
+            <Menu.Item name='home' onClick={this.cambio}>
               <Icon name='home' />
               Home
             </Menu.Item>
-            <Menu.Item name='gamepad'>
+            <Menu.Item name='gamepad' onClick={this.cambio2}>
               <Icon name='line chart' />
-              Seccion 2
+              Eventos
             </Menu.Item>
             <Menu.Item name='camera'>
               <Icon name='credit card alternative' />
@@ -189,11 +201,16 @@ this.getLista = this.getLista.bind(this);
           <Sidebar.Pusher>
             <Segment basic>
               <div className="contenidoBarra">
-              {
-                nuevosDatos?
-                  <Pronostico RetornoLista={this.getLista} recienIngresados={this.state.arrayCombinaciones} />
-                  :<div></div>
-              }
+
+
+                {
+                  nuevosDatos && seccion==1 ?
+                    <Pronostico RetornoLista={this.getLista} recienIngresados={this.state.arrayCombinaciones} />:
+                  seccion==2?
+                    <Eventos/>:
+                    <div></div>
+                }
+
                   <Dialog
                       open={this.state.openAddCom}
                       onClose={this.handleClose2}
@@ -208,6 +225,7 @@ this.getLista = this.getLista.bind(this);
 
                         </DialogContent>
                     </Dialog>
+
               </div>
             </Segment>
           </Sidebar.Pusher>

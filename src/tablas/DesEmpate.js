@@ -25,17 +25,17 @@ class DesEmpate extends Component{
     var universo50=[];
     var universo30=[];
 
-    universo30=this.reducirUniverso(30);
+    universo30=this.reducirUniverso(5);
     console.log(this.NoAparece(universo30));
     var resultado30=this.NoAparece(universo30);
     datosTotales=datosTotales.concat(resultado30);
-    universo50=this.reducirUniverso(50);
+    universo50=this.reducirUniverso(10);
     var resultado50=this.NoAparece(universo50);
     datosTotales=datosTotales.concat(resultado50);
-    universo70=this.reducirUniverso(70);
+    universo70=this.reducirUniverso(15);
     var resultado70=this.NoAparece(universo70);
     datosTotales=datosTotales.concat(resultado70);
-    universo100=this.reducirUniverso(100);
+    universo100=this.reducirUniverso(20);
     var result=this.NoAparece(universo100);
     datosTotales=datosTotales.concat(result);
 
@@ -229,9 +229,9 @@ focus = () => {
         <Table compact>
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell>Universo</Table.HeaderCell>
-              <Table.HeaderCell>D1 - (Frecuencia)</Table.HeaderCell>
-          
+              <Table.HeaderCell>Cantidad sorteos</Table.HeaderCell>
+              <Table.HeaderCell>numero - (Frecuencia)</Table.HeaderCell>
+
 
             </Table.Row>
           </Table.Header>
@@ -308,7 +308,7 @@ class Item extends Component{
     return(
 
         <Table.Row>
-          <Table.Cell>{this.props.fila.universo} </Table.Cell>
+          <Table.Cell>{this.props.fila.universo/5} </Table.Cell>
           <Table.Cell onClick={this.handleClick1}>{this.props.fila.d1} </Table.Cell>
 
 

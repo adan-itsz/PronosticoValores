@@ -53,3 +53,29 @@ body {
 .labelNav{
   padding-top: 10px;
 }
+
+/*registro eventos*/
+.contenedorEventos{
+  padding-top: 4%;
+  height: auto;
+
+
+}
+.contenedorEventos .encabezado{
+  padding-bottom: 5%;
+
+}
+.contenedorEventos .estadisticas{
+  padding-top: 6%;
+  margin-left: 25%;
+  margin-right: 25%;
+}
+.formulario-evento{
+  margin-top: 10px;
+}
+.formulario-evento .elemento-form{
+  padding-top: 15px;
+}
+.formulario-evento .btn-guardar{
+  padding-top: 25px;
+}
