@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import { Table, Input, Button } from 'semantic-ui-react'
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Dialog from '@material-ui/core/Dialog';
 import '../index.css';
 
 class TablaRepeticionCruzada extends Component{
@@ -43,6 +47,8 @@ class TablaRepeticionCruzada extends Component{
   DobleRepeticion(datos){       //algoritmo para saber cuando hubo una doble repeticion
     var digitos=[];
     var itemTabla=[];
+    var salto = 0;
+    var direccion = 0;
     for(var it=0;it<5;it++){
       var Array=datos[it];
       var Aux = 0;
@@ -56,6 +62,8 @@ class TablaRepeticionCruzada extends Component{
                   }
                   Aux ++;     //todas las repeticiones
               }
+              salto = this.state.salto;
+              direccion = 0
             }
             else{
                 if (Array[i] == datos[it+1][i+this.state.salto]) {   //encuentra una repeticion
@@ -64,6 +72,8 @@ class TablaRepeticionCruzada extends Component{
                       }
                         Aux ++;     //todas las repeticiones
                 }
+                salto = this.state.salto;
+                direccion = it+1
               }
         }
         else {
@@ -74,6 +84,8 @@ class TablaRepeticionCruzada extends Component{
                 }
                 Aux ++;     //todas las repeticiones
             }
+            salto = this.state.salto;
+            direccion = 4
           }
           else{
               if (Array[i] == datos[it-1][i+this.state.salto]) {   //encuentra una repeticion
@@ -82,11 +94,13 @@ class TablaRepeticionCruzada extends Component{
                     }
                       Aux ++;     //todas las repeticiones
               }
+              salto = this.state.salto;
+              direccion = it-1
             }
         }
 
       }
-    digitos=digitos.concat([{tRepeticiones:Aux,sinRepetir:num}]);
+    digitos=digitos.concat([{tRepeticiones:Aux,sinRepetir:num,Numero:datos[direccion][salto-1]}]);
     }
     itemTabla=itemTabla.concat([{universo:datos[0].length,d1:digitos[0],d2:digitos[1],d3:digitos[2],d4:digitos[3],d5:digitos[4]}]);
     return itemTabla;
@@ -198,18 +212,87 @@ focus = () => {
 class Item extends Component{
   constructor(props){
     super(props)
+    this.state={
+      numero:[],
+      open: false,
+    }
 
   }
+
+  handleClick1=()=>{
+    var parts= this.props.fila.d1.Numero;
+
+  this.setState({
+    concentrado:parts,
+     open: true
+  });
+  }
+  handleClick2=()=>{
+var parts= this.props.fila.d2.Numero;
+
+    this.setState({
+      concentrado:parts,
+       open: true
+    });
+
+  }
+  handleClick3=()=>{
+    var parts= this.props.fila.d3.Numero;
+    this.setState({
+       open: true,
+      concentrado:parts,
+    });
+  }
+  handleClick4=()=>{
+    var parts= this.props.fila.d4.Numero;
+
+    this.setState({
+      concentrado:parts,
+       open: true
+    });
+  }
+  handleClick5=()=>{
+    var parts= this.props.fila.d5.Numero;
+    this.setState({
+      concentrado:parts,
+       open: true
+    });
+  }
+
+ handleClose = () => {
+   this.setState({ open: false });
+ };
   render(){
     return(
 
       <Table.Row>
         <Table.Cell>{this.props.fila.universo}</Table.Cell>
-        <Table.Cell>{this.props.fila.d1.tRepeticiones} | {this.props.fila.d1.sinRepetir}</Table.Cell>
-        <Table.Cell>{this.props.fila.d2.tRepeticiones} | {this.props.fila.d2.sinRepetir}</Table.Cell>
-        <Table.Cell>{this.props.fila.d3.tRepeticiones} | {this.props.fila.d3.sinRepetir}</Table.Cell>
-        <Table.Cell>{this.props.fila.d4.tRepeticiones} | {this.props.fila.d4.sinRepetir}</Table.Cell>
-        <Table.Cell>{this.props.fila.d5.tRepeticiones} | {this.props.fila.d5.sinRepetir}</Table.Cell>
+        <Table.Cell onClick={this.handleClick1}>{this.props.fila.d1.tRepeticiones} | {this.props.fila.d1.sinRepetir}</Table.Cell>
+        <Table.Cell onClick={this.handleClick2}>{this.props.fila.d2.tRepeticiones} | {this.props.fila.d2.sinRepetir}</Table.Cell>
+        <Table.Cell onClick={this.handleClick3}>{this.props.fila.d3.tRepeticiones} | {this.props.fila.d3.sinRepetir}</Table.Cell>
+        <Table.Cell onClick={this.handleClick4}>{this.props.fila.d4.tRepeticiones} | {this.props.fila.d4.sinRepetir}</Table.Cell>
+        <Table.Cell onClick={this.handleClick5}>{this.props.fila.d5.tRepeticiones} | {this.props.fila.d5.sinRepetir}</Table.Cell>
+        <Dialog
+            open={this.state.open}
+            onClose={this.handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description">
+              <DialogTitle id="alert-dialog-title">{"Frecuencias individuales"}</DialogTitle>
+              <DialogContent>
+                  <Table compact>
+                    <Table.Header>
+                      <Table.Row>
+                        <Table.HeaderCell>Número </Table.HeaderCell>
+                      </Table.Row>
+                    </Table.Header>
+
+                    <Table.Body>
+                    <Table.Cell>{this.state.concentrado} </Table.Cell>
+
+                    </Table.Body>
+                  </Table>
+              </DialogContent>
+          </Dialog>
       </Table.Row>
 
 
