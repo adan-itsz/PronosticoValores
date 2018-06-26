@@ -29,6 +29,7 @@ class Pronostico extends Component {
       this.state = {
         datos: [],
         value: 0,
+        value1: 0,
         open: true
       }
 
@@ -89,6 +90,9 @@ class Pronostico extends Component {
   handleChange = (event, value) => {
     this.setState({ value });
   };
+  handleChange2 = (event, value2) => {
+    this.setState({ value2 });
+  };
   handleClose = () => {
     this.setState({ open: false });
   };
@@ -112,6 +116,8 @@ class Pronostico extends Component {
   render() {
     let terminado=this.state.datos.length>0;
     const { value } = this.state;
+    const { value2 } = this.state;
+
 
     return (
       <div className="principal">
@@ -144,8 +150,8 @@ class Pronostico extends Component {
               <Tab icon={<Icon name='sort amount down'size="large"/>} label="Repeticion doble salto"></Tab>
               <Tab icon={<Icon name='sort amount down'size="large"/>} label="Repeticion triple salto"></Tab>
               <Tab icon={<Icon name='sort amount down'size="large"/>} label="Repeticion cutriple salto"></Tab>
-              <Tab icon={<Icon name='step backward'size="large"/>} label="Repeticion digito cruzado izquierda"></Tab>
-              <Tab icon={<Icon name='fast forward'size="large"/>} label="Repeticion digito cruzado Derecha"></Tab>
+              <Tab icon={<Icon name='step backward'size="large"/>} label="Repeticion quintuple salto"></Tab>
+              <Tab icon={<Icon name='fast forward'size="large"/>} label="Repeticion sextuple salto"></Tab>
 
         </Tabs>
 
@@ -189,7 +195,7 @@ class Pronostico extends Component {
           {value===5&&
             <div className="contenidoTablas">
               { terminado==true
-                ?<TablaRepeticionCruzada datos={this.state.datos} salto = {1} dir = {"i"}/>
+                ?<TablaRepeticion datos={this.state.datos} salto = {6}/>
                 : <div></div>
               }
             </div>
@@ -197,7 +203,7 @@ class Pronostico extends Component {
           {value ===6&&
             <div className="contenidoTablas">
               { terminado==true
-                ?<TablaRepeticionCruzada datos={this.state.datos} salto = {1} dir = {"d"}/>
+                ?<TablaRepeticion datos={this.state.datos} salto = {7}/>
                 : <div></div>
               }
             </div>
@@ -205,8 +211,70 @@ class Pronostico extends Component {
 
           }
 
+          <div className="header">
+            <Header as='h2'>
+              <Icon name='reply all' />
+              <Header.Content>  Repeticiones Cruzadas </Header.Content>
+            </Header>
+          </div>
+        <Tabs value={this.state.value} onChange={this.handleChange}
+              fullWidth  indicatorColor="secondary" textColor="secondary">
 
+              <Tab icon={<Icon name='hand peace' size="large"/>} label="Cruzado Izquierdo" ></Tab>
+              <Tab icon ={<Icon name='random'size="large"/>} label="Cruzado Izquierdo salto "></Tab>
+              <Tab icon={<Icon name='sort amount down'size="large"/>} label="Cruzado Izquierdo doble salto"></Tab>
+              <Tab icon={<Icon name='sort amount down'size="large"/>} label="Cruzado Derecha"></Tab>
+              <Tab icon={<Icon name='sort amount down'size="large"/>} label="Cruzado Derecha salto"></Tab>
+              <Tab icon={<Icon name='step backward'size="large"/>} label="Repeticion doble salto"></Tab>
 
+        </Tabs>
+
+          {value === 0 &&
+            <div className="contenidoTablas">
+              { terminado==true
+                ?<TablaRepeticionCruzada datos={this.state.datos} salto = {1} dir={"i"}/>
+                : <div></div>
+              }
+          </div>}
+
+          {value === 1 &&
+
+          <div className="contenidoTablas">
+            { terminado==true
+              ?<TablaRepeticionCruzada datos={this.state.datos} salto = {2} dir={"i"}/>
+              : <div></div>
+            }
+          </div>}
+          {value ===2 &&
+            <div className="contenidoTablas">
+              { terminado==true
+                ?<TablaRepeticionCruzada datos={this.state.datos} salto = {3} dir={"i"}/>
+                : <div></div>
+              }
+            </div>}
+            {value ===3 &&
+              <div className="contenidoTablas">
+                { terminado==true
+                  ?<TablaRepeticionCruzada datos={this.state.datos} salto = {1} dir={"d"}/>
+                  : <div></div>
+                }
+              </div>}
+              {value ===4 &&
+                <div className="contenidoTablas">
+                  { terminado==true
+                    ?<TablaRepeticionCruzada datos={this.state.datos} salto = {2} dir={"d"}/>
+                    : <div></div>
+                  }
+                </div>}
+          {value===5&&
+            <div className="contenidoTablas">
+              { terminado==true
+                ?<TablaRepeticionCruzada datos={this.state.datos} salto = {3} dir={"d"}/>
+                : <div></div>
+              }
+            </div>
+          }
+        
             <div className="header">
               <Header as='h2'>
                 <Icon name='hand peace' />
