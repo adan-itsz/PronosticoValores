@@ -9,18 +9,35 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 import Save from '@material-ui/icons/Save';
+import axios from 'axios';
 
 class Eventos extends Component{
   constructor(props){
     super(props)
     this.state={
-      datos:[],
+      datosItem:[],
       open:false,
       sorteo:'',
       combinacion:'',
       cantidad:'',
       cantidadGanada:''
     };
+  }
+  componentWillMount(){
+    this.tomarDatosTabla();
+  }
+
+  tomarDatosTabla=()=>{
+    var d = new Date();
+    var anio= d.getFullYear();
+    var mes= d.getMonth();
+    axios.post(`http://localhost:4000/eventos-descarga`,{anio:anio,mes:mes})
+      .then(res => {
+        console.log(res.data[0]);
+        this.setState({
+          datosItem:res.data
+        })
+      })
   }
   handleClose=()=>{
     this.setState({
@@ -75,6 +92,21 @@ class Eventos extends Component{
       cantidadGanada:valor
     })
   }
+  subirForm=()=>{
+    axios.post(`http://localhost:4000/evento`,
+      { sorteo:this.state.sorteo,combinacion:this.state.combinacion,cantidadApostada:this.state.cantidad,cantidadGanada:this.state.cantidadGanada })
+      .then(res => {
+        alert(res.data);
+        this.setState({
+          cantidadGanada:'',
+          cantidad:'',
+          combinacion:'',
+          sorteo:'',
+          open:false
+        })
+      })
+
+  }
 
   render(){
     return(
@@ -98,17 +130,9 @@ class Eventos extends Component{
         </Table.Header>
 
         <Table.Body>
-        <Table.Row>
-            <Table.Cell>20-06-2018</Table.Cell>
-            <Table.Cell>22158</Table.Cell>
-            <Table.Cell>87981</Table.Cell>
-            <Table.Cell>20.00</Table.Cell>
-            <Table.Cell>0.00</Table.Cell>
-            <Table.Cell>-20.00</Table.Cell>
-
-
-        </Table.Row>
-
+          {this.state.datosItem.map((it)=>{
+            return(<Item fila={it}/>)
+          })}
         </Table.Body>
       </Table>
 
@@ -139,7 +163,7 @@ class Eventos extends Component{
                        <Input fluid placeholder='$ 0.00' onChange={this.handleRef4} value={this.state.cantidadGanada}/>
                     </div>
                        <div className='btn-guardar'>
-                         <Button variant="contained" color="secondary" >
+                         <Button variant="contained" color="secondary" onClick={this.subirForm}>
                           <Save />
                             Guardar registro
                           </Button>
@@ -191,4 +215,30 @@ const StatisticExampleValue = () => (
     </Statistic>
   </Statistic.Group>
 )
+class Item extends Component{
+  constructor(props){
+    super(props)
+    this.state={
+
+    }
+
+  }
+
+
+  render(){
+    return(
+      <Table.Row>
+          <Table.Cell>{this.props.fila.fecha}</Table.Cell>
+          <Table.Cell>{this.props.fila.sorteo}</Table.Cell>
+          <Table.Cell>{this.props.fila.combinacion}</Table.Cell>
+          <Table.Cell>{this.props.fila.cantidadGanada}</Table.Cell>
+          <Table.Cell>{this.props.fila.cantidadApostada}</Table.Cell>
+          <Table.Cell>{this.props.fila.total}</Table.Cell>
+      </Table.Row>
+
+
+    )
+  }
+
+}
 export default Eventos;

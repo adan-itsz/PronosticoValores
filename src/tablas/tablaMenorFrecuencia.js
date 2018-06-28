@@ -8,6 +8,7 @@ import Dialog from '@material-ui/core/Dialog';
 import { Header, Icon } from 'semantic-ui-react';
 
 
+
 class MenorFrecuenciaTabla extends Component{
   constructor(props){
     super(props)
