@@ -179,7 +179,7 @@ class Eventos extends Component{
 
     axios.post(`http://localhost:4000/evento`,
       { sorteo:this.state.sorteo,combinacion:combinacion,cantidadApostada:this.state.cantidad,
-        cantidadGanada:this.state.cantidadGanada,tipo:this.state.tipo,modalidad:this.state.value,ganado:this.state.ganado })
+        cantidadGanada:0,tipo:this.state.tipo,modalidad:this.state.value,ganado:this.state.ganado })
       .then(res => {
         alert(res.data);
         this.setState({
@@ -414,15 +414,15 @@ class Item extends Component{
           <Table.Cell>{tipoTabla}</Table.Cell>
           <Table.Cell>{modalidadTabla}</Table.Cell>
           <Table.Cell>{this.props.fila.combinacion}</Table.Cell>
-          <Table.Cell>{this.props.fila.cantidadApostada}</Table.Cell>
+          <Table.Cell>${this.props.fila.cantidadApostada}</Table.Cell>
           <Table.Cell>
               <Switch
               checked={this.state.checked}
               onChange={this.handleChange('checked')}
               value="checked"/>
         </Table.Cell>
-        <Table.Cell>{this.props.fila.cantidadGanada}</Table.Cell>
-          <Table.Cell>{this.props.fila.total}</Table.Cell>
+        <Table.Cell>${this.props.fila.cantidadGanada}</Table.Cell>
+          <Table.Cell>${this.props.fila.total}</Table.Cell>
           <Dialog
           open={this.state.open}
           onClose={this.handleClose}
