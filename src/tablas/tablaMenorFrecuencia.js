@@ -6,7 +6,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 import { Header, Icon } from 'semantic-ui-react';
-
+import FilaEsfera from '../esferas.js'
 
 class MenorFrecuenciaTabla extends Component{
   constructor(props){
@@ -76,7 +76,10 @@ class MenorFrecuenciaTabla extends Component{
   var c = this.CompararUniversos(datosTotales);
   var f = this.CompararUniversos(datosTotales2);
 
+  console.log(c);
+  console.log(f);
     this.setState({
+      consideciasUniversos:{primero:c,segundo:f},
       itemsTabla:datosTotales
     })
   }
@@ -644,6 +647,7 @@ focus = () => {
           <Button content='filtrar' onClick={this.focus} />
         </div>
         <Table compact>
+        <FilaEsfera datosConsidencias={this.state.consideciasUniversos}/>
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell>Universo</Table.HeaderCell>
@@ -696,6 +700,7 @@ class Item extends Component{
 
   }
   handleClick3=()=>{
+
     var individual=this.props.fila.concentrado[2].toString();
     var parts= individual.split(",");
     this.setState({

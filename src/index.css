@@ -79,3 +79,21 @@ body {
 .formulario-evento .btn-guardar{
   padding-top: 25px;
 }
+
+.esferaImg{
+  height: 8vh;
+
+}
+.conjuntoEsfera{
+  margin: 0px;
+  padding:0px;
+  position: relative;
+  display: inline-block;
+  text-align: center;
+}
+.numEsfera{
+  position: absolute;
+    top: 17%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

@@ -63,7 +63,6 @@ class TablaRepeticion extends Component{
       if(num == 0 ){
         num = Array.length;
       }
-      console.log(d);
     digitos=digitos.concat([{tRepeticiones:Aux,sinRepetir:num, Numero:Array[this.state.salto-1]}]);
     }
     itemTabla=itemTabla.concat([{universo:datos[0].length,d1:digitos[0],d2:digitos[1],d3:digitos[2],d4:digitos[3],d5:digitos[4]}]);
