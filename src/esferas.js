@@ -38,7 +38,6 @@ class FilaEsfera extends Component{
       var dato=datosdigitoEsfera[i];
       datos=datos.concat({digito:dato[0],color:dato[2]});
     }
-    console.log(datos);
     return datos
   }
 
@@ -89,13 +88,13 @@ class FilaEsfera extends Component{
       var nuevo;
       switch (color) {
         case '4':
-            nuevo='https://images.emojiterra.com/mozilla/512px/2b55.png';
+            nuevo='https://firebasestorage.googleapis.com/v0/b/pronosticos-a7e4e.appspot.com/o/admin%2Frojo-amarillo.png?alt=media&token=8eeb03d4-c44e-4732-8d61-a6a9c52bdfed';
             break;
         case '3':
-            nuevo='https://images.emojiterra.com/mozilla/512px/1f535.png';
+            nuevo='https://firebasestorage.googleapis.com/v0/b/pronosticos-a7e4e.appspot.com/o/admin%2Froja.png?alt=media&token=1dbd312b-89c6-4c03-9a1b-2a35faa80e39';
             break;
         case '2':
-            nuevo='https://image.flaticon.com/icons/png/512/24/24202.png';
+            nuevo='https://firebasestorage.googleapis.com/v0/b/pronosticos-a7e4e.appspot.com/o/admin%2Fverde.png?alt=media&token=b2e440ba-5ba6-4e36-8d82-d7cde3ede409';
             break;
         default:
 

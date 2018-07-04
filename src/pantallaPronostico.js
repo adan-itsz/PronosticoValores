@@ -9,7 +9,7 @@ import TablaRepeticion from './tablas/tablaRepeticion.js';
 import TablaRepeticionCruzada from './tablas/tablaRepeticioncruzada.js'
 import DesEmpate from './tablas/DesEmpate.js'
 import TablaMuelas from './tablas/tablaMuelas.js'
-
+import PasadoReciente from './tablas/pasadoReciente.js'
 import MenorFrecuenciaParesTabla from './tablas/tablaParesMenorFrecuencia.js'
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
@@ -81,7 +81,6 @@ class Pronostico extends Component {
             datos:matriz
           });
 
-          console.log(matriz)
         })
 
     }
@@ -274,7 +273,7 @@ class Pronostico extends Component {
               }
             </div>
           }
-        
+
             <div className="header">
               <Header as='h2'>
                 <Icon name='hand peace' />
@@ -315,6 +314,18 @@ class Pronostico extends Component {
                     : <div></div>
                   }
                 </div>
+                <div className="header">
+                  <Header as='h2'>
+                    <Icon name='cube' />  <Icon name='cube' />
+                    <Header.Content>Pasado reciente</Header.Content>
+                  </Header>
+                </div>
+                  <div className="contenidoTablas">
+                    { terminado==true
+                      ?<PasadoReciente datos={this.state.datos}/>
+                      : <div></div>
+                    }
+                  </div>
 
 
 

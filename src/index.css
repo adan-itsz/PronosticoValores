@@ -95,5 +95,6 @@ body {
   position: absolute;
     top: 17%;
     left: 50%;
+    color: white;
     transform: translate(-50%, -50%);
 }

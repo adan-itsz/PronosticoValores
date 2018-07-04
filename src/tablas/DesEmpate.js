@@ -26,7 +26,6 @@ class DesEmpate extends Component{
     var universo30=[];
 
     universo30=this.reducirUniverso(5);
-    console.log(this.NoAparece(universo30));
     var resultado30=this.NoAparece(universo30);
     datosTotales=datosTotales.concat(resultado30);
     universo50=this.reducirUniverso(10);

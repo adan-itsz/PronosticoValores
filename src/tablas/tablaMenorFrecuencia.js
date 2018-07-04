@@ -40,7 +40,6 @@ class MenorFrecuenciaTabla extends Component{
 
 
     universo30=this.reducirUniverso(30);
-    console.log(this.NoAparece(universo30));
    resultado30=this.NoAparece(universo30);
     copia30 = this.copyArray(resultado30);
      sep30.push(this.Separador(copia30));
@@ -76,8 +75,7 @@ class MenorFrecuenciaTabla extends Component{
   var c = this.CompararUniversos(datosTotales);
   var f = this.CompararUniversos(datosTotales2);
 
-  console.log(c);
-  console.log(f);
+
     this.setState({
       consideciasUniversos:{primero:c,segundo:f},
       itemsTabla:datosTotales
@@ -213,7 +211,6 @@ Comparacion(arr1){
                 }
                 else {
                   for (; j < arr1[i].length; j++) {
-                    console.log(arr1[i+1].includes(arr1[i][j].toString()));
                     if(!Comprobados.includes(arr1[i][j].toString())){
 
                     if (arr1[i+1].includes(arr1[i][j].toString())&& arr1[i+1] != null && arr1[i+1] != undefined) {
@@ -349,7 +346,6 @@ Comparacion(arr1){
 
              if (a[k+1]== "|") {
                if(a[k-1] == null){
-                 console.log(a[0]);
                mini1.push(a[0]);
 
                 }
@@ -559,7 +555,7 @@ SeparadorFinal(string){
       digitos.push(a.resultado) ;    //busca que numero del 0 al 9 no esta en el array
     }
     else{
-
+      aux.push (this.menosAparece(Array[j],0));
       var a = this.menosAparece2(Array[j],1);
       digitos.push(digito+"| 0 " + a.resultado);
     }
