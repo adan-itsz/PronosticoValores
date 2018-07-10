@@ -44,10 +44,11 @@ class TablaMuelas extends Component{
     var d=[];
     var Array1=datos[0];
     var Array2 =datos[1];
+    var Array3 =datos[2];
     var Array4 = datos[3];
     var Array5 = datos[4];
 
-    for(var it=0;it<=1;it++){
+    for(var it=0;it<=3;it++){
       var Aux = 0;
       var num = 0;
       for (var i = 0; i < Array1.length; i++) {
@@ -59,13 +60,32 @@ class TablaMuelas extends Component{
             Aux ++;     //todas las repeticiones
           }
         }
-        else {
+        if(it==1) {
           if (Array4[i] == Array5[i]) {   //encuentra una repeticion
             if(Aux==0){
               num = i+1;          // Guarda la primer vez que se encuentra una repeticion
             }
             Aux ++;     //todas las repeticiones
           }
+        }
+        if(it==2){
+
+          if (Array2[i] == Array3[i]) {   //encuentra una repeticion
+            if(Aux==0){
+              num = i+1;          // Guarda la primer vez que se encuentra una repeticion
+            }
+            Aux ++;     //todas las repeticiones
+          }
+
+        }
+        if (it==3) {
+          if (Array3[i] == Array4[i]) {   //encuentra una repeticion
+            if(Aux==0){
+              num = i+1;          // Guarda la primer vez que se encuentra una repeticion
+            }
+            Aux ++;     //todas las repeticiones
+          }
+
         }
 
       }
@@ -161,6 +181,8 @@ focus = () => {
             <Table.Row>
               <Table.HeaderCell>Universo</Table.HeaderCell>
               <Table.HeaderCell>Par Inicial| Sorteo sin repetir</Table.HeaderCell>
+                <Table.HeaderCell>Par digitos 2-3| Sorteo sin repetir</Table.HeaderCell>
+                  <Table.HeaderCell>Par digitos 3-4| Sorteo sin repetir</Table.HeaderCell>
               <Table.HeaderCell>Par Final | Sorteo sin repetir</Table.HeaderCell>
 
 
@@ -190,6 +212,8 @@ class Item extends Component{
       <Table.Row>
         <Table.Cell>{this.props.fila.universo}</Table.Cell>
         <Table.Cell>{this.props.fila.d1.tRepeticiones} | {this.props.fila.d1.sinRepetir}</Table.Cell>
+        <Table.Cell>{this.props.fila.d1.tRepeticiones} | {this.props.fila.d3.sinRepetir}</Table.Cell>
+        <Table.Cell>{this.props.fila.d1.tRepeticiones} | {this.props.fila.d4.sinRepetir}</Table.Cell>
         <Table.Cell>{this.props.fila.d2.tRepeticiones} | {this.props.fila.d2.sinRepetir}</Table.Cell>
 
       </Table.Row>

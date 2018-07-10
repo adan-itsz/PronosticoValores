@@ -25,7 +25,7 @@ class DesEmpate extends Component{
     var universo50=[];
     var universo30=[];
 
-    universo30=this.reducirUniverso(100);
+    universo30=this.reducirUniverso(1000);
     var resultado30=this.NoAparece(universo30);
 
 
@@ -145,15 +145,14 @@ focus = () => {
         <Table compact>
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell>Cantidad sorteos</Table.HeaderCell>
-              <Table.HeaderCell>numero - (Frecuencia)</Table.HeaderCell>
-              <Table.HeaderCell>Sorteos</Table.HeaderCell>
+              <Table.HeaderCell>Numero Fantante</Table.HeaderCell>
+              <Table.HeaderCell>Digito-(Posicion)</Table.HeaderCell>
+              <Table.HeaderCell>Sorteo-(Posicion)</Table.HeaderCell>
 
 
 
             </Table.Row>
           </Table.Header>
-
           <Table.Body>
             {this.state.itemsTabla.map((it,key)=>{
               return(<Item fila={it} i={key}/>)
@@ -175,103 +174,23 @@ class Item extends Component{
       open: false,
     }
   }
-  handleClick1=()=>{
-    var individual=this.props.fila.concentrado[0].toString();
-    var parts= individual.split(",");
-  this.setState({
-    concentrado:parts,
-     open: true
-  });
-  }
-  handleClick2=()=>{
-  //alert("universo "+this.props.fila.universo+" digito "+2);
-    var individual=this.props.fila.concentrado[1].toString();
-    var parts= individual.split(",");
-    this.setState({
-      concentrado:parts,
-       open: true
-    });
 
-  }
-  handleClick3=()=>{
-    var individual=this.props.fila.concentrado[2].toString();
-    var parts= individual.split(",");
-    this.setState({
-       open: true,
-      concentrado:parts
-    });
-  }
-  handleClick4=()=>{
-    var individual=this.props.fila.concentrado[3].toString();
-    var parts= individual.split(",");
-    this.setState({
-      concentrado:parts,
-       open: true
-    });
-  }
-  handleClick5=()=>{
-    var individual=this.props.fila.concentrado[4].toString();
-    var parts= individual.split(",");
-    this.setState({
-      concentrado:parts,
-       open: true
-    });
-  }
 
- handleClose = () => {
-   this.setState({ open: false });
- };
 
   render(){
     return(
 
         <Table.Row>
-
-
-
-        <Dialog
-            open={this.state.open}
-            onClose={this.handleClose}
-            aria-labelledby="alert-dialog-title"
-            aria-describedby="alert-dialog-description">
-              <DialogTitle id="alert-dialog-title">{"Frecuencias individuales"}</DialogTitle>
-              <DialogContent>
-                  <Table compact>
-                    <Table.Header>
-                      <Table.Row>
-                        <Table.HeaderCell>Número </Table.HeaderCell>
-                        <Table.HeaderCell>Frecuencia</Table.HeaderCell>
-                      </Table.Row>
-                    </Table.Header>
-
-                    <Table.Body>
-                      {this.state.concentrado.map((it,key)=>{
-                        return(<ItemConcentrado frecuencia={it} i={key}/>)
-                      })}
-                    </Table.Body>
-                  </Table>
-              </DialogContent>
-          </Dialog>
-          </Table.Row>
+          <Table.Cell>{this.props.fila.Numero} </Table.Cell>
+          <Table.Cell>{this.props.fila.Digito} </Table.Cell>
+            <Table.Cell>{this.props.fila.Sorteo} </Table.Cell>
+        </Table.Row>
     )
   }
 
 }
 
-class ItemConcentrado extends Component{
-  constructor(props){
-    super(props)
-  }
-    render(){
-      return(
-        <Table.Row>
-          <Table.Cell>{this.props.fila.Numero} </Table.Cell>
-          <Table.Cell>{this.props.fila.Digito} </Table.Cell>
-            <Table.Cell>{this.props.fila.Sorteo} </Table.Cell>
-        </Table.Row>
-      )
-    }
-  }
+
 
 
 export default DesEmpate;
