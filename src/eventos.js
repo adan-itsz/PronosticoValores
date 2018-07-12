@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Form, Input } from 'semantic-ui-react';
-import { Header, Icon,Image, Statistic ,Table,Dropdown} from 'semantic-ui-react';
+import { Header, Icon,Image, Statistic ,Table,Dropdown,Divider} from 'semantic-ui-react';
 import './index.css';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
@@ -12,7 +12,8 @@ import Save from '@material-ui/icons/Save';
 import axios from 'axios';
 import DialogActions from '@material-ui/core/DialogActions';
 import Switch from '@material-ui/core/Switch';
-
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 const options = [
   { key: 1, text: 'Directa 5', value: 1 },
   { key: 2, text: 'Directa 4', value: 2 },
@@ -39,7 +40,9 @@ class Eventos extends Component{
       cantidad:'',
       cantidadGanada:'0',
       ganado:false,
-      datosListos:false
+      datosListos:false,
+      value2:0,
+      terminado:false
 
     };
   }
@@ -57,6 +60,7 @@ class Eventos extends Component{
         this.setState({
           datosItem:res.data
         });
+        this.separarDatosTipo(res.data);
         this.separarDatosEstadisticas(res.data);
 
       })
@@ -70,6 +74,66 @@ class Eventos extends Component{
     return new Intl.NumberFormat(usarComa, opciones).format(numero);
 }
 
+  separarDatosTipo=(datos)=>{
+    var datos=datos;
+    var directa5=[];
+    var directa4=[];
+    var directa3=[];
+    var parFinal=[];
+    var parInicial=[];
+    var final=[];
+    var inicial=[];
+
+    for(var i=0;i<datos.length;i++){
+      switch (datos[i].modalidad) {
+        case 1:
+            directa5=directa5.concat(datos[i]);
+          break;
+        case 2:
+          directa4=directa4.concat(datos[i]);
+          break;
+        case 3:
+          directa3=directa3.concat(datos[i]);
+          break;
+        case 4:
+          parInicial=parInicial.concat(datos[i]);
+          break;
+        case 5:
+          parFinal=parFinal.concat(datos[i]);
+          break;
+        case 6:
+          inicial=inicial.concat(datos[i]);
+        case 7:
+            final=final.concat(datos[i]);
+          break;
+
+      }
+    }
+    var estadisticaDirecta5= this.separarDatosEstadisticas(directa5);
+    var estadisticaDirecta4=this.separarDatosEstadisticas(directa4);
+    var estadisticaDirecta3= this.separarDatosEstadisticas(directa3);
+    var estadisticaParInicial=this.separarDatosEstadisticas(parInicial);
+    var estadisticaParFinal=this.separarDatosEstadisticas(parFinal);
+    var estadisticaInical=this.separarDatosEstadisticas(inicial);
+    var estadisticaFinal=this.separarDatosEstadisticas(final);
+    this.setState({
+      directa5:directa5,
+      directa4:directa4,
+      directa3:directa3,
+      parInicial:parInicial,
+      parFinal:parFinal,
+      inicial:inicial,
+      final:final,
+      estadisticaDirecta5:estadisticaDirecta5,
+      estadisticaDirecta4:estadisticaDirecta4,
+      estadisticaDirecta3:estadisticaDirecta3,
+      estadisticaParInicial:estadisticaParInicial,
+      estadisticaParFinal:estadisticaParFinal,
+      estadisticaInical:estadisticaInical,
+      estadisticaFinal:estadisticaFinal,
+      terminado:true
+    })
+  }
   separarDatosEstadisticas=(datos)=>{
     var datos=datos;
     var sorteos=0;
@@ -98,6 +162,7 @@ class Eventos extends Component{
       datosEstadistica:datosEstadistica,
       datosListos:true
     })
+    return datosEstadistica;
   }
 
   handleClose=()=>{
@@ -181,7 +246,7 @@ class Eventos extends Component{
       { sorteo:this.state.sorteo,combinacion:combinacion,cantidadApostada:this.state.cantidad,
         cantidadGanada:0,tipo:this.state.tipo,modalidad:this.state.value,ganado:this.state.ganado })
       .then(res => {
-        alert(res.data);
+    //    alert(res.data);
         this.setState({
           cantidadGanada:'',
           cantidad:'',
@@ -205,10 +270,16 @@ class Eventos extends Component{
         tipo:value
        })
     }
+    handleChangeTab = (event, value2) => {
+      this.setState({ value2 });
+    };
 
   render(){
+
     const {value}=this.state
+    const {value2}=this.state
     const{tipo}= this.state
+    const {terminado}=this.state
     const estadisticaLista=this.state.datosListos;
     return(
       <div className="contenedorEventos">
@@ -217,29 +288,145 @@ class Eventos extends Component{
         <Header.Content >Registro de eventos</Header.Content>
       </Header>
 
-      <Table celled>
-        <Table.Header>
-          <Table.Row>
-            <Table.HeaderCell> Fecha</Table.HeaderCell>
-            <Table.HeaderCell>Sorteo</Table.HeaderCell>
-            <Table.HeaderCell>Tipo</Table.HeaderCell>
-            <Table.HeaderCell>Modalidad</Table.HeaderCell>
-            <Table.HeaderCell>Combinacion</Table.HeaderCell>
-            <Table.HeaderCell>$ Cantidad apostada</Table.HeaderCell>
-            <Table.HeaderCell>Ganador</Table.HeaderCell>
-            <Table.HeaderCell>$ Cantidad ganada</Table.HeaderCell>
-            <Table.HeaderCell>Total</Table.HeaderCell>
+      <Tabs value={this.state.value} onChange={this.handleChangeTab}
+            fullWidth  indicatorColor="primary" textColor="secondary">
 
-          </Table.Row>
+            <Tab icon={<Icon name='hand peace' size="large"/>} label="Directa5" ></Tab>
+            <Tab icon ={<Icon name='random'size="large"/>} label="Directa4"></Tab>
+            <Tab icon={<Icon name='chess king'size="large"/>} label="Directa3"></Tab>chess knight
+            <Tab icon={<Icon name='chess knight'size="large"/>} label="Par inicial"></Tab>
+            <Tab icon={<Icon name='chess pawn'size="large"/>} label="Par final"></Tab>
+            <Tab icon={<Icon name='chess queen'size="large"/>} label="Inicial"></Tab>
+            <Tab icon={<Icon name='chess rook'size="large"/>} label="Final"></Tab>
+
+      </Tabs>
+
+    {value2==0 &&terminado
+    ?<div><Table celled>
+        <Table.Header>
+          <Encabezado/>
         </Table.Header>
 
         <Table.Body>
-          {this.state.datosItem.map((it,key)=>{
+          {this.state.directa5.map((it,key)=>{
             return(<Item fila={it} i={key} actualizarLista={this.tomarDatosTabla}/>)
           })}
         </Table.Body>
       </Table>
+      <div className='estadisticas'>
+       <StatisticExampleValue datos={this.state.estadisticaDirecta5}/>
+      </div>
+      </div>
+      :<div></div>
+    }
+    {value2==1 &&terminado
+    ?<div><Table celled>
+        <Table.Header>
+          <Encabezado/>
+        </Table.Header>
 
+        <Table.Body>
+          {this.state.directa4.map((it,key)=>{
+            return(<Item fila={it} i={key} actualizarLista={this.tomarDatosTabla}/>)
+          })}
+        </Table.Body>
+      </Table>
+      <div className='estadisticas'>
+       <StatisticExampleValue datos={this.state.estadisticaDirecta4}/>
+      </div>
+      </div>
+      :<div></div>
+    }
+    {value2==2 &&terminado
+    ?<div><Table celled>
+        <Table.Header>
+          <Encabezado/>
+        </Table.Header>
+
+        <Table.Body>
+          {this.state.directa3.map((it,key)=>{
+            return(<Item fila={it} i={key} actualizarLista={this.tomarDatosTabla}/>)
+          })}
+        </Table.Body>
+      </Table>
+      <div className='estadisticas'>
+       <StatisticExampleValue datos={this.state.estadisticaDirecta3}/>
+      </div>
+      </div>
+      :<div></div>
+    }
+    {value2==3 &&terminado
+    ?<div><Table celled>
+        <Table.Header>
+          <Encabezado/>
+        </Table.Header>
+
+        <Table.Body>
+          {this.state.parInicial.map((it,key)=>{
+            return(<Item fila={it} i={key} actualizarLista={this.tomarDatosTabla}/>)
+          })}
+        </Table.Body>
+      </Table>
+      <div className='estadisticas'>
+       <StatisticExampleValue datos={this.state.estadisticaParInicial}/>
+      </div>
+      </div>
+      :<div></div>
+    }
+    {value2==4 &&terminado
+    ?<div><Table celled>
+        <Table.Header>
+          <Encabezado/>
+        </Table.Header>
+
+        <Table.Body>
+          {this.state.parFinal.map((it,key)=>{
+            return(<Item fila={it} i={key} actualizarLista={this.tomarDatosTabla}/>)
+          })}
+        </Table.Body>
+      </Table>
+      <div className='estadisticas'>
+       <StatisticExampleValue datos={this.state.estadisticaParFinal}/>
+      </div>
+      </div>
+      :<div></div>
+    }
+
+    {value2==5 &&terminado
+    ?<div><Table celled>
+        <Table.Header>
+          <Encabezado/>
+        </Table.Header>
+
+        <Table.Body>
+          {this.state.inicial.map((it,key)=>{
+            return(<Item fila={it} i={key} actualizarLista={this.tomarDatosTabla}/>)
+          })}
+        </Table.Body>
+      </Table>
+      <div className='estadisticas'>
+       <StatisticExampleValue datos={this.state.estadisticaInical}/>
+      </div>
+      </div>
+      :<div></div>
+    }
+    {value2==6 &&terminado
+    ?<div><Table celled>
+        <Table.Header>
+          <Encabezado/>
+        </Table.Header>
+
+        <Table.Body>
+          {this.state.final.map((it,key)=>{
+            return(<Item fila={it} i={key} actualizarLista={this.tomarDatosTabla}/>)
+          })}
+        </Table.Body>
+      </Table>
+      <div className='estadisticas'>
+       <StatisticExampleValue datos={this.state.estadisticaFinal}/>
+      </div>
+      </div>:<div></div>
+    }
       <Dialog
           open={this.state.open}
           onClose={this.handleClose}
@@ -301,16 +488,34 @@ class Eventos extends Component{
          <Button variant="fab" color="secondary" aria-label="add" onClick={this.abrir}>
           <AddIcon />
         </Button>
+        <Divider />
         {estadisticaLista?
          <div className='estadisticas'>
           <StatisticExampleValue datos={this.state.datosEstadistica}/>
          </div>:
          <div></div>
        }
+       <div className='tituloEstadistica'>
+       <h2>Estadística Total</h2>
+        </div>
         </div>
     )
   }
 }
+const Encabezado = () => (
+  <Table.Row>
+    <Table.HeaderCell> Fecha</Table.HeaderCell>
+    <Table.HeaderCell>Sorteo</Table.HeaderCell>
+    <Table.HeaderCell>Tipo</Table.HeaderCell>
+    <Table.HeaderCell>Modalidad</Table.HeaderCell>
+    <Table.HeaderCell>Combinacion</Table.HeaderCell>
+    <Table.HeaderCell>$ Cantidad apostada</Table.HeaderCell>
+    <Table.HeaderCell>Ganador</Table.HeaderCell>
+    <Table.HeaderCell>$ Cantidad ganada</Table.HeaderCell>
+    <Table.HeaderCell>Total</Table.HeaderCell>
+
+  </Table.Row>
+)
 
 
 class StatisticExampleValue extends Component{

@@ -82,3 +82,8 @@ body {
 .dropTipoSorteo{
   padding-top: 2px;
 }
+.tituloEstadistica{
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}

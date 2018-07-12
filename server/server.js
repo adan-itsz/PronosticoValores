@@ -25,8 +25,8 @@ app.post('/evento', function (req, res) {
 
   var anio= d.getFullYear();
   var mes= d.getMonth();
-  var dia=d.getDate();
-  var ref =dataBase.ref('analitics/registros/'+anio+'/'+mes+'/'+dia);
+  var dia=/*d.getDate();*/10;
+  var ref =dataBase.ref('analitics/registros/'+anio+'/'+mes+'/'+10);
   var referenciaPush=ref.push();
 
   referenciaPush.set({
