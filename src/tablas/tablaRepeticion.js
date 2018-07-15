@@ -240,7 +240,7 @@ var parts= this.props.fila.d2.Numero;
             onClose={this.handleClose}
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description">
-              <DialogTitle id="alert-dialog-title">{"Frecuencias individuales"}</DialogTitle>
+              <DialogTitle id="alert-dialog-title">{"Número a repetir"}</DialogTitle>
               <DialogContent>
                   <Table compact>
                     <Table.Header>

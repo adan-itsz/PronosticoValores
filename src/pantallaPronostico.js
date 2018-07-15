@@ -10,7 +10,7 @@ import TablaRepeticionCruzada from './tablas/tablaRepeticioncruzada.js'
 import DesEmpate from './tablas/DesEmpate.js'
 import TablaMuelas from './tablas/tablaMuelas.js'
 import NumFaltante from './tablas/NumFaltante.js';
-
+import PasadoReciente from './tablas/pasadoReciente.js'
 import MenorFrecuenciaParesTabla from './tablas/tablaParesMenorFrecuencia.js'
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
@@ -21,7 +21,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 import Button from '@material-ui/core/Button';
 import {  Input } from 'semantic-ui-react'
-
+import SumaOResta from './tablas/sumaORestaDigito.js'
 
 class Pronostico extends Component {
 
@@ -319,6 +319,18 @@ class Pronostico extends Component {
                 <div className="header">
                   <Header as='h2'>
                     <Icon name='cube' />  <Icon name='cube' />
+                    <Header.Content>Pasado reciente</Header.Content>
+                  </Header>
+                </div>
+                  <div className="contenidoTablas">
+                    { terminado==true
+                      ?<PasadoReciente datos={this.state.datos}/>
+                      : <div></div>
+                    }
+                  </div>
+                <div className="header">
+                  <Header as='h2'>
+                    <Icon name='cube' />  <Icon name='cube' />
                     <Header.Content>Numero Faltante</Header.Content>
                   </Header>
                 </div>
@@ -328,6 +340,18 @@ class Pronostico extends Component {
                       : <div></div>
                     }
                   </div>
+                  <div className="header">
+                    <Header as='h2'>
+                      <Icon name='cube' />  <Icon name='cube' />
+                      <Header.Content>Suma o resta</Header.Content>
+                    </Header>
+                  </div>
+                    <div className="contenidoTablas">
+                      { terminado==true
+                        ?<SumaOResta datos={this.state.datos} salto={1}/>
+                        : <div></div>
+                      }
+                    </div>
 
 
 
