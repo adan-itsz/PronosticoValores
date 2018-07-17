@@ -51,7 +51,16 @@ class Eventos extends Component{
       fecha1:date2.getMonth()+'/'+date2.getDate()+'/'+date2.getFullYear(),
       selectedDate2: date,
       fecha2:date.getMonth()+'/'+date.getDate()+'/'+date.getFullYear(),
-      terminado:false
+      terminado:false,
+      openResumen:false,
+      estadisticaDirecta5:[],
+      estadisticaDirecta4:[],
+      estadisticaDirecta3:[],
+      estadisticaParInicial:[],
+      estadisticaParFinal:[],
+      estadisticaInical:[],
+      estadisticaFinal:[],
+      datosEstadistica:[]
 
     };
   }
@@ -194,8 +203,10 @@ class Eventos extends Component{
     var inversion=0;
     var ganados=0;
     var cantidadGanada=0;
+    var margen=0;
     var Rentabilidad=0;
     var datosEstadistica=[];
+    var Acertividad=0.0;
     for(var i=0;i<datos.length;i++){
         sorteos++;
         inversion+=parseInt(datos[i].cantidadApostada);
@@ -204,13 +215,17 @@ class Eventos extends Component{
           ganados++;
         }
     }
+    Acertividad=this.intlRound((ganados/sorteos)*100,3,false);
+    margen=cantidadGanada-inversion;
     Rentabilidad=this.intlRound(((cantidadGanada-inversion)/cantidadGanada)*100,3,false);
     datosEstadistica={
       sorteos:sorteos,
       inversion:inversion,
       ganados:ganados,
       cantidadGanada:cantidadGanada,
-      rentabilidad:Rentabilidad
+      rentabilidad:Rentabilidad,
+      margen:margen,
+      acertividad:Acertividad,
     };
     this.setState({
       datosEstadistica:datosEstadistica,
@@ -341,7 +356,16 @@ class Eventos extends Component{
       })
     }
     filtrar=()=>{
+
       this.actualizarDatos();
+      this.setState({
+        openResumen:true
+      })
+    }
+    handleCloseResumen=()=>{
+      this.setState({
+        openResumen:false
+      })
     }
 
   render(){
@@ -388,6 +412,107 @@ class Eventos extends Component{
             <Tab icon={<i class="material-icons">looks_one</i>} label="Final"></Tab>
 
       </Tabs>
+
+      <Dialog
+          open={this.state.openResumen}
+          onClose={this.handleCloseResumen}
+          maxWidth={'md'}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description">
+            <DialogTitle id="alert-dialog-title">{"Resumen eventos"}</DialogTitle>
+            <DialogContent>
+            <Table celled>
+             <Table.Header>
+                 <Table.Row>
+                   <Table.HeaderCell>Modalidad</Table.HeaderCell>
+                   <Table.HeaderCell>Cantidad Sorteos</Table.HeaderCell>
+                   <Table.HeaderCell>Inversión</Table.HeaderCell>
+                   <Table.HeaderCell>Sorteos ganados</Table.HeaderCell>
+                   <Table.HeaderCell>Cantidad ganada</Table.HeaderCell>
+                   <Table.HeaderCell>Margen</Table.HeaderCell>
+                   <Table.HeaderCell>Rentabilidad</Table.HeaderCell>
+                   <Table.HeaderCell>% Acertividad</Table.HeaderCell>
+                 </Table.Row>
+               </Table.Header>
+
+               <Table.Body>
+                 <Table.Row>
+                   <Table.Cell>Directa 5</Table.Cell>
+                   <Table.Cell>{this.state.estadisticaDirecta5.sorteos}</Table.Cell>
+                   <Table.Cell>{this.state.estadisticaDirecta5.inversion}</Table.Cell>
+                   <Table.Cell>{this.state.estadisticaDirecta5.ganados}</Table.Cell>
+                   <Table.Cell>{this.state.estadisticaDirecta5.cantidadGanada}</Table.Cell>
+                   <Table.Cell>{this.state.estadisticaDirecta5.margen}</Table.Cell>
+                   <Table.Cell>{this.state.estadisticaDirecta5.rentabilidad}%</Table.Cell>
+                   <Table.Cell><div className='acertividad'>{this.state.estadisticaDirecta5.acertividad}%</div></Table.Cell>
+                 </Table.Row>
+                 <Table.Row>
+                   <Table.Cell>Directa 4</Table.Cell>
+                   <Table.Cell>{this.state.estadisticaDirecta4.sorteos}</Table.Cell>
+                   <Table.Cell>{this.state.estadisticaDirecta4.inversion}</Table.Cell>
+                   <Table.Cell>{this.state.estadisticaDirecta4.ganados}</Table.Cell>
+                   <Table.Cell>{this.state.estadisticaDirecta4.cantidadGanada}</Table.Cell>
+                   <Table.Cell>{this.state.estadisticaDirecta4.margen}</Table.Cell>
+                   <Table.Cell>{this.state.estadisticaDirecta4.rentabilidad}%</Table.Cell>
+                   <Table.Cell><div className='acertividad'>{this.state.estadisticaDirecta4.acertividad}%</div></Table.Cell>
+                 </Table.Row>
+                 <Table.Row>
+                   <Table.Cell>Directa35</Table.Cell>
+                   <Table.Cell>{this.state.estadisticaDirecta3.sorteos}</Table.Cell>
+                   <Table.Cell>{this.state.estadisticaDirecta3.inversion}</Table.Cell>
+                   <Table.Cell>{this.state.estadisticaDirecta3.ganados}</Table.Cell>
+                   <Table.Cell>{this.state.estadisticaDirecta3.cantidadGanada}</Table.Cell>
+                   <Table.Cell>{this.state.estadisticaDirecta3.margen}</Table.Cell>
+                   <Table.Cell>{this.state.estadisticaDirecta3.rentabilidad}%</Table.Cell>
+                   <Table.Cell><div className='acertividad'>{this.state.estadisticaDirecta3.acertividad}%</div></Table.Cell>
+                 </Table.Row>
+                 <Table.Row>
+                   <Table.Cell>Par inicial</Table.Cell>
+                   <Table.Cell>{this.state.estadisticaParInicial.sorteos}</Table.Cell>
+                   <Table.Cell>{this.state.estadisticaParInicial.inversion}</Table.Cell>
+                   <Table.Cell>{this.state.estadisticaParInicial.ganados}</Table.Cell>
+                   <Table.Cell>{this.state.estadisticaParInicial.cantidadGanada}</Table.Cell>
+                   <Table.Cell>{this.state.estadisticaParInicial.margen}</Table.Cell>
+                   <Table.Cell>{this.state.estadisticaParInicial.rentabilidad}%</Table.Cell>
+                   <Table.Cell><div className='acertividad'>{this.state.estadisticaParInicial.acertividad}%</div></Table.Cell>
+                 </Table.Row>
+                 <Table.Row>
+                   <Table.Cell>Par final</Table.Cell>
+                   <Table.Cell>{this.state.estadisticaParFinal.sorteos}</Table.Cell>
+                   <Table.Cell>{this.state.estadisticaParFinal.inversion}</Table.Cell>
+                   <Table.Cell>{this.state.estadisticaParFinal.ganados}</Table.Cell>
+                   <Table.Cell>{this.state.estadisticaParFinal.cantidadGanada}</Table.Cell>
+                   <Table.Cell>{this.state.estadisticaParFinal.margen}</Table.Cell>
+                   <Table.Cell>{this.state.estadisticaParFinal.rentabilidad}%</Table.Cell>
+                   <Table.Cell><div className='acertividad'>{this.state.estadisticaParFinal.acertividad}%</div></Table.Cell>
+                 </Table.Row>
+                 <Table.Row>
+                   <Table.Cell>Número inicial</Table.Cell>
+                   <Table.Cell>{this.state.estadisticaInical.sorteos}</Table.Cell>
+                   <Table.Cell>{this.state.estadisticaInical.inversion}</Table.Cell>
+                   <Table.Cell>{this.state.estadisticaInical.ganados}</Table.Cell>
+                   <Table.Cell>{this.state.estadisticaInical.cantidadGanada}</Table.Cell>
+                   <Table.Cell>{this.state.estadisticaInical.margen}</Table.Cell>
+                   <Table.Cell>{this.state.estadisticaInical.rentabilidad}%</Table.Cell>
+                   <Table.Cell><div className='acertividad'>{this.state.estadisticaInical.acertividad}%</div></Table.Cell>
+                 </Table.Row>
+                 <Table.Row warning>
+                   <Table.Cell>Total</Table.Cell>
+                   <Table.Cell>{this.state.datosEstadistica.sorteos}</Table.Cell>
+                   <Table.Cell>{this.state.datosEstadistica.inversion}</Table.Cell>
+                   <Table.Cell>{this.state.datosEstadistica.ganados}</Table.Cell>
+                   <Table.Cell>{this.state.datosEstadistica.cantidadGanada}</Table.Cell>
+                   <Table.Cell>{this.state.datosEstadistica.margen}</Table.Cell>
+                   <Table.Cell>{this.state.datosEstadistica.rentabilidad}%</Table.Cell>
+                   <Table.Cell><div className='acertividad'>{this.state.estadisticaFinal.acertividad}%</div></Table.Cell>
+                 </Table.Row>
+
+               </Table.Body>
+             </Table>
+
+
+            </DialogContent>
+        </Dialog>
 
     {value2==0 &&terminado
     ?<div><Table celled>
@@ -606,6 +731,8 @@ const Encabezado = () => (
 )
 
 
+
+
 class StatisticExampleValue extends Component{
   constructor(props){
     super(props)
@@ -651,10 +778,30 @@ class StatisticExampleValue extends Component{
       </Statistic.Value>
       <Statistic.Label>Rentabilidad</Statistic.Label>
     </Statistic>
+    <Statistic>
+      <Statistic.Value>
+
+        {this.props.datos.margen}
+
+      </Statistic.Value>
+      <Statistic.Label>Margen</Statistic.Label>
+    </Statistic>
+
+    <Statistic>
+      <Statistic.Value>
+
+        {this.props.datos.acertividad}%
+
+      </Statistic.Value>
+      <Statistic.Label>Acertabilidad</Statistic.Label>
+    </Statistic>
   </Statistic.Group>
   )
  }
 }
+
+
+
 class Item extends Component{
   constructor(props){
     super(props)
