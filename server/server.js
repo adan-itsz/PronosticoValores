@@ -26,7 +26,7 @@ app.post('/evento', function (req, res) {
   var anio= d.getFullYear();
   var mes= d.getMonth();
   var dia=/*d.getDate();*/10;
-  var ref =dataBase.ref('analitics/registros/'+anio+'/'+mes+'/'+10);
+  var ref =dataBase.ref('analitics/registros/'+req.body.anio+'/'+req.body.mes+'/'+req.body.dia);
   var referenciaPush=ref.push();
 
   referenciaPush.set({
@@ -37,7 +37,7 @@ app.post('/evento', function (req, res) {
     cantidadApostada: req.body.cantidadApostada,
     ganado:req.body.ganado,
     cantidadGanada:req.body.cantidadGanada,
-    fecha:dia+'/'+mes+'/'+anio,
+    fecha:req.body.dia+'/'+req.body.mes+'/'+req.body.anio,
     key:referenciaPush.key
 
   });

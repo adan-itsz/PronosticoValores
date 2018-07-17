@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Form, Input } from 'semantic-ui-react';
 import { Header, Icon,Image, Statistic ,Table,Dropdown,Divider} from 'semantic-ui-react';
+import {Button as Btn} from 'semantic-ui-react';
 import './index.css';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
@@ -14,6 +15,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Switch from '@material-ui/core/Switch';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import DatePicker from 'material-ui-pickers/DatePicker';
+
 const options = [
   { key: 1, text: 'Directa 5', value: 1 },
   { key: 2, text: 'Directa 4', value: 2 },
@@ -32,6 +35,8 @@ const tipoJuego=[
 class Eventos extends Component{
   constructor(props){
     super(props)
+    var date = new Date();
+    var date2=new Date(date.getFullYear(), date.getMonth(), 1)
     this.state={
       datosItem:[],
       open:false,
@@ -42,6 +47,10 @@ class Eventos extends Component{
       ganado:false,
       datosListos:false,
       value2:0,
+      selectedDate: date2,
+      fecha1:date2.getMonth()+'/'+date2.getDate()+'/'+date2.getFullYear(),
+      selectedDate2: date,
+      fecha2:date.getMonth()+'/'+date.getDate()+'/'+date.getFullYear(),
       terminado:false
 
     };
@@ -60,11 +69,18 @@ class Eventos extends Component{
         this.setState({
           datosItem:res.data
         });
-        this.separarDatosTipo(res.data);
-        this.separarDatosEstadisticas(res.data);
+        var datosFiltrados=this.filtrarDatosFecha(res.data);
+        this.separarDatosTipo(datosFiltrados);
+        this.separarDatosEstadisticas(datosFiltrados);
 
       })
   }
+  actualizarDatos=()=>{
+    var datosFiltrados=this.filtrarDatosFecha(this.state.datosItem);
+    this.separarDatosTipo(datosFiltrados);
+    this.separarDatosEstadisticas(datosFiltrados);
+  }
+
    intlRound=(numero, decimales , usarComa )=>{
     var opciones = {
         maximumFractionDigits: decimales,
@@ -73,6 +89,43 @@ class Eventos extends Component{
     usarComa = usarComa ? "es" : "en";
     return new Intl.NumberFormat(usarComa, opciones).format(numero);
 }
+
+  filtrarDatosFecha=(data)=>{
+    var datos=[];
+    for(var i=0;i<data.length;i++){
+      if(Date.parse(this.formatoFechas(data[i].fecha)) >= Date.parse(this.state.fecha1) && Date.parse(this.formatoFechas(data[i].fecha))<=Date.parse(this.state.fecha2)){
+        datos=datos.concat(data[i]);
+      }
+    }
+    return datos;
+  }
+
+  formatoFechas=(date)=>{
+    var dia;
+    var mes;
+    var anio;
+    var cont=0;
+    var aux=0;
+
+    for(var i=0;i<date.length;i++){
+        if(date[i]=='/'){
+          if(cont==0){
+            dia=date.substring(aux,i);
+            aux=i+1;
+            cont++;
+          }
+          else if(cont==1){
+            mes=date.substring(aux,i);
+            aux=i+1;
+            cont++;
+          }
+        }
+       else if(i==date.length-1){
+          anio=date.substring(aux,date.length);
+        }
+    }
+    return mes+'/'+dia+'/'+anio;
+  }
 
   separarDatosTipo=(datos)=>{
     var datos=datos;
@@ -103,6 +156,7 @@ class Eventos extends Component{
           break;
         case 6:
           inicial=inicial.concat(datos[i]);
+          break;
         case 7:
             final=final.concat(datos[i]);
           break;
@@ -274,8 +328,25 @@ class Eventos extends Component{
       this.setState({ value2 });
     };
 
-  render(){
+    handleDateChange=(date)=>{
+      this.setState({
+        fecha1:date.getMonth()+'/'+date.getDate()+'/'+date.getFullYear(),
+        selectedDate:date.getMonth()+1+'/'+date.getDate()+'/'+date.getFullYear(),
+      })
+    }
+    handleDateChange2=(date)=>{
+      this.setState({
+        fecha2:date.getMonth()+'/'+date.getDate()+'/'+date.getFullYear(),
+        selectedDate2:date.getMonth()+1+'/'+date.getDate()+'/'+date.getFullYear(),
+      })
+    }
+    filtrar=()=>{
+      this.actualizarDatos();
+    }
 
+  render(){
+    const { selectedDate } = this.state;
+    const { selectedDate2 } = this.state;
     const {value}=this.state
     const {value2}=this.state
     const{tipo}= this.state
@@ -287,17 +358,34 @@ class Eventos extends Component{
         <Icon name='calendar alternate outline' />
         <Header.Content >Registro de eventos</Header.Content>
       </Header>
+      <div className="picker">
+        <div className="picker-individual">
+          <DatePicker
+              value={selectedDate}
+              onChange={this.handleDateChange}
+            />
+          </div>
+          <div className="picker-individual">
+            <DatePicker
+                value={selectedDate2}
+                onChange={this.handleDateChange2}
+              />
+            </div>
+            <div className="picker-individual">
+              <Btn content='filtrar' onClick={this.filtrar} />
+            </div>
+          </div>
 
       <Tabs value={this.state.value} onChange={this.handleChangeTab}
             fullWidth  indicatorColor="primary" textColor="secondary">
 
-            <Tab icon={<Icon name='hand peace' size="large"/>} label="Directa5" ></Tab>
-            <Tab icon ={<Icon name='random'size="large"/>} label="Directa4"></Tab>
-            <Tab icon={<Icon name='chess king'size="large"/>} label="Directa3"></Tab>chess knight
-            <Tab icon={<Icon name='chess knight'size="large"/>} label="Par inicial"></Tab>
-            <Tab icon={<Icon name='chess pawn'size="large"/>} label="Par final"></Tab>
-            <Tab icon={<Icon name='chess queen'size="large"/>} label="Inicial"></Tab>
-            <Tab icon={<Icon name='chess rook'size="large"/>} label="Final"></Tab>
+            <Tab icon={<i class="material-icons">filter_5</i>} label="Directa5" ></Tab>
+            <Tab icon ={<i class="material-icons">filter_4</i>} label="Directa4"></Tab>
+            <Tab icon={<i class="material-icons">filter_3</i>} label="Directa3"></Tab>chess knight
+            <Tab icon={<i class="material-icons">filter_2</i>} label="Par inicial"></Tab>
+            <Tab icon={<i class="material-icons">looks_two</i>} label="Par final"></Tab>
+            <Tab icon={<i class="material-icons">filter_1</i>} label="Inicial"></Tab>
+            <Tab icon={<i class="material-icons">looks_one</i>} label="Final"></Tab>
 
       </Tabs>
 

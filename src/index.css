@@ -87,3 +87,10 @@ body {
   padding: 0;
   margin: 0;
 }
+.picker{
+padding-bottom: 10vh;
+}
+.picker-individual{
+  float: left;
+  margin-right: 8vh;
+}
