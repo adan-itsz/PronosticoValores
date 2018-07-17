@@ -343,7 +343,7 @@ class Pronostico extends Component {
                   <div className="header">
                     <Header as='h2'>
                       <Icon name='cube' />  <Icon name='cube' />
-                      <Header.Content>Suma o resta</Header.Content>
+                      <Header.Content>Correlacion por incremento o decremento</Header.Content>
                     </Header>
                   </div>
                     <div className="contenidoTablas">
