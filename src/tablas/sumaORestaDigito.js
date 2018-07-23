@@ -32,12 +32,12 @@ class SumaOResta extends Component{
   }
   diferenciaIndividual=(array,salto)=>{
     var data=[];
-    for(var i=-9;i<10;i++){
-      if(i!=0){
+    for(var i=0;i<10;i++){
+
         data=data.concat({diferencia:i,d1:this.busquedaDiferencias(array[0],salto,i),
           d2:this.busquedaDiferencias(array[1],salto,i),d3:this.busquedaDiferencias(array[2],salto,i),
           d4:this.busquedaDiferencias(array[3],salto,i),d5:this.busquedaDiferencias(array[4],salto,i) });
-      }
+
     }
     return data;
   }
@@ -45,7 +45,7 @@ class SumaOResta extends Component{
  busquedaDiferencias=(array,salto,dif)=>{
    for(var i=salto;i<array.length;i++){
      if(this.operacion(parseInt(array[i]),dif)==parseInt(array[i-salto])){
-       return i-1;
+       return i;
      }
    }
  }

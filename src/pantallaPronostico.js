@@ -159,7 +159,7 @@ class Pronostico extends Component {
           {value === 0 &&
             <div className="contenidoTablas">
               { terminado==true
-                ?<TablaRepeticion datos={this.state.datos} salto = {1}/>
+                ?<SumaOResta datos={this.state.datos} salto={1}/>
                 : <div></div>
               }
           </div>}
@@ -168,35 +168,35 @@ class Pronostico extends Component {
 
           <div className="contenidoTablas">
             { terminado==true
-              ?<TablaRepeticion datos={this.state.datos} salto = {2}/>
+              ?<SumaOResta datos={this.state.datos} salto={2}/>
               : <div></div>
             }
           </div>}
           {value ===2 &&
             <div className="contenidoTablas">
               { terminado==true
-                ?<TablaRepeticion datos={this.state.datos} salto = {3}/>
+                ?<SumaOResta datos={this.state.datos} salto={3}/>
                 : <div></div>
               }
             </div>}
             {value ===3 &&
               <div className="contenidoTablas">
                 { terminado==true
-                  ?<TablaRepeticion datos={this.state.datos} salto = {4}/>
+                  ?<SumaOResta datos={this.state.datos} salto={4}/>
                   : <div></div>
                 }
               </div>}
               {value ===4 &&
                 <div className="contenidoTablas">
                   { terminado==true
-                    ?<TablaRepeticion datos={this.state.datos} salto = {5}/>
+                    ?<SumaOResta datos={this.state.datos} salto={5}/>
                     : <div></div>
                   }
                 </div>}
           {value===5&&
             <div className="contenidoTablas">
               { terminado==true
-                ?<TablaRepeticion datos={this.state.datos} salto = {6}/>
+                ?<SumaOResta datos={this.state.datos} salto={6}/>
                 : <div></div>
               }
             </div>
@@ -204,7 +204,7 @@ class Pronostico extends Component {
           {value ===6&&
             <div className="contenidoTablas">
               { terminado==true
-                ?<TablaRepeticion datos={this.state.datos} salto = {7}/>
+                ?<SumaOResta datos={this.state.datos} salto={7}/>
                 : <div></div>
               }
             </div>
@@ -307,7 +307,7 @@ class Pronostico extends Component {
               <div className="header">
                 <Header as='h2'>
                   <Icon name='cube' />  <Icon name='cube' />
-                  <Header.Content>DesEmpate Frecuencia</Header.Content>
+                  <Header.Content>General menor frecuencia</Header.Content>
                 </Header>
               </div>
                 <div className="contenidoTablas">
@@ -319,7 +319,7 @@ class Pronostico extends Component {
                 <div className="header">
                   <Header as='h2'>
                     <Icon name='cube' />  <Icon name='cube' />
-                    <Header.Content>Pasado reciente</Header.Content>
+                    <Header.Content>Número inmediato</Header.Content>
                   </Header>
                 </div>
                   <div className="contenidoTablas">
@@ -331,7 +331,7 @@ class Pronostico extends Component {
                 <div className="header">
                   <Header as='h2'>
                     <Icon name='cube' />  <Icon name='cube' />
-                    <Header.Content>Numero Faltante</Header.Content>
+                    <Header.Content>General ausente</Header.Content>
                   </Header>
                 </div>
                   <div className="contenidoTablas">
