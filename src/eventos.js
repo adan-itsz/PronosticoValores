@@ -203,6 +203,7 @@ class Eventos extends Component{
     var inversion=0;
     var ganados=0;
     var cantidadGanada=0;
+    var ganado=0;
     var margen=0;
     var Rentabilidad=0;
     var datosEstadistica=[];
@@ -217,7 +218,8 @@ class Eventos extends Component{
     }
     Acertividad=this.intlRound((ganados/sorteos)*100,3,false);
     margen=cantidadGanada-inversion;
-    Rentabilidad=this.intlRound(((cantidadGanada-inversion)/cantidadGanada)*100,3,false);
+    Rentabilidad=margen <0 && cantidadGanada==0?this.intlRound((cantidadGanada*100)/inversion,3,false):
+    margen<0?'-'+this.intlRound((cantidadGanada*100)/inversion,3,false):this.intlRound((cantidadGanada*100)/inversion,3,false)
     datosEstadistica={
       sorteos:sorteos,
       inversion:inversion,
@@ -457,7 +459,7 @@ class Eventos extends Component{
                    <Table.Cell><div className='acertividad'>{this.state.estadisticaDirecta4.acertividad}%</div></Table.Cell>
                  </Table.Row>
                  <Table.Row>
-                   <Table.Cell>Directa35</Table.Cell>
+                   <Table.Cell>Directa 3</Table.Cell>
                    <Table.Cell>{this.state.estadisticaDirecta3.sorteos}</Table.Cell>
                    <Table.Cell>{this.state.estadisticaDirecta3.inversion}</Table.Cell>
                    <Table.Cell>{this.state.estadisticaDirecta3.ganados}</Table.Cell>
@@ -496,6 +498,16 @@ class Eventos extends Component{
                    <Table.Cell>{this.state.estadisticaInical.rentabilidad}%</Table.Cell>
                    <Table.Cell><div className='acertividad'>{this.state.estadisticaInical.acertividad}%</div></Table.Cell>
                  </Table.Row>
+                 <Table.Row>
+                   <Table.Cell>Número final</Table.Cell>
+                   <Table.Cell>{this.state.estadisticaFinal.sorteos}</Table.Cell>
+                   <Table.Cell>{this.state.estadisticaFinal.inversion}</Table.Cell>
+                   <Table.Cell>{this.state.estadisticaFinal.ganados}</Table.Cell>
+                   <Table.Cell>{this.state.estadisticaFinal.cantidadGanada}</Table.Cell>
+                   <Table.Cell>{this.state.estadisticaFinal.margen}</Table.Cell>
+                   <Table.Cell>{this.state.estadisticaFinal.rentabilidad}%</Table.Cell>
+                   <Table.Cell><div className='acertividad'>{this.state.estadisticaFinal.acertividad}%</div></Table.Cell>
+                 </Table.Row>
                  <Table.Row warning>
                    <Table.Cell>Total</Table.Cell>
                    <Table.Cell>{this.state.datosEstadistica.sorteos}</Table.Cell>
@@ -504,7 +516,7 @@ class Eventos extends Component{
                    <Table.Cell>{this.state.datosEstadistica.cantidadGanada}</Table.Cell>
                    <Table.Cell>{this.state.datosEstadistica.margen}</Table.Cell>
                    <Table.Cell>{this.state.datosEstadistica.rentabilidad}%</Table.Cell>
-                   <Table.Cell><div className='acertividad'>{this.state.estadisticaFinal.acertividad}%</div></Table.Cell>
+                   <Table.Cell><div className='acertividad'>{this.state.datosEstadistica.acertividad}%</div></Table.Cell>
                  </Table.Row>
 
                </Table.Body>

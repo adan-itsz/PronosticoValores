@@ -41,6 +41,7 @@ app.post('/evento', function (req, res) {
     key:referenciaPush.key
 
   });
+  console.log(req.body.sorteo+' '+ req.body.combinacion+'\n');
   res.send("dato subido");
 });
 
