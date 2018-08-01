@@ -131,27 +131,33 @@ function calcularMonto(tipo,modalidad,cantidad){
 
 app.post('/eventos-descarga', function (req, res) {
   console.log(req.body.mes);
-  var referencia=dataBase.ref('analitics/registros/'+req.body.anio+'/'+req.body.mes);
+  var referencia=dataBase.ref('analitics/registros');
   var datos=[];
   var promise =new Promise(
     function(resolve,reject){
-      referencia.on('value',snapshot=>{
-        if(snapshot.exists()){
-          snapshot.forEach(snapChild=>{
-            if(snapChild.exists()){
-              snapChild.forEach(snapBaby=>{
-                if(snapBaby.exists()){
-                  resolve(datos=datos.concat([{fecha:snapBaby.val().fecha,sorteo:snapBaby.val().sorteo,modalidad:snapBaby.val().modalidad,tipo:snapBaby.val().tipo,
-                    combinacion:snapBaby.val().combinacion,cantidadApostada:snapBaby.val().cantidadApostada,ganado:snapBaby.val().ganado,key:snapBaby.val().key,
-                    cantidadGanada:snapBaby.val().cantidadGanada,total:snapBaby.val().cantidadGanada-snapBaby.val().cantidadApostada}]));
-                }
-                else{
-                  resolve(datos=[]);
-                }
-              })
-            }
-          })
-        }
+      referencia.on('value',snap1=>{
+        snap1.forEach(snap2=>{
+          if(snap2.exists()){
+            snap2.forEach(snapshot=>{
+              if(snapshot.exists()){
+                snapshot.forEach(snapChild=>{
+                  if(snapChild.exists()){
+                    snapChild.forEach(snapBaby=>{
+                      if(snapBaby.exists()){
+                        resolve(datos=datos.concat([{fecha:snapBaby.val().fecha,sorteo:snapBaby.val().sorteo,modalidad:snapBaby.val().modalidad,tipo:snapBaby.val().tipo,
+                          combinacion:snapBaby.val().combinacion,cantidadApostada:snapBaby.val().cantidadApostada,ganado:snapBaby.val().ganado,key:snapBaby.val().key,
+                          cantidadGanada:snapBaby.val().cantidadGanada,total:snapBaby.val().cantidadGanada-snapBaby.val().cantidadApostada}]));
+                      }
+                      else{
+                        resolve(datos=[]);
+                      }
+                    })
+                  }
+                })
+              }
+            })/////snap2
+          }
+        })//snap1
       })
     }
   )
