@@ -8,6 +8,7 @@ import Dialog from '@material-ui/core/Dialog';
 import { Header, Icon } from 'semantic-ui-react';
 import FilaEsfera from '../esferas.js'
 
+
 class MenorFrecuenciaTabla extends Component{
   constructor(props){
     super(props)
