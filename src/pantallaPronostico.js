@@ -5,6 +5,7 @@ import SidebarIzquierda from './sideBar.js';
 import './index.css';
 import { Header, Icon } from 'semantic-ui-react';
 import MenorFrecuenciaTabla from './tablas/tablaMenorFrecuencia.js';
+import FrecuenciaDigitoFiltrada from './tablas/menorFrecuenciaFiltrada.js';
 import TablaRepeticion from './tablas/tablaRepeticion.js';
 import TablaRepeticionCruzada from './tablas/tablaRepeticioncruzada.js'
 import DesEmpate from './tablas/DesEmpate.js'
@@ -126,12 +127,12 @@ class Pronostico extends Component {
           <div className="header">
             <Header as='h2'>
               <Icon name='quote right' />
-              <Header.Content>Menor o nula frecuencia en dígitos</Header.Content>
+              <Header.Content>Menor frecuencia</Header.Content>
             </Header>
           </div>
           <div className="contenidoTablas">
             { terminado==true
-              ?<MenorFrecuenciaTabla datos={this.state.datos}/>
+              ?<FrecuenciaDigitoFiltrada datos={this.state.datos}/>
               : <div></div>
             }
           </div>
