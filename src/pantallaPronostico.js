@@ -23,6 +23,9 @@ import Dialog from '@material-ui/core/Dialog';
 import Button from '@material-ui/core/Button';
 import {  Input } from 'semantic-ui-react'
 import SumaOResta from './tablas/sumaORestaDigito.js'
+import Volteados from './tablas/Volteado.js'
+import DTCruzado from './tablas/sumaORestaDigitoCruzado.js'
+
 
 class Pronostico extends Component {
 
@@ -353,6 +356,73 @@ class Pronostico extends Component {
                         : <div></div>
                       }
                     </div>
+                    <div className="header">
+                      <Header as='h2'>
+                        <Icon name='cube' />  <Icon name='cube' />
+                        <Header.Content>Transcripcion ambos sentidos</Header.Content>
+                      </Header>
+                    </div>
+                      <div className="contenidoTablas">
+                        { terminado==true
+                          ?<Volteados datos={this.state.datos} salto={1}/>
+                          : <div></div>
+                        }
+                      </div>
+
+                      <div className="header">
+                        <Header as='h2'>
+                          <Icon name='reply all' />
+                          <Header.Content>  Correlacion horizonta\\Cruzado Derecho\\ </Header.Content>
+                        </Header>
+                      </div>
+                      <Tabs value={this.state.value} onChange={this.handleChange}
+                            fullWidth  indicatorColor="secondary" textColor="secondary">
+
+                            <Tab icon={<Icon name='hand peace' size="large"/>} label=" Derecha salto" ></Tab>
+                            <Tab icon ={<Icon name='random'size="large"/>} label=" Derecha doble salto "></Tab>
+                            <Tab icon={<Icon name='sort amount down'size="large"/>} label="Derecha triple salto"></Tab>
+                            <Tab icon={<Icon name='sort amount down'size="large"/>} label="Derecha cuatriple"></Tab>
+                            <Tab icon={<Icon name='sort amount down'size="large"/>} label="Derecha Quintuple"></Tab>
+
+                      </Tabs>
+
+                      {value === 0 &&
+                        <div className="contenidoTablas">
+                          { terminado==true
+                            ?<DTCruzado datos={this.state.datos} salto={1} saltodir = {1}/>
+                            : <div></div>
+                          }
+                      </div>}
+
+                        {value === 1 &&
+
+                        <div className="contenidoTablas">
+                          { terminado==true
+                            ?<DTCruzado datos={this.state.datos} salto = {1} saltodir = {2}/>
+                            : <div></div>
+                          }
+                        </div>}
+                        {value ===2 &&
+                          <div className="contenidoTablas">
+                            { terminado==true
+                              ?<DTCruzado datos={this.state.datos} salto = {1} saltodir={3}/>
+                              : <div></div>
+                            }
+                          </div>}
+                          {value ===3 &&
+                            <div className="contenidoTablas">
+                              { terminado==true
+                                ?<DTCruzado datos={this.state.datos} salto = {1} saltodir={4}/>
+                                : <div></div>
+                              }
+                            </div>}
+                            {value ===4 &&
+                              <div className="contenidoTablas">
+                                { terminado==true
+                                  ?<DTCruzado datos={this.state.datos} salto = {1} saltodir={5}/>
+                                  : <div></div>
+                                }
+                              </div>}
 
 
 

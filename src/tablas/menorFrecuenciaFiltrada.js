@@ -94,14 +94,14 @@ class FrecuenciaDigitoFiltrada extends Component{
   }
 
   determinarHora=(hora)=>{
-    var format = 'hh:mm:ss';
+    var format = 'HH:mm:ss';
     var time = moment(hora,format)
-    var resultado= time.isBefore(moment('01:30:00',format))?1:
-    time.isBetween(moment('01:31:00',format),moment('03:30:00',format))?2:
-    time.isBetween(moment('03:31:00',format),moment('05:30:00',format))?3:
-    time.isBetween(moment('05:31:00',format),moment('07:30:00',format))?4:
-    time.isBetween(moment('07:31:00',format),moment('10:30:00',format))?5:
-    time.isBetween(moment('10:31:00',format),moment('11:59:00',format))?6:10;
+    var resultado= time.isBefore(moment('13:30:00',format))?1:
+    time.isBetween(moment('13:31:00',format),moment('15:30:00',format))?2:
+    time.isBetween(moment('15:31:00',format),moment('17:30:00',format))?3:
+    time.isBetween(moment('17:31:00',format),moment('19:30:00',format))?4:
+    time.isBetween(moment('19:31:00',format),moment('22:30:00',format))?5:
+    time.isBetween(moment('22:31:00',format),moment('23:59:00',format))?6:10;
 
 
     return resultado;
