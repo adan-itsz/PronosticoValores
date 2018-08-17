@@ -71,7 +71,7 @@ class SumaOResta extends Component{
         <Table compact>
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell>Universo</Table.HeaderCell>
+              <Table.HeaderCell>Diferencia</Table.HeaderCell>
               <Table.HeaderCell>D1 | Sorteo sin repetir</Table.HeaderCell>
               <Table.HeaderCell>D2 | Sorteo sin repetir</Table.HeaderCell>
               <Table.HeaderCell>D3 | Sorteo sin repetir</Table.HeaderCell>

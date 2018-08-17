@@ -25,6 +25,7 @@ import {  Input } from 'semantic-ui-react'
 import SumaOResta from './tablas/sumaORestaDigito.js'
 import Volteados from './tablas/Volteado.js'
 import DTCruzado from './tablas/sumaORestaDigitoCruzado.js'
+import ParImpar from './tablas/parImpar.js'
 
 
 class Pronostico extends Component {
@@ -150,13 +151,16 @@ class Pronostico extends Component {
         <Tabs value={this.state.value} onChange={this.handleChange}
               fullWidth  indicatorColor="secondary" textColor="secondary">
 
-              <Tab icon={<Icon name='hand peace' size="large"/>} label="Repeticion consecutiva" ></Tab>
-              <Tab icon ={<Icon name='random'size="large"/>} label="Repeticion salto "></Tab>
-              <Tab icon={<Icon name='sort amount down'size="large"/>} label="Repeticion doble salto"></Tab>
-              <Tab icon={<Icon name='sort amount down'size="large"/>} label="Repeticion triple salto"></Tab>
-              <Tab icon={<Icon name='sort amount down'size="large"/>} label="Repeticion cutriple salto"></Tab>
-              <Tab icon={<Icon name='step backward'size="large"/>} label="Repeticion quintuple salto"></Tab>
-              <Tab icon={<Icon name='fast forward'size="large"/>} label="Repeticion sextuple salto"></Tab>
+              <Tab icon={<Icon name='hand peace' size="large"/>} label="consecutiva" ></Tab>
+              <Tab icon ={<Icon name='random'size="large"/>} label=" salto "></Tab>
+              <Tab icon={<Icon name='sort amount down'size="large"/>} label="doble salto"></Tab>
+              <Tab icon={<Icon name='sort amount down'size="large"/>} label="3 saltos"></Tab>
+              <Tab icon={<Icon name='sort amount down'size="large"/>} label="4 saltos"></Tab>
+              <Tab icon={<Icon name='step backward'size="large"/>} label="5 saltos"></Tab>
+              <Tab icon={<Icon name='fast forward'size="large"/>} label="6 saltos"></Tab>
+              <Tab icon={<Icon name='fast forward'size="large"/>} label="7 saltos"></Tab>
+              <Tab icon={<Icon name='fast forward'size="large"/>} label="8 saltos"></Tab>
+              <Tab icon={<Icon name='fast forward'size="large"/>} label="9 saltos"></Tab>
 
         </Tabs>
 
@@ -212,8 +216,31 @@ class Pronostico extends Component {
                 : <div></div>
               }
             </div>
+          }
 
-
+          {value ===7&&
+            <div className="contenidoTablas">
+              { terminado==true
+                ?<SumaOResta datos={this.state.datos} salto={8}/>
+                : <div></div>
+              }
+            </div>
+          }
+          {value ===8&&
+            <div className="contenidoTablas">
+              { terminado==true
+                ?<SumaOResta datos={this.state.datos} salto={9}/>
+                : <div></div>
+              }
+            </div>
+          }
+          {value ===9&&
+            <div className="contenidoTablas">
+              { terminado==true
+                ?<SumaOResta datos={this.state.datos} salto={10}/>
+                : <div></div>
+              }
+            </div>
           }
 
           <div className="header">
@@ -222,19 +249,21 @@ class Pronostico extends Component {
               <Header.Content>  Repeticiones Cruzadas </Header.Content>
             </Header>
           </div>
-        <Tabs value={this.state.value} onChange={this.handleChange}
+        <Tabs value={this.state.value2} onChange={this.handleChange2}
               fullWidth  indicatorColor="secondary" textColor="secondary">
 
-              <Tab icon={<Icon name='hand peace' size="large"/>} label="Cruzado Izquierdo" ></Tab>
-              <Tab icon ={<Icon name='random'size="large"/>} label="Cruzado Izquierdo salto "></Tab>
-              <Tab icon={<Icon name='sort amount down'size="large"/>} label="Cruzado Izquierdo doble salto"></Tab>
-              <Tab icon={<Icon name='sort amount down'size="large"/>} label="Cruzado Derecha"></Tab>
-              <Tab icon={<Icon name='sort amount down'size="large"/>} label="Cruzado Derecha salto"></Tab>
-              <Tab icon={<Icon name='step backward'size="large"/>} label="Repeticion doble salto"></Tab>
+              <Tab icon={<Icon name='hand peace' size="large"/>} label="Izq" ></Tab>
+              <Tab icon ={<Icon name='random'size="large"/>} label="Izq salto "></Tab>
+              <Tab icon={<Icon name='sort amount down'size="large"/>} label="Izq doble salto"></Tab>
+              <Tab icon={<Icon name='sort amount down'size="large"/>} label="Izq 3 saltos"></Tab>
+              <Tab icon={<Icon name='sort amount down'size="large"/>} label=" Der"></Tab>
+              <Tab icon={<Icon name='sort amount down'size="large"/>} label="Der salto"></Tab>
+              <Tab icon={<Icon name='step backward'size="large"/>} label="Der doble salto"></Tab>
+              <Tab icon={<Icon name='sort amount down'size="large"/>} label="Der 3 saltos"></Tab>
 
         </Tabs>
 
-          {value === 0 &&
+          {value2 === 0 &&
             <div className="contenidoTablas">
               { terminado==true
                 ?<TablaRepeticionCruzada datos={this.state.datos} salto = {1} dir={"i"}/>
@@ -242,7 +271,7 @@ class Pronostico extends Component {
               }
           </div>}
 
-          {value === 1 &&
+          {value2 === 1 &&
 
           <div className="contenidoTablas">
             { terminado==true
@@ -250,31 +279,47 @@ class Pronostico extends Component {
               : <div></div>
             }
           </div>}
-          {value ===2 &&
+          {value2 ===2 &&
             <div className="contenidoTablas">
               { terminado==true
                 ?<TablaRepeticionCruzada datos={this.state.datos} salto = {3} dir={"i"}/>
                 : <div></div>
               }
             </div>}
-            {value ===3 &&
+            {value2 ===3 &&
               <div className="contenidoTablas">
                 { terminado==true
-                  ?<TablaRepeticionCruzada datos={this.state.datos} salto = {1} dir={"d"}/>
+                  ?<TablaRepeticionCruzada datos={this.state.datos} salto = {4} dir={"i"}/>
                   : <div></div>
                 }
               </div>}
-              {value ===4 &&
+              {value2 ===4 &&
                 <div className="contenidoTablas">
                   { terminado==true
-                    ?<TablaRepeticionCruzada datos={this.state.datos} salto = {2} dir={"d"}/>
+                    ?<TablaRepeticionCruzada datos={this.state.datos} salto = {1} dir={"d"}/>
                     : <div></div>
                   }
                 </div>}
-          {value===5&&
+          {value2===5&&
+            <div className="contenidoTablas">
+              { terminado==true
+                ?<TablaRepeticionCruzada datos={this.state.datos} salto = {2} dir={"d"}/>
+                : <div></div>
+              }
+            </div>
+          }
+          {value2===6&&
             <div className="contenidoTablas">
               { terminado==true
                 ?<TablaRepeticionCruzada datos={this.state.datos} salto = {3} dir={"d"}/>
+                : <div></div>
+              }
+            </div>
+          }
+          {value2===7&&
+            <div className="contenidoTablas">
+              { terminado==true
+                ?<TablaRepeticionCruzada datos={this.state.datos} salto = {4} dir={"d"}/>
                 : <div></div>
               }
             </div>
@@ -344,22 +389,11 @@ class Pronostico extends Component {
                       : <div></div>
                     }
                   </div>
-                  <div className="header">
-                    <Header as='h2'>
-                      <Icon name='cube' />  <Icon name='cube' />
-                      <Header.Content>Correlacion por incremento o decremento</Header.Content>
-                    </Header>
-                  </div>
-                    <div className="contenidoTablas">
-                      { terminado==true
-                        ?<SumaOResta datos={this.state.datos} salto={1}/>
-                        : <div></div>
-                      }
-                    </div>
+
                     <div className="header">
                       <Header as='h2'>
                         <Icon name='cube' />  <Icon name='cube' />
-                        <Header.Content>Transcripcion ambos sentidos</Header.Content>
+                        <Header.Content>Transposicion ambos sentidos</Header.Content>
                       </Header>
                     </div>
                       <div className="contenidoTablas">
@@ -424,7 +458,20 @@ class Pronostico extends Component {
                                 }
                               </div>}
 
+                    <div className="header">
+                      <Header as='h2'>
+                        <Icon name='hand peace' />
+                        <Header.Content>Par o impar</Header.Content>
+                      </Header>
+                    </div>
 
+                    <div className="contenidoTablas">
+                      { terminado==true
+                        ?<ParImpar datos={this.state.datos}/>
+                        : <div></div>
+                      }
+
+                      </div>
 
       </div>
     );
