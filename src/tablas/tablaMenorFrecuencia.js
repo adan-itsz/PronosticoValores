@@ -644,7 +644,7 @@ focus = () => {
           <Button content='filtrar' onClick={this.focus} />
         </div>
         <Table compact>
-        <FilaEsfera datosConsidencias={this.state.consideciasUniversos}/>
+        <FilaEsfera datosConsidencias={this.state.consideciasUniversos} tipo={'1'}/>
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell>Universo</Table.HeaderCell>

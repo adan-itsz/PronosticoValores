@@ -18,19 +18,116 @@ class FilaEsfera extends Component{
     }
   }
   componentWillMount(){
-    var arreglo=this.state.array.primero;
-    var digito1= this.separarEsferas(arreglo[0]);
-    var digito2= this.separarEsferas(arreglo[1]);
-    var digito3= this.separarEsferas(arreglo[2]);
-    var digito4= this.separarEsferas(arreglo[3]);
-    var digito5= this.separarEsferas(arreglo[4]);
+    var tipo=this.props.tipo;
+    if(tipo=='1'){
+        var arreglo=this.state.array.primero;
+        var digito1= this.separarEsferas(arreglo[0]);
+        var digito2= this.separarEsferas(arreglo[1]);
+        var digito3= this.separarEsferas(arreglo[2]);
+        var digito4= this.separarEsferas(arreglo[3]);
+        var digito5= this.separarEsferas(arreglo[4]);
+        this.setState({
+          uno:digito1,
+          dos:digito2,
+          tres:digito3,
+          cuatro:digito4,
+          cinco:digito5
+        })
+   }
+   else if(tipo=='2'){
+    var value=this.recorrerDatos();
     this.setState({
-      uno:digito1,
-      dos:digito2,
-      tres:digito3,
-      cuatro:digito4,
-      cinco:digito5
+      uno:value.d1,
+      dos:value.d2,
+      tres:value.d3,
+      cuatro:value.d4,
+      cinco:value.d5
     })
+   }
+  }
+
+  recorrerDatos=()=>{
+    var array=this.state.array.frecuencias;
+    var d1=[];
+    var d2=[];
+    var d3=[];
+    var d4=[];
+    var d5=[];
+    array.forEach(it=>{
+      //d1
+      if(parseInt(it.d1)>=30 && parseInt(it.d1)<45){
+        var prediccion=this.operacion(this.state.array.inicial.d1,it.diferencia);
+        d1=d1.concat({digito:prediccion,color:'2'});
+      }
+      else if(parseInt(it.d1)>=45 && parseInt(it.d1)<55){
+        var prediccion=this.operacion(this.state.array.inicial.d1,it.diferencia);
+        d1=d1.concat({digito:prediccion,color:'3'});
+      }
+      else if(parseInt(it.d1)>=55){
+        var prediccion=this.operacion(this.state.array.inicial.d1,it.diferencia);
+        d1=d1.concat({digito:prediccion,color:'4'});
+      }
+
+      //d2
+      if(parseInt(it.d2)>=30 && parseInt(it.d2)<45){
+        var prediccion=this.operacion(this.state.array.inicial.d2,it.diferencia);
+        d2=d2.concat({digito:prediccion,color:'2'});
+      }
+      else if(parseInt(it.d2)>=45 && parseInt(it.d2)<55){
+        var prediccion=this.operacion(this.state.array.inicial.d2,it.diferencia);
+        d2=d2.concat({digito:prediccion,color:'3'});
+      }
+      else if(parseInt(it.d2)>=55){
+        var prediccion=this.operacion(this.state.array.inicial.d2,it.diferencia);
+        d2=d2.concat({digito:prediccion,color:'4'});
+      }
+
+      //d3
+      if(parseInt(it.d3)>=30 && parseInt(it.d3)<45){
+        var prediccion=this.operacion(this.state.array.inicial.d3,it.diferencia);
+        d3=d3.concat({digito:prediccion,color:'2'});
+      }
+      else if(parseInt(it.d3)>=45 && parseInt(it.d3)<55){
+        var prediccion=this.operacion(this.state.array.inicial.d3,it.diferencia);
+        d3=d3.concat({digito:prediccion,color:'3'});
+      }
+      else if(parseInt(it.d3)>=55){
+        var prediccion=this.operacion(this.state.array.inicial.d3,it.diferencia);
+        d3=d3.concat({digito:prediccion,color:'4'});
+      }
+
+      //d4
+      if(parseInt(it.d4)>=30 && parseInt(it.d4)<45){
+        var prediccion=this.operacion(this.state.array.inicial.d4,it.diferencia);
+        d4=d4.concat({digito:prediccion,color:'2'});
+      }
+      else if(parseInt(it.d4)>=45 && parseInt(it.d4)<55){
+        var prediccion=this.operacion(this.state.array.inicial.d4,it.diferencia);
+        d4=d4.concat({digito:prediccion,color:'3'});
+      }
+      else if(parseInt(it.d4)>=55){
+        var prediccion=this.operacion(this.state.array.inicial.d4,it.diferencia);
+        d4=d4.concat({digito:prediccion,color:'4'});
+      }
+
+      //d5
+      if(parseInt(it.d5)>=30 && parseInt(it.d5)<45){
+        var prediccion=this.operacion(this.state.array.inicial.d5,it.diferencia);
+        d5=d5.concat({digito:prediccion,color:'2'});
+      }
+      else if(parseInt(it.d5)>=45 && parseInt(it.d5)<55){
+        var prediccion=this.operacion(this.state.array.inicial.d5,it.diferencia);
+        d5=d5.concat({digito:prediccion,color:'3'});
+      }
+      else if(parseInt(it.d5)>=55){
+        var prediccion=this.operacion(this.state.array.inicial.d5,it.diferencia);
+        d5=d5.concat({digito:prediccion,color:'4'});
+      }
+    })
+
+
+    return {d1:d1,d2:d2,d3:d3,d4:d4,d5:d5};//regresa todos los arrays
+
   }
   separarEsferas=(datosdigitoEsfera)=>{
     var datos=[];
@@ -39,6 +136,21 @@ class FilaEsfera extends Component{
       datos=datos.concat({digito:dato[0],color:dato[2]});
     }
     return datos
+  }
+
+  operacion=(n1,n2)=>{ //inicial, diferencia
+    var num1=parseInt(n1);
+    var num2=parseInt(n2);
+      var resultado=num1+num2;
+      if(resultado>9){
+        return resultado-10;
+      }
+      else if(resultado<0){
+        return 10+resultado;
+      }
+      else {
+        return resultado;
+      }
   }
 
   render(){

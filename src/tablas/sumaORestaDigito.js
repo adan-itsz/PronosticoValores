@@ -5,7 +5,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 import '../index.css';
-
+import FilaEsfera from '../esferas.js'
 class SumaOResta extends Component{
   constructor(props){
     super(props)
@@ -24,10 +24,12 @@ class SumaOResta extends Component{
     var inicialD3=this.state.datos[2];
     var inicialD4=this.state.datos[3];
     var inicialD5=this.state.datos[4];
-
+    var totalIniciales={d1:inicialD1[0],d2:inicialD2[0],d3:inicialD3[0],d4:inicialD4[0],d5:inicialD5[0]};
+    var esferas={frecuencias:res,inicial:totalIniciales};
     this.setState({
       resultados:res,
-      iniciales:{d1:inicialD1[0],d2:inicialD2[0],d3:inicialD3[0],d4:inicialD4[0],d5:inicialD5[0]}
+      iniciales:totalIniciales,
+      considencias:esferas
     })
   }
   diferenciaIndividual=(array,salto)=>{
@@ -69,6 +71,7 @@ class SumaOResta extends Component{
       return (
         <div className="form-boton">
         <Table compact>
+          <FilaEsfera datosConsidencias={this.state.considencias} tipo={'2'}/>
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell>Diferencia</Table.HeaderCell>
