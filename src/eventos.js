@@ -218,8 +218,8 @@ class Eventos extends Component{
     }
     Acertividad=this.intlRound((ganados/sorteos)*100,3,false);
     margen=cantidadGanada-inversion;
-    Rentabilidad=margen <0 && cantidadGanada==0?this.intlRound((cantidadGanada*100)/inversion,3,false):
-    margen<0?'-'+this.intlRound((cantidadGanada*100)/inversion,3,false):this.intlRound((cantidadGanada*100)/inversion,3,false)
+    Rentabilidad=this.intlRound((margen/inversion)*100,2,false);
+
     datosEstadistica={
       sorteos:sorteos,
       inversion:inversion,

@@ -35,6 +35,18 @@ class PasadoReciente extends Component{
           //salto 5
     filas=filas.concat({d1:this.ultimoValor(this.state.datos[0],5),d2:this.ultimoValor(this.state.datos[1],5),d3:this.ultimoValor(this.state.datos[2],5),
           d4:this.ultimoValor(this.state.datos[3],5),d5:this.ultimoValor(this.state.datos[4],5), salto:4});
+          //salto 6
+    filas=filas.concat({d1:this.ultimoValor(this.state.datos[0],6),d2:this.ultimoValor(this.state.datos[1],6),d3:this.ultimoValor(this.state.datos[2],6),
+    d4:this.ultimoValor(this.state.datos[3],6),d5:this.ultimoValor(this.state.datos[4],6), salto:5});
+            //salto 7
+    filas=filas.concat({d1:this.ultimoValor(this.state.datos[0],7),d2:this.ultimoValor(this.state.datos[1],7),d3:this.ultimoValor(this.state.datos[2],7),
+    d4:this.ultimoValor(this.state.datos[3],7),d5:this.ultimoValor(this.state.datos[4],7), salto:6});
+            //salto 8
+    filas=filas.concat({d1:this.ultimoValor(this.state.datos[0],4),d2:this.ultimoValor(this.state.datos[1],8),d3:this.ultimoValor(this.state.datos[2],8),
+    d4:this.ultimoValor(this.state.datos[3],4),d5:this.ultimoValor(this.state.datos[4],8), salto:7});
+            //salto 9
+    filas=filas.concat({d1:this.ultimoValor(this.state.datos[0],9),d2:this.ultimoValor(this.state.datos[1],9),d3:this.ultimoValor(this.state.datos[2],9),
+    d4:this.ultimoValor(this.state.datos[3],9),d5:this.ultimoValor(this.state.datos[4],9), salto:8});
 
     this.setState({
       itemsTabla:filas

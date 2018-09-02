@@ -26,6 +26,7 @@ import SumaOResta from './tablas/sumaORestaDigito.js'
 import Volteados from './tablas/Volteado.js'
 import DTCruzado from './tablas/sumaORestaDigitoCruzado.js'
 import ParImpar from './tablas/parImpar.js'
+import axios from 'axios';
 
 
 class Pronostico extends Component {
@@ -36,7 +37,8 @@ class Pronostico extends Component {
         datos: [],
         value: 0,
         value1: 0,
-        open: true
+        open: true,
+        bandera:true
       }
 
 
@@ -51,6 +53,7 @@ class Pronostico extends Component {
         var count = 0
         var coutn = 0
         var self=this;
+        //this.inicializarAzules();
         var promise =new Promise(
           function(resolve,reject){
             d3.csv('http://www.pronosticos.gob.mx/Documentos/Historicos/Tris.csv',(data)=> {
@@ -92,7 +95,45 @@ class Pronostico extends Component {
 
     }
 
+/*  componentDidMount(){
+    var indice=this.state.value;
+    var bandera=this.state.bandera;
+    if(bandera){
+    if(indice==0){
+      this.setState({
+        value:indice+1
+      })
+    }
+    }
 
+  }*/
+
+/*  componentDidUpdate(){
+    var indice=this.state.value;
+    var bandera=this.state.bandera;
+    if(bandera){
+    if(indice<21){
+      this.setState({
+        value:indice+1
+      })
+    }
+    else{
+      this.setState({
+        value:0,
+        bandera:false
+      })
+    }
+  }
+}*/
+
+
+
+  inicializarAzules=()=>{
+    axios.post(`http://localhost:4000/inicializar-lista`)
+      .then(res => {
+        console.log(res);
+      })
+  }
   handleChange = (event, value) => {
     this.setState({ value });
   };
@@ -149,7 +190,7 @@ class Pronostico extends Component {
             </Header>
           </div>
         <Tabs value={this.state.value} onChange={this.handleChange}
-              fullWidth  indicatorColor="secondary" textColor="secondary">
+              fullWidth  indicatorColor="secondary" textColor="secondary" scrollable scrollButtons="on">
 
               <Tab icon={<Icon name='hand peace' size="large"/>} label="consecutiva" ></Tab>
               <Tab icon ={<Icon name='random'size="large"/>} label=" salto "></Tab>
@@ -161,6 +202,29 @@ class Pronostico extends Component {
               <Tab icon={<Icon name='fast forward'size="large"/>} label="7 saltos"></Tab>
               <Tab icon={<Icon name='fast forward'size="large"/>} label="8 saltos"></Tab>
               <Tab icon={<Icon name='fast forward'size="large"/>} label="9 saltos"></Tab>
+              <Tab icon={<Icon name='fast forward'size="large"/>} label="10 saltos"></Tab>
+              <Tab icon={<Icon name='step backward'size="large"/>} label="11 saltos"></Tab>
+              <Tab icon={<Icon name='fast forward'size="large"/>} label="12 saltos"></Tab>
+              <Tab icon={<Icon name='fast forward'size="large"/>} label="13 saltos"></Tab>
+              <Tab icon={<Icon name='fast forward'size="large"/>} label="14 saltos"></Tab>
+              <Tab icon={<Icon name='fast forward'size="large"/>} label="15 saltos"></Tab>
+              <Tab icon={<Icon name='fast forward'size="large"/>} label="16 saltos"></Tab>
+              <Tab icon={<Icon name='step backward'size="large"/>} label="17 saltos"></Tab>
+              <Tab icon={<Icon name='fast forward'size="large"/>} label="18 saltos"></Tab>
+              <Tab icon={<Icon name='fast forward'size="large"/>} label="19 saltos"></Tab>
+              <Tab icon={<Icon name='fast forward'size="large"/>} label="20 saltos"></Tab>
+              <Tab icon={<Icon name='fast forward'size="large"/>} label="21 saltos"></Tab>
+              <Tab icon={<Icon name='fast forward'size="large"/>} label="22 saltos"></Tab>
+              <Tab icon={<Icon name='step backward'size="large"/>} label="23 saltos"></Tab>
+              <Tab icon={<Icon name='fast forward'size="large"/>} label="24 saltos"></Tab>
+              <Tab icon={<Icon name='fast forward'size="large"/>} label="25 saltos"></Tab>
+              <Tab icon={<Icon name='fast forward'size="large"/>} label="26 saltos"></Tab>
+              <Tab icon={<Icon name='fast forward'size="large"/>} label="27 saltos"></Tab>
+              <Tab icon={<Icon name='fast forward'size="large"/>} label="28 saltos"></Tab>
+              <Tab icon={<Icon name='step backward'size="large"/>} label="29 saltos"></Tab>
+              <Tab icon={<Icon name='fast forward'size="large"/>} label="30 saltos"></Tab>
+              <Tab icon={<Icon name='fast forward'size="large"/>} label="31 saltos"></Tab>
+              <Tab icon={<Icon name='fast forward'size="large"/>} label="32 saltos"></Tab>
 
         </Tabs>
 
@@ -243,23 +307,209 @@ class Pronostico extends Component {
             </div>
           }
 
+          {value === 10 &&
+            <div className="contenidoTablas">
+              { terminado==true
+                ?<SumaOResta datos={this.state.datos} salto={11}/>
+                : <div></div>
+              }
+          </div>}
+
+          {value === 11 &&
+
+          <div className="contenidoTablas">
+            { terminado==true
+              ?<SumaOResta datos={this.state.datos} salto={12}/>
+              : <div></div>
+            }
+          </div>}
+          {value ===12 &&
+            <div className="contenidoTablas">
+              { terminado==true
+                ?<SumaOResta datos={this.state.datos} salto={13}/>
+                : <div></div>
+              }
+            </div>}
+            {value ===13 &&
+              <div className="contenidoTablas">
+                { terminado==true
+                  ?<SumaOResta datos={this.state.datos} salto={14}/>
+                  : <div></div>
+                }
+              </div>}
+              {value ===14 &&
+                <div className="contenidoTablas">
+                  { terminado==true
+                    ?<SumaOResta datos={this.state.datos} salto={15}/>
+                    : <div></div>
+                  }
+                </div>}
+          {value===15&&
+            <div className="contenidoTablas">
+              { terminado==true
+                ?<SumaOResta datos={this.state.datos} salto={16}/>
+                : <div></div>
+              }
+            </div>
+          }
+          {value ===16&&
+            <div className="contenidoTablas">
+              { terminado==true
+                ?<SumaOResta datos={this.state.datos} salto={17}/>
+                : <div></div>
+              }
+            </div>
+          }
+
+          {value ===17&&
+            <div className="contenidoTablas">
+              { terminado==true
+                ?<SumaOResta datos={this.state.datos} salto={18}/>
+                : <div></div>
+              }
+            </div>
+          }
+          {value ===18&&
+            <div className="contenidoTablas">
+              { terminado==true
+                ?<SumaOResta datos={this.state.datos} salto={19}/>
+                : <div></div>
+              }
+            </div>
+          }
+          {value ===19&&
+            <div className="contenidoTablas">
+              { terminado==true
+                ?<SumaOResta datos={this.state.datos} salto={20}/>
+                : <div></div>
+              }
+            </div>
+          }
+          {value ===20&&
+            <div className="contenidoTablas">
+              { terminado==true
+                ?<SumaOResta datos={this.state.datos} salto={21}/>
+                : <div></div>
+              }
+            </div>
+          }
+          {value === 21 &&
+            <div className="contenidoTablas">
+              { terminado==true
+                ?<SumaOResta datos={this.state.datos} salto={22}/>
+                : <div></div>
+              }
+          </div>}
+
+          {value === 22 &&
+
+          <div className="contenidoTablas">
+            { terminado==true
+              ?<SumaOResta datos={this.state.datos} salto={23}/>
+              : <div></div>
+            }
+          </div>}
+          {value ===23 &&
+            <div className="contenidoTablas">
+              { terminado==true
+                ?<SumaOResta datos={this.state.datos} salto={24}/>
+                : <div></div>
+              }
+            </div>}
+            {value ===24 &&
+              <div className="contenidoTablas">
+                { terminado==true
+                  ?<SumaOResta datos={this.state.datos} salto={25}/>
+                  : <div></div>
+                }
+              </div>}
+              {value ===25 &&
+                <div className="contenidoTablas">
+                  { terminado==true
+                    ?<SumaOResta datos={this.state.datos} salto={26}/>
+                    : <div></div>
+                  }
+                </div>}
+          {value===26&&
+            <div className="contenidoTablas">
+              { terminado==true
+                ?<SumaOResta datos={this.state.datos} salto={27}/>
+                : <div></div>
+              }
+            </div>
+          }
+          {value ===27&&
+            <div className="contenidoTablas">
+              { terminado==true
+                ?<SumaOResta datos={this.state.datos} salto={28}/>
+                : <div></div>
+              }
+            </div>
+          }
+
+          {value ===28&&
+            <div className="contenidoTablas">
+              { terminado==true
+                ?<SumaOResta datos={this.state.datos} salto={29}/>
+                : <div></div>
+              }
+            </div>
+          }
+          {value ===29&&
+            <div className="contenidoTablas">
+              { terminado==true
+                ?<SumaOResta datos={this.state.datos} salto={30}/>
+                : <div></div>
+              }
+            </div>
+          }
+          {value ===30&&
+            <div className="contenidoTablas">
+              { terminado==true
+                ?<SumaOResta datos={this.state.datos} salto={31}/>
+                : <div></div>
+              }
+            </div>
+          }
+          {value ===31&&
+            <div className="contenidoTablas">
+              { terminado==true
+                ?<SumaOResta datos={this.state.datos} salto={32}/>
+                : <div></div>
+              }
+            </div>
+          }
+
           <div className="header">
             <Header as='h2'>
               <Icon name='reply all' />
-              <Header.Content>  Repeticiones Cruzadas </Header.Content>
+              <Header.Content>  Repeticiones Cruzadas Izquierda</Header.Content>
             </Header>
           </div>
         <Tabs value={this.state.value2} onChange={this.handleChange2}
-              fullWidth  indicatorColor="secondary" textColor="secondary">
+              fullWidth  indicatorColor="secondary" textColor="secondary" scrollable scrollButtons="on">
 
-              <Tab icon={<Icon name='hand peace' size="large"/>} label="Izq" ></Tab>
-              <Tab icon ={<Icon name='random'size="large"/>} label="Izq salto "></Tab>
-              <Tab icon={<Icon name='sort amount down'size="large"/>} label="Izq doble salto"></Tab>
-              <Tab icon={<Icon name='sort amount down'size="large"/>} label="Izq 3 saltos"></Tab>
-              <Tab icon={<Icon name='sort amount down'size="large"/>} label=" Der"></Tab>
-              <Tab icon={<Icon name='sort amount down'size="large"/>} label="Der salto"></Tab>
-              <Tab icon={<Icon name='step backward'size="large"/>} label="Der doble salto"></Tab>
-              <Tab icon={<Icon name='sort amount down'size="large"/>} label="Der 3 saltos"></Tab>
+              <Tab icon={<Icon name='hand peace' size="large"/>} label="consecutiva" ></Tab>
+              <Tab icon ={<Icon name='random'size="large"/>} label="1 salto "></Tab>
+              <Tab icon={<Icon name='sort amount down'size="large"/>} label="2 saltos"></Tab>
+              <Tab icon={<Icon name='sort amount down'size="large"/>} label="3 saltos"></Tab>
+              <Tab icon={<Icon name='sort amount down'size="large"/>} label="4 saltos"></Tab>
+              <Tab icon={<Icon name='sort amount down'size="large"/>} label="5 saltos"></Tab>
+              <Tab icon={<Icon name='step backward'size="large"/>} label="6 saltos"></Tab>
+              <Tab icon={<Icon name='sort amount down'size="large"/>} label="7 saltos"></Tab>
+              <Tab icon={<Icon name='sort amount down'size="large"/>} label="8 saltos"></Tab>
+              <Tab icon={<Icon name='sort amount down'size="large"/>} label="9 saltos"></Tab>
+              <Tab icon={<Icon name='sort amount down'size="large"/>} label="10 saltos"></Tab>
+              <Tab icon={<Icon name='sort amount down'size="large"/>} label="11 saltos"></Tab>
+              <Tab icon={<Icon name='step backward'size="large"/>} label="12 saltos"></Tab>
+              <Tab icon={<Icon name='sort amount down'size="large"/>} label="13 saltos"></Tab>
+              <Tab icon={<Icon name='sort amount down'size="large"/>} label="14 saltos"></Tab>
+              <Tab icon={<Icon name='sort amount down'size="large"/>} label="15 saltos"></Tab>
+              <Tab icon={<Icon name='sort amount down'size="large"/>} label="16 saltos"></Tab>
+              <Tab icon={<Icon name='sort amount down'size="large"/>} label="17 saltos"></Tab>
+              <Tab icon={<Icon name='step backward'size="large"/>} label="18 saltos"></Tab>
+              <Tab icon={<Icon name='sort amount down'size="large"/>} label="19 saltos"></Tab>
+              <Tab icon={<Icon name='sort amount down'size="large"/>} label="20 saltos"></Tab>
 
         </Tabs>
 
@@ -296,14 +546,14 @@ class Pronostico extends Component {
               {value2 ===4 &&
                 <div className="contenidoTablas">
                   { terminado==true
-                    ?<TablaRepeticionCruzada datos={this.state.datos} salto = {1} dir={"d"}/>
+                    ?<TablaRepeticionCruzada datos={this.state.datos} salto = {5} dir={"i"}/>
                     : <div></div>
                   }
                 </div>}
           {value2===5&&
             <div className="contenidoTablas">
               { terminado==true
-                ?<TablaRepeticionCruzada datos={this.state.datos} salto = {2} dir={"d"}/>
+                ?<TablaRepeticionCruzada datos={this.state.datos} salto = {6} dir={"i"}/>
                 : <div></div>
               }
             </div>
@@ -311,7 +561,7 @@ class Pronostico extends Component {
           {value2===6&&
             <div className="contenidoTablas">
               { terminado==true
-                ?<TablaRepeticionCruzada datos={this.state.datos} salto = {3} dir={"d"}/>
+                ?<TablaRepeticionCruzada datos={this.state.datos} salto = {7} dir={"i"}/>
                 : <div></div>
               }
             </div>
@@ -319,7 +569,108 @@ class Pronostico extends Component {
           {value2===7&&
             <div className="contenidoTablas">
               { terminado==true
-                ?<TablaRepeticionCruzada datos={this.state.datos} salto = {4} dir={"d"}/>
+                ?<TablaRepeticionCruzada datos={this.state.datos} salto = {8} dir={"i"}/>
+                : <div></div>
+              }
+            </div>
+          }
+          {value2===8&&
+            <div className="contenidoTablas">
+              { terminado==true
+                ?<TablaRepeticionCruzada datos={this.state.datos} salto = {9} dir={"i"}/>
+                : <div></div>
+              }
+            </div>
+          }
+          {value2 === 9 &&
+            <div className="contenidoTablas">
+              { terminado==true
+                ?<TablaRepeticionCruzada datos={this.state.datos} salto = {10} dir={"i"}/>
+                : <div></div>
+              }
+          </div>}
+
+          {value2 === 10 &&
+
+          <div className="contenidoTablas">
+            { terminado==true
+              ?<TablaRepeticionCruzada datos={this.state.datos} salto = {11} dir={"i"}/>
+              : <div></div>
+            }
+          </div>}
+          {value2 === 11 &&
+
+          <div className="contenidoTablas">
+            { terminado==true
+              ?<TablaRepeticionCruzada datos={this.state.datos} salto = {12} dir={"i"}/>
+              : <div></div>
+            }
+          </div>}
+          {value2 ===12 &&
+            <div className="contenidoTablas">
+              { terminado==true
+                ?<TablaRepeticionCruzada datos={this.state.datos} salto = {13} dir={"i"}/>
+                : <div></div>
+              }
+            </div>}
+            {value2 ===13 &&
+              <div className="contenidoTablas">
+                { terminado==true
+                  ?<TablaRepeticionCruzada datos={this.state.datos} salto = {14} dir={"i"}/>
+                  : <div></div>
+                }
+              </div>}
+              {value2 ===14 &&
+                <div className="contenidoTablas">
+                  { terminado==true
+                    ?<TablaRepeticionCruzada datos={this.state.datos} salto = {15} dir={"i"}/>
+                    : <div></div>
+                  }
+                </div>}
+          {value2===15&&
+            <div className="contenidoTablas">
+              { terminado==true
+                ?<TablaRepeticionCruzada datos={this.state.datos} salto = {16} dir={"i"}/>
+                : <div></div>
+              }
+            </div>
+          }
+          {value2===16&&
+            <div className="contenidoTablas">
+              { terminado==true
+                ?<TablaRepeticionCruzada datos={this.state.datos} salto = {17} dir={"i"}/>
+                : <div></div>
+              }
+            </div>
+          }
+          {value2===17&&
+            <div className="contenidoTablas">
+              { terminado==true
+                ?<TablaRepeticionCruzada datos={this.state.datos} salto = {18} dir={"i"}/>
+                : <div></div>
+              }
+            </div>
+          }
+          {value2===18&&
+            <div className="contenidoTablas">
+              { terminado==true
+                ?<TablaRepeticionCruzada datos={this.state.datos} salto = {19} dir={"i"}/>
+                : <div></div>
+              }
+            </div>
+          }
+          {value2===19&&
+            <div className="contenidoTablas">
+              { terminado==true
+                ?<TablaRepeticionCruzada datos={this.state.datos} salto = {20} dir={"i"}/>
+                : <div></div>
+              }
+            </div>
+          }
+          {value2===20&&
+            <div className="contenidoTablas">
+              { terminado==true
+                ?<TablaRepeticionCruzada datos={this.state.datos} salto = {21} dir={"i"}/>
                 : <div></div>
               }
             </div>

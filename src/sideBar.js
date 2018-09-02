@@ -11,6 +11,7 @@ import { Table} from 'semantic-ui-react';
 import Button from '@material-ui/core/Button';
 import {  Input } from 'semantic-ui-react'
 import Eventos from './eventos.js';
+import * as firebase from 'firebase';
 class SidebarIzquierda extends Component {
   constructor(props){
     super()
@@ -197,6 +198,8 @@ cambio2=()=>{
                 :<div></div>
             }
             </Menu.Item>
+
+            <Menu.Item name='camera'onClick={() => this.handleItemClick(firebase.auth().signOut())} href="/">Salir</Menu.Item>
           </Sidebar>
           <Sidebar.Pusher>
             <Segment basic>

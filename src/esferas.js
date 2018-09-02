@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Table, Input, Button } from 'semantic-ui-react'
 import './index.css';
+import axios from 'axios';
 
 
 
@@ -18,6 +19,7 @@ class FilaEsfera extends Component{
     }
   }
   componentWillMount(){
+    console.log("esferas component");
     var tipo=this.props.tipo;
     if(tipo=='1'){
         var arreglo=this.state.array.primero;
@@ -36,6 +38,7 @@ class FilaEsfera extends Component{
    }
    else if(tipo=='2'){
     var value=this.recorrerDatos();
+    this.recorrerEnvios(value.d3,3);
     this.setState({
       uno:value.d1,
       dos:value.d2,
@@ -44,6 +47,22 @@ class FilaEsfera extends Component{
       cinco:value.d5
     })
    }
+  }
+  datosAzules=(valor,digito)=>{
+    console.log('enviando azul');
+    var data=valor.digito;
+    axios.post(`http://localhost:4000/subir-azules`,{data:data,digito:digito})
+      .then(res => {
+        console.log('azul enviado');
+      })
+  }
+
+  recorrerEnvios=(array,digito)=>{
+
+        for(var j=0;j<array.length;j++){
+          this.datosAzules(array[j],digito);
+        }
+
   }
 
   recorrerDatos=()=>{
@@ -59,11 +78,11 @@ class FilaEsfera extends Component{
         var prediccion=this.operacion(this.state.array.inicial.d1,it.diferencia);
         d1=d1.concat({digito:prediccion,color:'2'});
       }
-      else if(parseInt(it.d1)>=45 && parseInt(it.d1)<55){
+      else if(parseInt(it.d1)>=45 && parseInt(it.d1)<60){
         var prediccion=this.operacion(this.state.array.inicial.d1,it.diferencia);
         d1=d1.concat({digito:prediccion,color:'3'});
       }
-      else if(parseInt(it.d1)>=55){
+      else if(parseInt(it.d1)>=60){
         var prediccion=this.operacion(this.state.array.inicial.d1,it.diferencia);
         d1=d1.concat({digito:prediccion,color:'4'});
       }

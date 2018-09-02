@@ -125,12 +125,10 @@ function calcularMonto(tipo,modalidad,cantidad){
         monto=cantidad*8;
     }
   }
-  console.log(monto);
   return monto;
 }
 
 app.post('/eventos-descarga', function (req, res) {
-  console.log(req.body.mes);
   var referencia=dataBase.ref('analitics/registros');
   var datos=[];
   var promise =new Promise(
@@ -163,11 +161,31 @@ app.post('/eventos-descarga', function (req, res) {
   )
   promise.then(
     function(){
-      console.log(datos.fecha+' '+datos.total);
       res.send(datos);
     }
   )
 });
+
+
+app.post('/inicializar-lista', function (req, res) {
+
+
+  var ref =dataBase.ref('algoritmia/azules');
+  ref.set({
+  listo:true
+  });
+  res.send("done");
+});
+
+app.post('/subir-azules',function(req,res){
+  var ref =dataBase.ref('algoritmia/azules/d'+req.body.digito);
+  console.log(req.body.data);
+  ref.push({
+    digito:req.body.data
+  })
+
+}
+);
 
 app.listen(4000, function () {
   console.log('Example app listening on port 4000!');
