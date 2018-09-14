@@ -48,14 +48,6 @@ class FilaEsfera extends Component{
     })
    }
   }
-  datosAzules=(valor,digito)=>{
-    console.log('enviando azul');
-    var data=valor.digito;
-    axios.post(`http://localhost:4000/subir-azules`,{data:data,digito:digito})
-      .then(res => {
-        console.log('azul enviado');
-      })
-  }
 
   recorrerEnvios=(array,digito)=>{
 

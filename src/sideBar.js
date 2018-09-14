@@ -23,7 +23,7 @@ class SidebarIzquierda extends Component {
     combinacion:'',
     arrayCombinaciones:[],
     openAddCom:true,
-    seccion:2,
+    seccion:1,
 }
 this.getLista = this.getLista.bind(this);
 

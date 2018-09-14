@@ -76,7 +76,7 @@ class MenorFrecuenciaTabla extends Component{
   var c = this.CompararUniversos(datosTotales);
   var f = this.CompararUniversos(datosTotales2);
 
-
+  this.props.datosEsferaCallback({primero:c,segundo:f});
     this.setState({
       consideciasUniversos:{primero:c,segundo:f},
       itemsTabla:datosTotales

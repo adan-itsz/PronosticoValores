@@ -20,6 +20,8 @@ class FrecuenciaDigitoFiltrada extends Component{
       terminado:false,
       value:0
     };
+    this.datosCallback = this.datosCallback.bind(this);
+
   }
 
   componentWillMount(){
@@ -152,6 +154,10 @@ class FrecuenciaDigitoFiltrada extends Component{
   handleChange = (event, value) => {
     this.setState({ value });
   };
+
+  datosCallback=(e)=>{
+    this.props.callBackPrincipalEsferas(e);
+  }
     render(){
       let terminado=this.state.terminado;
       var value=this.state.value;
@@ -170,7 +176,7 @@ class FrecuenciaDigitoFiltrada extends Component{
             {value === 0 &&
               <div className="contenidoTablas">
                 { terminado==true
-                  ?<MenorFrecuenciaTabla datos={this.state.datos}/>
+                  ?<MenorFrecuenciaTabla datosEsferaCallback={this.datosCallback} datos={this.state.datos}/>
                   : <div></div>
                 }
             </div>}

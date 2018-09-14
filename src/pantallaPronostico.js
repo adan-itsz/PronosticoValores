@@ -27,6 +27,7 @@ import Volteados from './tablas/Volteado.js'
 import DTCruzado from './tablas/sumaORestaDigitoCruzado.js'
 import ParImpar from './tablas/parImpar.js'
 import axios from 'axios';
+import {sumaRestaAlgoritmo,asociacion,esferasFrecuencia } from './algorithm.js';
 
 
 class Pronostico extends Component {
@@ -40,6 +41,7 @@ class Pronostico extends Component {
         open: true,
         bandera:true
       }
+      this.frecuenciaEsferas = this.frecuenciaEsferas.bind(this);
 
 
     }
@@ -83,57 +85,40 @@ class Pronostico extends Component {
           }
         )
         promise.then(function(){
-        //  console.log(this.state.arrayCombinaciones);
         self.props.RetornoLista(matriz);
+
+        //self.azules(matriz);
 
           self.setState({
             datos:matriz
           });
-
-          console.log(matriz)
         })
 
     }
 
-/*  componentDidMount(){
-    var indice=this.state.value;
-    var bandera=this.state.bandera;
-    if(bandera){
-    if(indice==0){
-      this.setState({
-        value:indice+1
-      })
-    }
-    }
 
-  }*/
-
-/*  componentDidUpdate(){
-    var indice=this.state.value;
-    var bandera=this.state.bandera;
-    if(bandera){
-    if(indice<21){
-      this.setState({
-        value:indice+1
-      })
+  azules=()=>{
+    var matriz=this.state.datos;
+    var repeticion=[];
+    var d1=[];
+    var d2=[];
+    var d3=[];
+    var d4=[];
+    var d5=[];
+    for(var i=1;i<22;i++){
+    var datos=sumaRestaAlgoritmo(matriz,i);
+    repeticion=repeticion.concat({d1:datos.d1,d2:datos.d2,d3:datos.d3,d4:datos.d4,d5:datos.d5});
+    d1=d1.concat(datos.d1);
+    d2=d2.concat(datos.d2);
+    d3=d3.concat(datos.d3);
+    d4=d4.concat(datos.d4);
+    d5=d5.concat(datos.d5);
     }
-    else{
-      this.setState({
-        value:0,
-        bandera:false
-      })
-    }
+    var asoc=asociacion(d1,d2,d3,d4,d5);
+    return asoc;
   }
-}*/
 
 
-
-  inicializarAzules=()=>{
-    axios.post(`http://localhost:4000/inicializar-lista`)
-      .then(res => {
-        console.log(res);
-      })
-  }
   handleChange = (event, value) => {
     this.setState({ value });
   };
@@ -159,6 +144,13 @@ class Pronostico extends Component {
       })
     }
 }
+frecuenciaEsferas=(e)=>{
+  var resultado=esferasFrecuencia(e);
+  var repeticion = this.azules();
+
+  console.log(resultado);
+  console.log(repeticion);
+}
 
   render() {
     let terminado=this.state.datos.length>0;
@@ -177,7 +169,7 @@ class Pronostico extends Component {
           </div>
           <div className="contenidoTablas">
             { terminado==true
-              ?<FrecuenciaDigitoFiltrada datos={this.state.datos}/>
+              ?<FrecuenciaDigitoFiltrada callBackPrincipalEsferas={this.frecuenciaEsferas} datos={this.state.datos}/>
               : <div></div>
             }
           </div>
