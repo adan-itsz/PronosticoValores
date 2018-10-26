@@ -7,11 +7,16 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
+import Toolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+
 import { Table} from 'semantic-ui-react';
 import Button from '@material-ui/core/Button';
 import {  Input } from 'semantic-ui-react'
 import Eventos from './eventos.js';
 import * as firebase from 'firebase';
+import TablaConcentradoEsferas from './totalEsferas.js';
 class SidebarIzquierda extends Component {
   constructor(props){
     super()
@@ -24,8 +29,10 @@ class SidebarIzquierda extends Component {
     arrayCombinaciones:[],
     openAddCom:true,
     seccion:1,
+    dialogEsferasConteo:false
 }
 this.getLista = this.getLista.bind(this);
+this.getEsferas=this.getEsferas.bind(this);
 
 }
 
@@ -39,6 +46,9 @@ this.getLista = this.getLista.bind(this);
  };
  handleClose2 = () => {
    this.setState({ openAddCom: false });
+ };
+ handleClose3 = () => {
+   this.setState({ dialogEsferasConteo: false });
  };
  getLista=(e)=>{
 
@@ -129,6 +139,14 @@ cambio2=()=>{
     seccion:2
   })
 }
+conteoEsferas=()=>{
+  this.setState({ dialogEsferasConteo: true });
+}
+getEsferas=(e)=>{
+this.setState({
+  datosEsferasConsidencias:e
+})
+}
 
   render() {
     let terminado=this.state.itemsTabla.length>0;
@@ -146,7 +164,27 @@ cambio2=()=>{
       <div>
         <div className="topBar">
           <button className="btn-sidebar" onClick={this.toggleVisibility}><Icon name='content' size='big'/></button>
+          <button  style={{float:'right',paddingRight:'3vh'}}className="btn-sidebar" onClick={this.conteoEsferas}><Icon name='rocket' size='big'/></button>
+
+
         </div>
+        <Dialog
+            fullScreen
+            open={this.state.dialogEsferasConteo}
+            onClose={this.handleClose3}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description">
+            <Toolbar>
+              <IconButton color="inherit" onClick={this.handleClose3} aria-label="Close">
+                <CloseIcon />
+              </IconButton>
+            </Toolbar>
+
+              <DialogTitle id="alert-dialog-title">{"Esferas"}</DialogTitle>
+              <DialogContent>
+                <TablaConcentradoEsferas datos={this.state.datosEsferasConsidencias}/>
+              </DialogContent>
+          </Dialog>
         <div className='sideBar-contenedor'>
         <Sidebar.Pushable as={Segment}>
           <Sidebar as={Menu} animation='slide out' width='thin' visible={visible} icon='labeled' vertical inverted>
@@ -208,7 +246,7 @@ cambio2=()=>{
 
                 {
                   nuevosDatos && seccion==1 ?
-                    <Pronostico RetornoLista={this.getLista} recienIngresados={this.state.arrayCombinaciones} />:
+                    <Pronostico RetornoLista={this.getLista} esferasConsidencias={this.getEsferas} recienIngresados={this.state.arrayCombinaciones} />:
                   seccion==2?
                     <Eventos/>:
                     <div></div>

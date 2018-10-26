@@ -18,7 +18,8 @@ class FrecuenciaDigitoFiltrada extends Component{
       siete:[],
       nueve:[],
       terminado:false,
-      value:0
+      value:0,
+      conador:0
     };
     this.datosCallback = this.datosCallback.bind(this);
 
@@ -176,14 +177,14 @@ class FrecuenciaDigitoFiltrada extends Component{
             {value === 0 &&
               <div className="contenidoTablas">
                 { terminado==true
-                  ?<MenorFrecuenciaTabla datosEsferaCallback={this.datosCallback} datos={this.state.datos}/>
+                  ?<MenorFrecuenciaTabla datosEsferaCallback={this.datosCallback} tipo={'1'} datos={this.state.datos}/>
                   : <div></div>
                 }
             </div>}
             {value === 1 &&
               <div className="contenidoTablas">
                 { terminado==true
-                  ?<MenorFrecuenciaTabla datos={this.state.una}/>
+                  ?<MenorFrecuenciaTabla datosEsferaCallback={this.datosCallback}tipo={'2'} datos={this.state.una}/>
                   : <div></div>
                 }
             </div>}
@@ -192,28 +193,28 @@ class FrecuenciaDigitoFiltrada extends Component{
 
             <div className="contenidoTablas">
               { terminado==true
-                ?<MenorFrecuenciaTabla datos={this.state.tres}/>
+                ?<MenorFrecuenciaTabla datosEsferaCallback={this.datosCallback}tipo={'3'} datos={this.state.tres}/>
                 : <div></div>
               }
             </div>}
             {value ===3 &&
               <div className="contenidoTablas">
                 { terminado==true
-                  ?<MenorFrecuenciaTabla datos={this.state.cinco}/>
+                  ?<MenorFrecuenciaTabla datosEsferaCallback={this.datosCallback}tipo={'4'} datos={this.state.cinco}/>
                   : <div></div>
                 }
               </div>}
               {value ===4 &&
                 <div className="contenidoTablas">
                   { terminado==true
-                    ?<MenorFrecuenciaTabla datos={this.state.siete}/>
+                    ?<MenorFrecuenciaTabla datosEsferaCallback={this.datosCallback}tipo={'5'} datos={this.state.siete}/>
                     : <div></div>
                   }
                 </div>}
               {value ===5 &&
                 <div className="contenidoTablas">
                   { terminado==true
-                    ?<MenorFrecuenciaTabla datos={this.state.nueve}/>
+                    ?<MenorFrecuenciaTabla datosEsferaCallback={this.datosCallback}tipo={'6'} datos={this.state.nueve}/>
                     : <div></div>
                   }
                   </div>}

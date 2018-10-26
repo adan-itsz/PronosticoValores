@@ -38,7 +38,6 @@ class FilaEsfera extends Component{
    }
    else if(tipo=='2'){
     var value=this.recorrerDatos();
-    this.recorrerEnvios(value.d3,3);
     this.setState({
       uno:value.d1,
       dos:value.d2,
@@ -47,15 +46,19 @@ class FilaEsfera extends Component{
       cinco:value.d5
     })
    }
+   else if(tipo=='3'){
+     value=this.state.array;
+     this.setState({
+       uno:value.d1,
+       dos:value.d2,
+       tres:value.d3,
+       cuatro:value.d4,
+       cinco:value.d5
+     })
+   }
   }
 
-  recorrerEnvios=(array,digito)=>{
 
-        for(var j=0;j<array.length;j++){
-          this.datosAzules(array[j],digito);
-        }
-
-  }
 
   recorrerDatos=()=>{
     var array=this.state.array.frecuencias;

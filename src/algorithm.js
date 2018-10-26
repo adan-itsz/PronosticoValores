@@ -163,34 +163,115 @@ export function iterarDatos(array){
   array.forEach(it=>{
     switch (it.digito) {
       case 0:
+
+        if(it.color=='2'){
         cero++;
+        }
+        else if(it.color=='3'){
+          cero=cero+2;
+        }
+        else if(it.color=='4'){
+          cero=cero+3;
+        }
         break;
       case 1:
-        uno++;
+            if(it.color=='2'){
+            uno++;
+          }
+            else if(it.color=='3'){
+              uno=uno+2;
+            }
+            else if(it.color=='4'){
+              uno=uno+3;
+            }
         break;
       case 2:
-        dos++;
+            if(it.color=='2'){
+            dos++;
+          }
+            else if(it.color=='3'){
+              dos=dos+2;
+            }
+            else if(it.color=='4'){
+              dos=dos+3;
+            }
         break;
       case 3:
-        tres++;
+              if(it.color=='2'){
+              tres++;
+            }
+              else if(it.color=='3'){
+                tres=tres+2;
+              }
+              else if(it.color=='4'){
+                tres=tres+3;
+              }
         break;
       case 4:
-        cuatro++;
+            if(it.color=='2'){
+            cuatro++;
+          }
+            else if(it.color=='3'){
+              cuatro=cuatro+2;
+            }
+            else if(it.color=='4'){
+              cuatro=cuatro+3;
+            }
         break;
       case 5:
-        cinco++;
+          if(it.color=='2'){
+          cinco++;
+        }
+          else if(it.color=='3'){
+            cinco=cinco+2;
+          }
+          else if(it.color=='4'){
+            cinco=cinco+3;
+          }
         break;
       case 6:
-        seis++;
+          if(it.color=='2'){
+          seis++;
+        }
+          else if(it.color=='3'){
+            seis=seis+2;
+          }
+          else if(it.color=='4'){
+            seis=seis+3;
+          }
         break;
       case 7:
-        siete++;
+            if(it.color=='2'){
+            siete++;
+          }
+            else if(it.color=='3'){
+              siete=siete+2;
+            }
+            else if(it.color=='4'){
+              siete=siete+3;
+            }
         break;
       case 8:
-        ocho++;
+            if(it.color=='2'){
+            ocho++;
+          }
+            else if(it.color=='3'){
+              ocho=ocho+2;
+            }
+            else if(it.color=='4'){
+              ocho=ocho+3;
+            }
         break;
       case 9:
-        nueve++;
+            if(it.color=='2'){
+            nueve++;
+          }
+            else if(it.color=='3'){
+              nueve=nueve+2;
+            }
+            else if(it.color=='4'){
+              nueve=nueve+3;
+            }
         break;
 
       default:

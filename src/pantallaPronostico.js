@@ -3,7 +3,7 @@ import fetch from 'node-fetch';
 import * as d3 from 'd3-request';
 import SidebarIzquierda from './sideBar.js';
 import './index.css';
-import { Header, Icon } from 'semantic-ui-react';
+import { Header, Icon,Dimmer,Loader} from 'semantic-ui-react';
 import MenorFrecuenciaTabla from './tablas/tablaMenorFrecuencia.js';
 import FrecuenciaDigitoFiltrada from './tablas/menorFrecuenciaFiltrada.js';
 import TablaRepeticion from './tablas/tablaRepeticion.js';
@@ -39,10 +39,12 @@ class Pronostico extends Component {
         value: 0,
         value1: 0,
         open: true,
-        bandera:true
+        bandera:true,
+        esferasBandera:false,
+        drimmerActivo:true
       }
       this.frecuenciaEsferas = this.frecuenciaEsferas.bind(this);
-
+      this.callbackNumeroInmediato=this.callbackNumeroInmediato.bind(this);
 
     }
     componentWillMount() {
@@ -97,7 +99,7 @@ class Pronostico extends Component {
     }
 
 
-  azules=()=>{
+  azules=()=>{// considencias repeticion
     var matriz=this.state.datos;
     var repeticion=[];
     var d1=[];
@@ -105,7 +107,7 @@ class Pronostico extends Component {
     var d3=[];
     var d4=[];
     var d5=[];
-    for(var i=1;i<22;i++){
+    for(var i=1;i<32;i++){
     var datos=sumaRestaAlgoritmo(matriz,i);
     repeticion=repeticion.concat({d1:datos.d1,d2:datos.d2,d3:datos.d3,d4:datos.d4,d5:datos.d5});
     d1=d1.concat(datos.d1);
@@ -145,11 +147,26 @@ class Pronostico extends Component {
     }
 }
 frecuenciaEsferas=(e)=>{
-  var resultado=esferasFrecuencia(e);
-  var repeticion = this.azules();
+  var resultado=esferasFrecuencia(e); //frecuencia
+  var repeticion = this.azules();//repeticion
 
-  console.log(resultado);
-  console.log(repeticion);
+  this.setState({
+    frecuenciaEsf:resultado,
+    repeticionEsf:repeticion,
+
+  },()=>{
+    this.props.esferasConsidencias({frecuencia:this.state.frecuenciaEsf,repeticion:this.state.repeticionEsf,numInmediato:this.state.numInmediato})
+    this.setState({
+      drimmerActivo:false
+    })
+  })
+}
+
+callbackNumeroInmediato=(e)=>{
+  console.log(e);//considencia esferas de numero inmediato
+  this.setState({
+    numInmediato:e
+  })
 }
 
   render() {
@@ -716,7 +733,7 @@ frecuenciaEsferas=(e)=>{
                 </div>
                   <div className="contenidoTablas">
                     { terminado==true
-                      ?<PasadoReciente datos={this.state.datos}/>
+                      ?<PasadoReciente considenciasEsferas={this.callbackNumeroInmediato} datos={this.state.datos}/>
                       : <div></div>
                     }
                   </div>
@@ -815,6 +832,14 @@ frecuenciaEsferas=(e)=>{
                       }
 
                       </div>
+
+        <Dimmer active={this.state.drimmerActivo} page>
+        <Loader>
+          <Header as='h2' icon inverted>
+            Cargando ....
+          </Header>
+        </Loader>
+        </Dimmer>
 
       </div>
     );
